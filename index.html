@@ -9,14 +9,37 @@
 @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap');
 
 :root {
-–green:#39ff84; –cyan:#00d4ff; –purple:#a78bfa;
-–orange:#f59e0b; –red:#ef4444; –blue:#22d3ee;
-–bg:#080c10; –bg2:#0d1520; –bg3:#111d2a;
-–border:#1a2d40; –border2:#223348;
-–text:#e8f4ff; –muted:#4a6880; –sub:#8aabc5;
+–green:#00a854;
+–green-light:#e6f7ef;
+–cyan:#0099cc;
+–cyan-light:#e0f4fb;
+–purple:#7c3aed;
+–purple-light:#f0ebff;
+–orange:#e07b00;
+–orange-light:#fff4e0;
+–red:#d93025;
+–red-light:#fce8e6;
+–blue:#1a73e8;
+–blue-light:#e8f0fe;
+
+–bg:#f0f4f8;
+–bg2:#ffffff;
+–bg3:#e8edf2;
+–surface:#ffffff;
+–surface2:#f7fafc;
+
+–border:#d0dbe6;
+–border2:#b8c8d8;
+
+–text:#0d1f2d;
+–text2:#1e3a52;
+–muted:#5a7a94;
+–sub:#3d6882;
 }
+
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
 html{scroll-behavior:smooth;}
+
 body{
 background:var(–bg);
 color:var(–text);
@@ -27,74 +50,57 @@ padding-bottom:90px;
 min-height:100vh;
 overflow-x:hidden;
 }
-/* Subtle grid bg */
-body::before{
-content:’’;
-position:fixed;
-inset:0;
-background-image:
-linear-gradient(rgba(57,255,132,0.03) 1px, transparent 1px),
-linear-gradient(90deg, rgba(57,255,132,0.03) 1px, transparent 1px);
-background-size:40px 40px;
-pointer-events:none;
-z-index:0;
-}
+
 input,select,button{font-family:‘Inter’,sans-serif;outline:none;}
 
 /* CARDS */
 .card{
-background:linear-gradient(135deg, rgba(17,28,39,0.95), rgba(13,21,32,0.95));
+background:var(–surface);
 border-radius:20px;
 padding:18px;
 border:1px solid var(–border);
 margin-bottom:12px;
-backdrop-filter:blur(10px);
-position:relative;
-overflow:hidden;
+box-shadow:0 2px 12px rgba(0,0,0,0.06);
 }
-.card::before{
-content:’’;
-position:absolute;
-top:0; left:0; right:0;
-height:1px;
-background:linear-gradient(90deg, transparent, rgba(57,255,132,0.3), transparent);
-}
-.card-glow{box-shadow:0 0 30px rgba(57,255,132,0.08);}
-.card-blue{box-shadow:0 0 30px rgba(0,212,255,0.08);}
-.card-purple{box-shadow:0 0 30px rgba(167,139,250,0.08);}
+.card-green{border-left:4px solid var(–green);background:linear-gradient(135deg,#f0fff8,#ffffff);}
+.card-cyan{border-left:4px solid var(–cyan);background:linear-gradient(135deg,#e8f7ff,#ffffff);}
+.card-purple{border-left:4px solid var(–purple);background:linear-gradient(135deg,#f5f0ff,#ffffff);}
+.card-orange{border-left:4px solid var(–orange);background:linear-gradient(135deg,#fff8ee,#ffffff);}
+.card-glow{box-shadow:0 4px 24px rgba(0,168,84,0.12);}
+.card-blue{box-shadow:0 4px 24px rgba(0,153,204,0.12);}
 
 /* INPUTS */
 .inp{
-background:rgba(13,24,32,0.9);
-border:1.5px solid var(–border2);
+background:#f5f8fa;
+border:1.5px solid var(–border);
 border-radius:12px;
 padding:12px 14px;
 color:var(–text);
 font-size:14px;
 width:100%;
-transition:border-color 0.2s;
+transition:border-color 0.2s, box-shadow 0.2s;
 }
-.inp:focus{border-color:var(–green);}
+.inp:focus{border-color:var(–green);box-shadow:0 0 0 3px rgba(0,168,84,0.12);}
 
 /* BUTTONS */
 .btn{
-background:linear-gradient(135deg, var(–green), #00e06b);
+background:linear-gradient(135deg,#00c96a,#00a854);
 border:none;
 border-radius:12px;
-color:#000;
+color:#ffffff;
 padding:13px 20px;
-font-weight:800;
+font-weight:700;
 font-size:13px;
 cursor:pointer;
-letter-spacing:0.5px;
+letter-spacing:0.3px;
 transition:transform 0.15s, box-shadow 0.15s;
-box-shadow:0 4px 20px rgba(57,255,132,0.25);
+box-shadow:0 4px 16px rgba(0,168,84,0.3);
 }
 .btn:active{transform:scale(0.97);}
-.btn-cyan{background:linear-gradient(135deg,var(–cyan),#00aacc);box-shadow:0 4px 20px rgba(0,212,255,0.25);}
-.btn-purple{background:linear-gradient(135deg,var(–purple),#8b5cf6);color:#fff;box-shadow:0 4px 20px rgba(167,139,250,0.25);}
-.btn-orange{background:linear-gradient(135deg,var(–orange),#d97706);color:#fff;box-shadow:0 4px 20px rgba(245,158,11,0.25);}
-.btn-ghost{background:rgba(57,255,132,0.1);border:1px solid rgba(57,255,132,0.3);color:var(–green);box-shadow:none;}
+.btn-cyan{background:linear-gradient(135deg,#00b4e6,#0099cc);box-shadow:0 4px 16px rgba(0,153,204,0.3);}
+.btn-purple{background:linear-gradient(135deg,#9b59f5,#7c3aed);color:#fff;box-shadow:0 4px 16px rgba(124,58,237,0.3);}
+.btn-orange{background:linear-gradient(135deg,#f59e0b,#e07b00);color:#fff;box-shadow:0 4px 16px rgba(224,123,0,0.3);}
+.btn-ghost{background:#f0f4f8;border:1.5px solid var(–border);color:var(–green);box-shadow:none;}
 
 /* LABELS */
 .lbl{
@@ -124,13 +130,14 @@ left:0;
 transform:none;
 width:100%;
 max-width:100%;
-background:rgba(8,12,16,0.95);
+background:rgba(255,255,255,0.97);
 border-top:1px solid var(–border);
-padding:8px 4px 18px;
+padding:8px 8px 18px;
 display:flex;
-gap:2px;
+gap:4px;
 z-index:100;
 backdrop-filter:blur(20px);
+box-shadow:0 -2px 20px rgba(0,0,0,0.08);
 }
 .nav button{
 flex:1;
@@ -152,11 +159,11 @@ transition:all 0.2s;
 letter-spacing:1px;
 }
 .nav button.active{
-background:rgba(57,255,132,0.12);
-border-color:rgba(57,255,132,0.4);
+background:var(–green-light);
+border-color:rgba(0,168,84,0.3);
 color:var(–green);
 }
-.nav button span.icon{font-size:16px;}
+.nav button span.icon{font-size:18px;}
 
 /* TABS */
 .tab{display:none;padding:16px 16px 0;animation:fadeIn 0.2s ease;}
@@ -165,49 +172,70 @@ color:var(–green);
 
 /* HEADER */
 .header{
-background:linear-gradient(180deg, rgba(13,42,26,0.95) 0%, rgba(8,12,16,0.98) 100%);
-padding:24px 16px 0;
-border-bottom:1px solid var(–border);
+background:linear-gradient(135deg,#003d1f 0%,#005a2e 50%,#007a3d 100%);
+padding:28px 20px 0;
 position:relative;
 overflow:hidden;
+}
+.header::before{
+content:’’;
+position:absolute;
+top:-60px;right:-60px;
+width:200px;height:200px;
+background:radial-gradient(circle,rgba(255,255,255,0.08),transparent 70%);
+pointer-events:none;
 }
 .header::after{
 content:’’;
 position:absolute;
-bottom:0; left:0; right:0;
-height:1px;
-background:linear-gradient(90deg, transparent, var(–green), transparent);
-opacity:0.4;
+bottom:0;left:0;right:0;
+height:3px;
+background:linear-gradient(90deg,#00c96a,#00d4ff,#00c96a);
 }
 
 /* PROGRESS */
-.progress-bar{height:6px;background:var(–border);border-radius:999px;overflow:hidden;margin-bottom:14px;}
-.progress-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,var(–green),var(–cyan));transition:width 0.8s ease;}
+.progress-bar{height:8px;background:rgba(255,255,255,0.2);border-radius:999px;overflow:hidden;margin-bottom:16px;}
+.progress-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,#00ff88,#00d4ff);transition:width 0.8s ease;box-shadow:0 0 8px rgba(0,255,136,0.5);}
 
 /* MISC */
 .row{display:flex;align-items:center;gap:8px;}
 .between{display:flex;justify-content:space-between;align-items:center;}
 .pill{
-background:rgba(57,255,132,0.1);
-border:1px solid rgba(57,255,132,0.3);
+background:rgba(255,255,255,0.15);
+border:1px solid rgba(255,255,255,0.25);
 border-radius:14px;
 padding:10px 14px;
 text-align:right;
+backdrop-filter:blur(8px);
 }
 
 /* SEGMENTS */
-.seg{display:flex;background:rgba(21,38,56,0.8);border-radius:12px;padding:4px;margin-bottom:16px;border:1px solid var(–border);}
+.seg{
+display:flex;
+background:var(–bg3);
+border-radius:14px;
+padding:4px;
+margin-bottom:16px;
+border:1px solid var(–border);
+box-shadow:inset 0 2px 4px rgba(0,0,0,0.05);
+}
 .seg button{
 flex:1;padding:9px 4px;background:none;border:none;
-border-radius:9px;color:var(–muted);font-size:10px;
-letter-spacing:2px;cursor:pointer;font-family:‘Barlow Condensed’,sans-serif;font-weight:700;
+border-radius:10px;color:var(–muted);font-size:10px;
+letter-spacing:2px;cursor:pointer;
+font-family:‘Barlow Condensed’,sans-serif;font-weight:700;
 transition:all 0.2s;
 }
-.seg button.active{background:linear-gradient(135deg,rgba(57,255,132,0.2),rgba(0,212,255,0.1));color:var(–green);border:1px solid rgba(57,255,132,0.3);}
+.seg button.active{
+background:var(–surface);
+color:var(–green);
+box-shadow:0 2px 8px rgba(0,0,0,0.1);
+border:1px solid rgba(0,168,84,0.2);
+}
 
 /* MEAL ITEMS */
 .meal-item{
-background:rgba(18,32,48,0.8);
+background:var(–surface2);
 border-radius:12px;
 padding:10px 14px;
 margin-bottom:6px;
@@ -215,7 +243,6 @@ display:flex;
 justify-content:space-between;
 align-items:center;
 border:1px solid var(–border);
-transition:border-color 0.2s;
 }
 .rm-btn{background:none;border:none;color:var(–muted);cursor:pointer;font-size:20px;line-height:1;padding:0 4px;transition:color 0.2s;}
 .rm-btn:active{color:var(–red);}
@@ -223,95 +250,98 @@ transition:border-color 0.2s;
 /* RESTAURANT GRID */
 .rest-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:16px;}
 .rest-btn{
-background:rgba(17,28,39,0.9);
+background:var(–surface2);
 border-radius:14px;padding:12px 6px;
-cursor:pointer;border:1px solid var(–border2);
+cursor:pointer;border:1.5px solid var(–border);
 display:flex;flex-direction:column;align-items:center;gap:6px;
 font-family:inherit;transition:all 0.2s;
+box-shadow:0 2px 6px rgba(0,0,0,0.04);
 }
 .rest-btn:active{transform:scale(0.96);}
-.rest-btn span{font-size:10px;font-weight:700;color:var(–text);}
+.rest-btn span{font-size:11px;font-weight:700;color:var(–text);}
 
-/* STAT NUMBER */
-.stat-num{font-family:‘Barlow Condensed’,sans-serif;font-size:32px;font-weight:900;letter-spacing:-1px;line-height:1;}
+/* STAT NUMBERS */
+.stat-num{
+font-family:‘Barlow Condensed’,sans-serif;
+font-size:32px;
+font-weight:900;
+letter-spacing:-1px;
+line-height:1;
+color:var(–text);
+}
 
 /* COACH BOX */
 .coach-box{
-background:linear-gradient(135deg,rgba(13,32,20,0.9),rgba(10,20,28,0.9));
-border-radius:14px;padding:14px;
-border-left:3px solid var(–green);
-border-top:1px solid rgba(57,255,132,0.15);
+background:var(–green-light);
+border-radius:14px;
+padding:14px;
+border-left:4px solid var(–green);
 margin-top:10px;
 }
 
-/* RING ANIMATION */
-@keyframes dashAnim{from{stroke-dashoffset:440;}to{stroke-dashoffset:var(–target-offset);}}
-.ring-animate{animation:dashAnim 1.2s cubic-bezier(0.4,0,0.2,1) forwards;}
+/* AI TIP */
+.ai-tip{
+background:linear-gradient(135deg,#f5f0ff,#eef8ff);
+border:1.5px solid #d4c5ff;
+border-radius:20px;
+padding:18px;
+margin-bottom:14px;
+box-shadow:0 4px 16px rgba(124,58,237,0.08);
+}
 
 /* PR BADGE */
 .pr-badge{
 display:inline-block;
-background:linear-gradient(135deg,#f59e0b,#d97706);
-color:#000;font-size:9px;font-weight:800;
-padding:2px 6px;border-radius:6px;
+background:linear-gradient(135deg,#f59e0b,#e07b00);
+color:#fff;
+font-size:9px;
+font-weight:800;
+padding:3px 8px;
+border-radius:6px;
 letter-spacing:1px;
 font-family:‘Barlow Condensed’,sans-serif;
 }
 
-/* AI tip gradient */
-.ai-tip{
-background:linear-gradient(135deg,rgba(167,139,250,0.1),rgba(0,212,255,0.08));
-border:1px solid rgba(167,139,250,0.25);
-border-radius:16px;
-padding:16px;
-margin-bottom:14px;
-position:relative;
-overflow:hidden;
-}
-.ai-tip::before{
-content:’’;
-position:absolute;
-top:-40px;right:-40px;
-width:100px;height:100px;
-background:radial-gradient(circle,rgba(167,139,250,0.15),transparent 70%);
-}
-
-/* Smooth number transition */
-.num-fade{transition:all 0.3s ease;}
-
-/* Macro rings container */
+/* RINGS */
 .rings-row{display:flex;justify-content:space-around;padding:8px 0;}
 
-/* ── RESPONSIVE LAYOUT ───────────────────────────────────── */
-.app-shell{
-display:flex;
-flex-direction:column;
-max-width:100%;
-}
+/* SVG exercise bg */
+svg[viewBox=“0 0 120 75”]{background:#f0f6ff;border-radius:12px;}
 
+/* ── RESPONSIVE LAYOUT ─────────────────────────────────── */
 @media (min-width:768px){
 body{padding-bottom:0;padding-left:220px;}
-
-/* Sidebar nav for tablet */
 .nav{
-left:0;
-top:0;
-bottom:0;
-width:220px;
-height:100vh;
+left:0;top:0;bottom:0;
+width:220px;height:100vh;
 flex-direction:column;
 justify-content:flex-start;
-padding:24px 12px 32px;
+padding:28px 12px 32px;
 border-top:none;
 border-right:1px solid var(–border);
-gap:4px;
+border-bottom:none;
+gap:6px;
 overflow-y:auto;
+box-shadow:2px 0 20px rgba(0,0,0,0.06);
+}
+.nav::before{
+content:‘FITTRACK’;
+display:block;
+font-family:‘Barlow Condensed’,sans-serif;
+font-size:24px;
+font-weight:900;
+color:var(–green);
+letter-spacing:4px;
+padding:0 14px 20px;
+border-bottom:2px solid var(–green-light);
+margin-bottom:16px;
+width:100%;
 }
 .nav button{
 flex:none;
 flex-direction:row;
 justify-content:flex-start;
-padding:12px 16px;
+padding:13px 16px;
 font-size:12px;
 letter-spacing:2px;
 gap:12px;
@@ -319,50 +349,18 @@ border-radius:12px;
 width:100%;
 }
 .nav button span.icon{font-size:20px;}
-
-/* Nav brand header */
-.nav::before{
-content:‘FITTRACK’;
-display:block;
-font-family:‘Barlow Condensed’,sans-serif;
-font-size:22px;
-font-weight:900;
-color:var(–green);
-letter-spacing:4px;
-padding:0 16px 20px;
-border-bottom:1px solid var(–border);
-margin-bottom:16px;
-width:100%;
-}
-
-/* Main content area */
-.header{
-padding:28px 40px 0;
-}
-.tab{
-padding:24px 40px 0;
-max-width:900px;
-}
-
-/* Two-column grid for stats/cards on wide screens */
-.grid2{grid-template-columns:1fr 1fr;}
-.grid3{grid-template-columns:1fr 1fr 1fr;}
-
-/* Wider cards */
-.card{border-radius:24px;}
-
-/* Header layout */
-.header .between{
-max-width:900px;
-}
+.header{padding:32px 48px 0;}
+.tab{padding:24px 40px 0;max-width:960px;}
 }
 
 @media (min-width:1024px){
 body{padding-left:240px;}
 .nav{width:240px;}
-.tab{max-width:960px;}
-.header{padding:32px 48px 0;}
-.tab{padding:28px 48px 0;}
+.tab{max-width:1000px;}
+.header{padding:36px 56px 0;}
+.tab{padding:28px 56px 0;}
+.grid2{gap:16px;}
+.grid3{gap:12px;}
 }
 </style>
 
@@ -375,19 +373,19 @@ body{padding-left:240px;}
   <div class="between" style="margin-bottom:14px;">
     <div>
       <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:4px;color:var(--green);font-weight:700;margin-bottom:4px;">10 LB CUT</div>
-      <div style="font-family:'Barlow Condensed',sans-serif;font-size:38px;font-weight:900;letter-spacing:-2px;line-height:1;" id="hdr-weight">180<span style="font-size:14px;font-weight:500;color:#4a7090;margin-left:4px;">lbs</span></div>
-      <div style="font-size:12px;color:#4a7090;margin-top:4px;font-weight:600;" id="hdr-lost">Start: 180 lbs</div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:38px;font-weight:900;letter-spacing:-2px;line-height:1;" id="hdr-weight">180<span style="font-size:14px;font-weight:500;color:var(--muted);margin-left:4px;">lbs</span></div>
+      <div style="font-size:12px;color:rgba(255,255,255,0.75);margin-top:4px;font-weight:600;" id="hdr-lost">Start: 180 lbs</div>
     </div>
     <div class="pill">
-      <div style="font-size:10px;color:#39ff84;font-weight:700;letter-spacing:2px;">GOAL</div>
-      <div style="font-size:22px;font-weight:900;color:#39ff84;" id="hdr-goal">170</div>
-      <div style="font-size:10px;color:#4a7090;margin-top:2px;" id="hdr-days">-- d left</div>
+      <div style="font-size:10px;color:var(--green);font-weight:700;letter-spacing:2px;">GOAL</div>
+      <div style="font-size:22px;font-weight:900;color:var(--green);" id="hdr-goal">170</div>
+      <div style="font-size:10px;color:var(--muted);margin-top:2px;" id="hdr-days">-- d left</div>
     </div>
   </div>
   <div class="progress-bar"><div class="progress-fill" id="hdr-prog" style="width:0%"></div></div>
   <div class="row" style="padding-bottom:14px;gap:8px;">
-    <input type="date" id="sel-date" style="background:#0d1820;border:1px solid #1e3448;border-radius:8px;color:#fff;padding:7px 12px;font-size:12px;font-weight:600;">
-    <button onclick="setToday()" style="background:#1e3448;border:none;border-radius:8px;color:#39ff84;padding:7px 12px;font-size:11px;cursor:pointer;font-weight:700;">TODAY</button>
+    <input type="date" id="sel-date" style="background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);border-radius:10px;color:#fff;padding:8px 14px;font-size:13px;font-weight:600;backdrop-filter:blur(8px);">
+    <button onclick="setToday()" style="background:rgba(0,255,136,0.2);border:1px solid rgba(0,255,136,0.4);border-radius:10px;color:#00ff88;padding:8px 14px;font-size:12px;cursor:pointer;font-weight:700;">TODAY</button>
   </div>
 </div>
 
@@ -441,10 +439,10 @@ function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').rep
 
 // ── DATA ──────────────────────────────────────────────────────────
 const MEAL_SECS = [
-  {key:'breakfast',label:'Breakfast',emoji:'🌅',color:'#f59e0b'},
-  {key:'lunch',    label:'Lunch',    emoji:'☀️', color:'#22d3ee'},
-  {key:'dinner',   label:'Dinner',   emoji:'🌙', color:'#a78bfa'},
-  {key:'snacks',   label:'Snacks',   emoji:'🍎', color:'#39ff84'},
+  {key:'breakfast',label:'Breakfast',emoji:'🌅',color:'var(--orange)'},
+  {key:'lunch',    label:'Lunch',    emoji:'☀️', color:'var(--cyan)'},
+  {key:'dinner',   label:'Dinner',   emoji:'🌙', color:'var(--purple)'},
+  {key:'snacks',   label:'Snacks',   emoji:'🍎', color:'var(--green)'},
 ];
 
 const WORKOUTS = {
@@ -590,135 +588,135 @@ const WORKOUTS = {
 
 
 const EXERCISE_SVGS = {
-  'Bench Press': `<svg width="100%" viewBox="0 0 120 75" style="background:#0a1420;border-radius:12px;display:block;width:100%;">
+  'Bench Press': `<svg width="100%" viewBox="0 0 120 75" style="background:#f0f6ff;border-radius:12px;display:block;width:100%;">
       <text x="60" y="9" text-anchor="middle" fill="#39ff84" font-size="6.5" font-family="sans-serif" font-weight="700">BENCH PRESS</text>
-      <text x="60" y="17" text-anchor="middle" fill="#4a7090" font-size="5" font-family="sans-serif">chest · triceps · shoulders</text>
-      <circle cx="95" cy="54" r="4" fill="none" stroke="#39ff84" stroke-width="1.8"/><line x1="20" y1="58" x2="100" y2="58" stroke="#1e3448" stroke-width="3" stroke-linecap="round"/><line x1="30" y1="58" x2="30" y2="68" stroke="#1e3448" stroke-width="2.5" stroke-linecap="round"/><line x1="90" y1="58" x2="90" y2="68" stroke="#1e3448" stroke-width="2.5" stroke-linecap="round"/><line x1="91" y1="54" x2="30" y2="54" stroke="#8ab" stroke-width="3" stroke-linecap="round"/><line x1="75" y1="54" x2="68" y2="65" stroke="#8ab" stroke-width="2" stroke-linecap="round"/><line x1="50" y1="54" x2="43" y2="65" stroke="#8ab" stroke-width="2" stroke-linecap="round"/><line x1="70" y1="54" x2="68" y2="38" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="55" y1="54" x2="53" y2="38" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="45" y1="38" x2="80" y2="38" stroke="#39ff84" stroke-width="3" stroke-linecap="round"/><line x1="42" y1="34" x2="42" y2="42" stroke="#f59e0b" stroke-width="4" stroke-linecap="round"/><line x1="83" y1="34" x2="83" y2="42" stroke="#f59e0b" stroke-width="4" stroke-linecap="round"/>
+      <text x="60" y="17" text-anchor="middle" fill="#6090b0" font-size="5" font-family="sans-serif">chest · triceps · shoulders</text>
+      <circle cx="95" cy="54" r="4" fill="none" stroke="#39ff84" stroke-width="1.8"/><line x1="20" y1="58" x2="100" y2="58" stroke="#b0c8e0" stroke-width="3" stroke-linecap="round"/><line x1="30" y1="58" x2="30" y2="68" stroke="#b0c8e0" stroke-width="2.5" stroke-linecap="round"/><line x1="90" y1="58" x2="90" y2="68" stroke="#b0c8e0" stroke-width="2.5" stroke-linecap="round"/><line x1="91" y1="54" x2="30" y2="54" stroke="#2a6090" stroke-width="3" stroke-linecap="round"/><line x1="75" y1="54" x2="68" y2="65" stroke="#2a6090" stroke-width="2" stroke-linecap="round"/><line x1="50" y1="54" x2="43" y2="65" stroke="#2a6090" stroke-width="2" stroke-linecap="round"/><line x1="70" y1="54" x2="68" y2="38" stroke="#4a90c0" stroke-width="2" stroke-linecap="round"/><line x1="55" y1="54" x2="53" y2="38" stroke="#4a90c0" stroke-width="2" stroke-linecap="round"/><line x1="45" y1="38" x2="80" y2="38" stroke="#39ff84" stroke-width="3" stroke-linecap="round"/><line x1="42" y1="34" x2="42" y2="42" stroke="#f59e0b" stroke-width="4" stroke-linecap="round"/><line x1="83" y1="34" x2="83" y2="42" stroke="#f59e0b" stroke-width="4" stroke-linecap="round"/>
     </svg>`,
-  'Wide-Grip Lat Pulldown': `<svg width="100%" viewBox="0 0 120 75" style="background:#0a1420;border-radius:12px;display:block;width:100%;">
+  'Wide-Grip Lat Pulldown': `<svg width="100%" viewBox="0 0 120 75" style="background:#f0f6ff;border-radius:12px;display:block;width:100%;">
       <text x="60" y="9" text-anchor="middle" fill="#39ff84" font-size="6.5" font-family="sans-serif" font-weight="700">WIDE PULLDOWN</text>
-      <text x="60" y="17" text-anchor="middle" fill="#4a7090" font-size="5" font-family="sans-serif">outer lats · width</text>
-      <line x1="20" y1="22" x2="100" y2="22" stroke="#39ff84" stroke-width="3" stroke-linecap="round"/><line x1="20" y1="18" x2="20" y2="28" stroke="#1e3448" stroke-width="3" stroke-linecap="round"/><line x1="100" y1="18" x2="100" y2="28" stroke="#1e3448" stroke-width="3" stroke-linecap="round"/><circle cx="60" cy="34" r="4" fill="none" stroke="#39ff84" stroke-width="1.8"/><line x1="60" y1="30" x2="28" y2="23" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="60" y1="30" x2="92" y2="23" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="60" y1="38" x2="60" y2="58" stroke="#8ab" stroke-width="3" stroke-linecap="round"/><line x1="57" y1="58" x2="52" y2="70" stroke="#8ab" stroke-width="2" stroke-linecap="round"/><line x1="63" y1="58" x2="68" y2="70" stroke="#8ab" stroke-width="2" stroke-linecap="round"/><line x1="35" y1="28" x2="40" y2="34" stroke="#39ff8488" stroke-width="1.5" stroke-linecap="round"/><line x1="85" y1="28" x2="80" y2="34" stroke="#39ff8488" stroke-width="1.5" stroke-linecap="round"/>
+      <text x="60" y="17" text-anchor="middle" fill="#6090b0" font-size="5" font-family="sans-serif">outer lats · width</text>
+      <line x1="20" y1="22" x2="100" y2="22" stroke="#39ff84" stroke-width="3" stroke-linecap="round"/><line x1="20" y1="18" x2="20" y2="28" stroke="#b0c8e0" stroke-width="3" stroke-linecap="round"/><line x1="100" y1="18" x2="100" y2="28" stroke="#b0c8e0" stroke-width="3" stroke-linecap="round"/><circle cx="60" cy="34" r="4" fill="none" stroke="#39ff84" stroke-width="1.8"/><line x1="60" y1="30" x2="28" y2="23" stroke="#4a90c0" stroke-width="2" stroke-linecap="round"/><line x1="60" y1="30" x2="92" y2="23" stroke="#4a90c0" stroke-width="2" stroke-linecap="round"/><line x1="60" y1="38" x2="60" y2="58" stroke="#2a6090" stroke-width="3" stroke-linecap="round"/><line x1="57" y1="58" x2="52" y2="70" stroke="#2a6090" stroke-width="2" stroke-linecap="round"/><line x1="63" y1="58" x2="68" y2="70" stroke="#2a6090" stroke-width="2" stroke-linecap="round"/><line x1="35" y1="28" x2="40" y2="34" stroke="#39ff8488" stroke-width="1.5" stroke-linecap="round"/><line x1="85" y1="28" x2="80" y2="34" stroke="#39ff8488" stroke-width="1.5" stroke-linecap="round"/>
     </svg>`,
-  'Close-Grip Lat Pulldown': `<svg width="100%" viewBox="0 0 120 75" style="background:#0a1420;border-radius:12px;display:block;width:100%;">
+  'Close-Grip Lat Pulldown': `<svg width="100%" viewBox="0 0 120 75" style="background:#f0f6ff;border-radius:12px;display:block;width:100%;">
       <text x="60" y="9" text-anchor="middle" fill="#39ff84" font-size="6.5" font-family="sans-serif" font-weight="700">CLOSE PULLDOWN</text>
-      <text x="60" y="17" text-anchor="middle" fill="#4a7090" font-size="5" font-family="sans-serif">lower lats · thickness</text>
-      <line x1="20" y1="22" x2="100" y2="22" stroke="#39ff84" stroke-width="3" stroke-linecap="round"/><line x1="20" y1="18" x2="20" y2="28" stroke="#1e3448" stroke-width="3" stroke-linecap="round"/><line x1="100" y1="18" x2="100" y2="28" stroke="#1e3448" stroke-width="3" stroke-linecap="round"/><circle cx="60" cy="34" r="4" fill="none" stroke="#39ff84" stroke-width="1.8"/><line x1="60" y1="30" x2="48" y2="23" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="60" y1="30" x2="72" y2="23" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="60" y1="38" x2="60" y2="58" stroke="#8ab" stroke-width="3" stroke-linecap="round"/><line x1="57" y1="58" x2="52" y2="70" stroke="#8ab" stroke-width="2" stroke-linecap="round"/><line x1="63" y1="58" x2="68" y2="70" stroke="#8ab" stroke-width="2" stroke-linecap="round"/><line x1="45" y1="28" x2="50" y2="34" stroke="#39ff8488" stroke-width="1.5" stroke-linecap="round"/><line x1="75" y1="28" x2="70" y2="34" stroke="#39ff8488" stroke-width="1.5" stroke-linecap="round"/>
+      <text x="60" y="17" text-anchor="middle" fill="#6090b0" font-size="5" font-family="sans-serif">lower lats · thickness</text>
+      <line x1="20" y1="22" x2="100" y2="22" stroke="#39ff84" stroke-width="3" stroke-linecap="round"/><line x1="20" y1="18" x2="20" y2="28" stroke="#b0c8e0" stroke-width="3" stroke-linecap="round"/><line x1="100" y1="18" x2="100" y2="28" stroke="#b0c8e0" stroke-width="3" stroke-linecap="round"/><circle cx="60" cy="34" r="4" fill="none" stroke="#39ff84" stroke-width="1.8"/><line x1="60" y1="30" x2="48" y2="23" stroke="#4a90c0" stroke-width="2" stroke-linecap="round"/><line x1="60" y1="30" x2="72" y2="23" stroke="#4a90c0" stroke-width="2" stroke-linecap="round"/><line x1="60" y1="38" x2="60" y2="58" stroke="#2a6090" stroke-width="3" stroke-linecap="round"/><line x1="57" y1="58" x2="52" y2="70" stroke="#2a6090" stroke-width="2" stroke-linecap="round"/><line x1="63" y1="58" x2="68" y2="70" stroke="#2a6090" stroke-width="2" stroke-linecap="round"/><line x1="45" y1="28" x2="50" y2="34" stroke="#39ff8488" stroke-width="1.5" stroke-linecap="round"/><line x1="75" y1="28" x2="70" y2="34" stroke="#39ff8488" stroke-width="1.5" stroke-linecap="round"/>
     </svg>`,
-  'Seated Cable Row': `<svg width="100%" viewBox="0 0 120 75" style="background:#0a1420;border-radius:12px;display:block;width:100%;">
+  'Seated Cable Row': `<svg width="100%" viewBox="0 0 120 75" style="background:#f0f6ff;border-radius:12px;display:block;width:100%;">
       <text x="60" y="9" text-anchor="middle" fill="#39ff84" font-size="6.5" font-family="sans-serif" font-weight="700">CABLE ROW</text>
-      <text x="60" y="17" text-anchor="middle" fill="#4a7090" font-size="5" font-family="sans-serif">mid-back · rhomboids · lats</text>
-      <line x1="15" y1="25" x2="15" y2="65" stroke="#1e3448" stroke-width="4" stroke-linecap="round"/><line x1="12" y1="48" x2="18" y2="48" stroke="#39ff84" stroke-width="3" stroke-linecap="round"/><circle cx="75" cy="32" r="4" fill="none" stroke="#39ff84" stroke-width="1.8"/><line x1="75" y1="36" x2="75" y2="52" stroke="#8ab" stroke-width="3" stroke-linecap="round"/><line x1="75" y1="52" x2="60" y2="52" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="60" y1="52" x2="60" y2="65" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="75" y1="52" x2="90" y2="52" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="90" y1="52" x2="90" y2="65" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="73" y1="40" x2="50" y2="46" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="50" y1="46" x2="18" y2="48" stroke="#4a7090" stroke-width="1.5" stroke-linecap="round"/><line x1="65" y1="42" x2="75" y2="42" stroke="#39ff8488" stroke-width="1.5" stroke-linecap="round"/><line x1="72" y1="39" x2="75" y2="42" stroke="#39ff8488" stroke-width="1.5" stroke-linecap="round"/><line x1="72" y1="45" x2="75" y2="42" stroke="#39ff8488" stroke-width="1.5" stroke-linecap="round"/>
+      <text x="60" y="17" text-anchor="middle" fill="#6090b0" font-size="5" font-family="sans-serif">mid-back · rhomboids · lats</text>
+      <line x1="15" y1="25" x2="15" y2="65" stroke="#b0c8e0" stroke-width="4" stroke-linecap="round"/><line x1="12" y1="48" x2="18" y2="48" stroke="#39ff84" stroke-width="3" stroke-linecap="round"/><circle cx="75" cy="32" r="4" fill="none" stroke="#39ff84" stroke-width="1.8"/><line x1="75" y1="36" x2="75" y2="52" stroke="#2a6090" stroke-width="3" stroke-linecap="round"/><line x1="75" y1="52" x2="60" y2="52" stroke="#2a6090" stroke-width="2.5" stroke-linecap="round"/><line x1="60" y1="52" x2="60" y2="65" stroke="#2a6090" stroke-width="2.5" stroke-linecap="round"/><line x1="75" y1="52" x2="90" y2="52" stroke="#2a6090" stroke-width="2.5" stroke-linecap="round"/><line x1="90" y1="52" x2="90" y2="65" stroke="#2a6090" stroke-width="2.5" stroke-linecap="round"/><line x1="73" y1="40" x2="50" y2="46" stroke="#4a90c0" stroke-width="2" stroke-linecap="round"/><line x1="50" y1="46" x2="18" y2="48" stroke="#6090b0" stroke-width="1.5" stroke-linecap="round"/><line x1="65" y1="42" x2="75" y2="42" stroke="#39ff8488" stroke-width="1.5" stroke-linecap="round"/><line x1="72" y1="39" x2="75" y2="42" stroke="#39ff8488" stroke-width="1.5" stroke-linecap="round"/><line x1="72" y1="45" x2="75" y2="42" stroke="#39ff8488" stroke-width="1.5" stroke-linecap="round"/>
     </svg>`,
-  'Cable Bicep Curl': `<svg width="100%" viewBox="0 0 120 75" style="background:#0a1420;border-radius:12px;display:block;width:100%;">
+  'Cable Bicep Curl': `<svg width="100%" viewBox="0 0 120 75" style="background:#f0f6ff;border-radius:12px;display:block;width:100%;">
       <text x="60" y="9" text-anchor="middle" fill="#39ff84" font-size="6.5" font-family="sans-serif" font-weight="700">CABLE CURL</text>
-      <text x="60" y="17" text-anchor="middle" fill="#4a7090" font-size="5" font-family="sans-serif">biceps · constant tension</text>
-      <line x1="15" y1="20" x2="15" y2="70" stroke="#1e3448" stroke-width="4" stroke-linecap="round"/><line x1="12" y1="22" x2="18" y2="22" stroke="#39ff84" stroke-width="3" stroke-linecap="round"/><line x1="15" y1="22" x2="42" y2="42" stroke="#4a7090" stroke-width="1.5" stroke-linecap="round"/><circle cx="60" cy="26" r="4" fill="none" stroke="#39ff84" stroke-width="1.8"/><line x1="60" y1="30" x2="60" y2="52" stroke="#8ab" stroke-width="3" stroke-linecap="round"/><line x1="57" y1="52" x2="52" y2="65" stroke="#8ab" stroke-width="2" stroke-linecap="round"/><line x1="63" y1="52" x2="68" y2="65" stroke="#8ab" stroke-width="2" stroke-linecap="round"/><line x1="58" y1="34" x2="44" y2="40" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="44" y1="40" x2="42" y2="32" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="62" y1="34" x2="76" y2="40" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="76" y1="40" x2="80" y2="48" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="80" y1="48" x2="88" y2="48" stroke="#f59e0b" stroke-width="4" stroke-linecap="round"/>
+      <text x="60" y="17" text-anchor="middle" fill="#6090b0" font-size="5" font-family="sans-serif">biceps · constant tension</text>
+      <line x1="15" y1="20" x2="15" y2="70" stroke="#b0c8e0" stroke-width="4" stroke-linecap="round"/><line x1="12" y1="22" x2="18" y2="22" stroke="#39ff84" stroke-width="3" stroke-linecap="round"/><line x1="15" y1="22" x2="42" y2="42" stroke="#6090b0" stroke-width="1.5" stroke-linecap="round"/><circle cx="60" cy="26" r="4" fill="none" stroke="#39ff84" stroke-width="1.8"/><line x1="60" y1="30" x2="60" y2="52" stroke="#2a6090" stroke-width="3" stroke-linecap="round"/><line x1="57" y1="52" x2="52" y2="65" stroke="#2a6090" stroke-width="2" stroke-linecap="round"/><line x1="63" y1="52" x2="68" y2="65" stroke="#2a6090" stroke-width="2" stroke-linecap="round"/><line x1="58" y1="34" x2="44" y2="40" stroke="#4a90c0" stroke-width="2" stroke-linecap="round"/><line x1="44" y1="40" x2="42" y2="32" stroke="#4a90c0" stroke-width="2" stroke-linecap="round"/><line x1="62" y1="34" x2="76" y2="40" stroke="#4a90c0" stroke-width="2" stroke-linecap="round"/><line x1="76" y1="40" x2="80" y2="48" stroke="#4a90c0" stroke-width="2" stroke-linecap="round"/><line x1="80" y1="48" x2="88" y2="48" stroke="#f59e0b" stroke-width="4" stroke-linecap="round"/>
     </svg>`,
-  'Dumbbell Hammer Curl': `<svg width="100%" viewBox="0 0 120 75" style="background:#0a1420;border-radius:12px;display:block;width:100%;">
+  'Dumbbell Hammer Curl': `<svg width="100%" viewBox="0 0 120 75" style="background:#f0f6ff;border-radius:12px;display:block;width:100%;">
       <text x="60" y="9" text-anchor="middle" fill="#39ff84" font-size="6.5" font-family="sans-serif" font-weight="700">HAMMER CURL</text>
-      <text x="60" y="17" text-anchor="middle" fill="#4a7090" font-size="5" font-family="sans-serif">brachialis · bicep peak</text>
-      <circle cx="60" cy="26" r="4" fill="none" stroke="#39ff84" stroke-width="1.8"/><line x1="60" y1="30" x2="60" y2="52" stroke="#8ab" stroke-width="3" stroke-linecap="round"/><line x1="57" y1="52" x2="52" y2="65" stroke="#8ab" stroke-width="2" stroke-linecap="round"/><line x1="63" y1="52" x2="68" y2="65" stroke="#8ab" stroke-width="2" stroke-linecap="round"/><line x1="58" y1="34" x2="42" y2="40" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="42" y1="40" x2="40" y2="32" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="62" y1="34" x2="78" y2="40" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="78" y1="40" x2="80" y2="32" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="40" y1="28" x2="40" y2="38" stroke="#f59e0b" stroke-width="4" stroke-linecap="round"/><line x1="80" y1="28" x2="80" y2="38" stroke="#f59e0b" stroke-width="4" stroke-linecap="round"/>
+      <text x="60" y="17" text-anchor="middle" fill="#6090b0" font-size="5" font-family="sans-serif">brachialis · bicep peak</text>
+      <circle cx="60" cy="26" r="4" fill="none" stroke="#39ff84" stroke-width="1.8"/><line x1="60" y1="30" x2="60" y2="52" stroke="#2a6090" stroke-width="3" stroke-linecap="round"/><line x1="57" y1="52" x2="52" y2="65" stroke="#2a6090" stroke-width="2" stroke-linecap="round"/><line x1="63" y1="52" x2="68" y2="65" stroke="#2a6090" stroke-width="2" stroke-linecap="round"/><line x1="58" y1="34" x2="42" y2="40" stroke="#4a90c0" stroke-width="2" stroke-linecap="round"/><line x1="42" y1="40" x2="40" y2="32" stroke="#4a90c0" stroke-width="2" stroke-linecap="round"/><line x1="62" y1="34" x2="78" y2="40" stroke="#4a90c0" stroke-width="2" stroke-linecap="round"/><line x1="78" y1="40" x2="80" y2="32" stroke="#4a90c0" stroke-width="2" stroke-linecap="round"/><line x1="40" y1="28" x2="40" y2="38" stroke="#f59e0b" stroke-width="4" stroke-linecap="round"/><line x1="80" y1="28" x2="80" y2="38" stroke="#f59e0b" stroke-width="4" stroke-linecap="round"/>
     </svg>`,
-  'Dumbbell Incline Press': `<svg width="100%" viewBox="0 0 120 75" style="background:#0a1420;border-radius:12px;display:block;width:100%;">
+  'Dumbbell Incline Press': `<svg width="100%" viewBox="0 0 120 75" style="background:#f0f6ff;border-radius:12px;display:block;width:100%;">
       <text x="60" y="9" text-anchor="middle" fill="#39ff84" font-size="6.5" font-family="sans-serif" font-weight="700">INCLINE PRESS</text>
-      <text x="60" y="17" text-anchor="middle" fill="#4a7090" font-size="5" font-family="sans-serif">upper chest · front delts</text>
-      <line x1="15" y1="68" x2="85" y2="48" stroke="#1e3448" stroke-width="3" stroke-linecap="round"/><line x1="15" y1="68" x2="15" y2="75" stroke="#1e3448" stroke-width="3" stroke-linecap="round"/><line x1="85" y1="48" x2="95" y2="68" stroke="#1e3448" stroke-width="3" stroke-linecap="round"/><circle cx="88" cy="44" r="4" fill="none" stroke="#39ff84" stroke-width="1.8"/><line x1="84" y1="46" x2="30" y2="62" stroke="#8ab" stroke-width="3" stroke-linecap="round"/><line x1="40" y1="62" x2="32" y2="72" stroke="#8ab" stroke-width="2" stroke-linecap="round"/><line x1="55" y1="60" x2="50" y2="72" stroke="#8ab" stroke-width="2" stroke-linecap="round"/><line x1="72" y1="52" x2="66" y2="38" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="58" y1="56" x2="54" y2="40" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="58" y1="36" x2="72" y2="36" stroke="#39ff84" stroke-width="3" stroke-linecap="round"/><line x1="55" y1="33" x2="55" y2="39" stroke="#f59e0b" stroke-width="4" stroke-linecap="round"/><line x1="75" y1="33" x2="75" y2="39" stroke="#f59e0b" stroke-width="4" stroke-linecap="round"/>
+      <text x="60" y="17" text-anchor="middle" fill="#6090b0" font-size="5" font-family="sans-serif">upper chest · front delts</text>
+      <line x1="15" y1="68" x2="85" y2="48" stroke="#b0c8e0" stroke-width="3" stroke-linecap="round"/><line x1="15" y1="68" x2="15" y2="75" stroke="#b0c8e0" stroke-width="3" stroke-linecap="round"/><line x1="85" y1="48" x2="95" y2="68" stroke="#b0c8e0" stroke-width="3" stroke-linecap="round"/><circle cx="88" cy="44" r="4" fill="none" stroke="#39ff84" stroke-width="1.8"/><line x1="84" y1="46" x2="30" y2="62" stroke="#2a6090" stroke-width="3" stroke-linecap="round"/><line x1="40" y1="62" x2="32" y2="72" stroke="#2a6090" stroke-width="2" stroke-linecap="round"/><line x1="55" y1="60" x2="50" y2="72" stroke="#2a6090" stroke-width="2" stroke-linecap="round"/><line x1="72" y1="52" x2="66" y2="38" stroke="#4a90c0" stroke-width="2" stroke-linecap="round"/><line x1="58" y1="56" x2="54" y2="40" stroke="#4a90c0" stroke-width="2" stroke-linecap="round"/><line x1="58" y1="36" x2="72" y2="36" stroke="#39ff84" stroke-width="3" stroke-linecap="round"/><line x1="55" y1="33" x2="55" y2="39" stroke="#f59e0b" stroke-width="4" stroke-linecap="round"/><line x1="75" y1="33" x2="75" y2="39" stroke="#f59e0b" stroke-width="4" stroke-linecap="round"/>
     </svg>`,
-  'Dumbbell Lateral Raise': `<svg width="100%" viewBox="0 0 120 75" style="background:#0a1420;border-radius:12px;display:block;width:100%;">
+  'Dumbbell Lateral Raise': `<svg width="100%" viewBox="0 0 120 75" style="background:#f0f6ff;border-radius:12px;display:block;width:100%;">
       <text x="60" y="9" text-anchor="middle" fill="#39ff84" font-size="6.5" font-family="sans-serif" font-weight="700">LATERAL RAISE</text>
-      <text x="60" y="17" text-anchor="middle" fill="#4a7090" font-size="5" font-family="sans-serif">medial delt · shoulder width</text>
-      <circle cx="60" cy="26" r="4" fill="none" stroke="#39ff84" stroke-width="1.8"/><line x1="60" y1="30" x2="60" y2="52" stroke="#8ab" stroke-width="3" stroke-linecap="round"/><line x1="57" y1="52" x2="52" y2="65" stroke="#8ab" stroke-width="2" stroke-linecap="round"/><line x1="63" y1="52" x2="68" y2="65" stroke="#8ab" stroke-width="2" stroke-linecap="round"/><line x1="58" y1="34" x2="30" y2="36" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="62" y1="34" x2="90" y2="36" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="24" y1="33" x2="24" y2="39" stroke="#f59e0b" stroke-width="4" stroke-linecap="round"/><line x1="96" y1="33" x2="96" y2="39" stroke="#f59e0b" stroke-width="4" stroke-linecap="round"/><path d="M35 44 Q30 38 34 34" fill="none" stroke="#39ff8488" stroke-width="1.5"/><path d="M85 44 Q90 38 86 34" fill="none" stroke="#39ff8488" stroke-width="1.5"/>
+      <text x="60" y="17" text-anchor="middle" fill="#6090b0" font-size="5" font-family="sans-serif">medial delt · shoulder width</text>
+      <circle cx="60" cy="26" r="4" fill="none" stroke="#39ff84" stroke-width="1.8"/><line x1="60" y1="30" x2="60" y2="52" stroke="#2a6090" stroke-width="3" stroke-linecap="round"/><line x1="57" y1="52" x2="52" y2="65" stroke="#2a6090" stroke-width="2" stroke-linecap="round"/><line x1="63" y1="52" x2="68" y2="65" stroke="#2a6090" stroke-width="2" stroke-linecap="round"/><line x1="58" y1="34" x2="30" y2="36" stroke="#4a90c0" stroke-width="2" stroke-linecap="round"/><line x1="62" y1="34" x2="90" y2="36" stroke="#4a90c0" stroke-width="2" stroke-linecap="round"/><line x1="24" y1="33" x2="24" y2="39" stroke="#f59e0b" stroke-width="4" stroke-linecap="round"/><line x1="96" y1="33" x2="96" y2="39" stroke="#f59e0b" stroke-width="4" stroke-linecap="round"/><path d="M35 44 Q30 38 34 34" fill="none" stroke="#39ff8488" stroke-width="1.5"/><path d="M85 44 Q90 38 86 34" fill="none" stroke="#39ff8488" stroke-width="1.5"/>
     </svg>`,
-  'Cable Overhead Tricep Extension': `<svg width="100%" viewBox="0 0 120 75" style="background:#0a1420;border-radius:12px;display:block;width:100%;">
+  'Cable Overhead Tricep Extension': `<svg width="100%" viewBox="0 0 120 75" style="background:#f0f6ff;border-radius:12px;display:block;width:100%;">
       <text x="60" y="9" text-anchor="middle" fill="#39ff84" font-size="6.5" font-family="sans-serif" font-weight="700">CABLE TRICEP EXT</text>
-      <text x="60" y="17" text-anchor="middle" fill="#4a7090" font-size="5" font-family="sans-serif">long head tricep</text>
-      <line x1="105" y1="20" x2="105" y2="70" stroke="#1e3448" stroke-width="4" stroke-linecap="round"/><line x1="102" y1="22" x2="108" y2="22" stroke="#39ff84" stroke-width="3" stroke-linecap="round"/><line x1="105" y1="22" x2="72" y2="32" stroke="#4a7090" stroke-width="1.5" stroke-linecap="round"/><circle cx="55" cy="26" r="4" fill="none" stroke="#39ff84" stroke-width="1.8"/><line x1="55" y1="30" x2="55" y2="52" stroke="#8ab" stroke-width="3" stroke-linecap="round"/><line x1="52" y1="52" x2="48" y2="65" stroke="#8ab" stroke-width="2" stroke-linecap="round"/><line x1="58" y1="52" x2="62" y2="65" stroke="#8ab" stroke-width="2" stroke-linecap="round"/><line x1="53" y1="32" x2="44" y2="24" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="44" y1="24" x2="52" y2="34" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="57" y1="32" x2="66" y2="24" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="66" y1="24" x2="72" y2="32" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="48" y1="30" x2="44" y2="22" stroke="#39ff8488" stroke-width="1.5" stroke-linecap="round"/><line x1="70" y1="28" x2="74" y2="20" stroke="#39ff8488" stroke-width="1.5" stroke-linecap="round"/>
+      <text x="60" y="17" text-anchor="middle" fill="#6090b0" font-size="5" font-family="sans-serif">long head tricep</text>
+      <line x1="105" y1="20" x2="105" y2="70" stroke="#b0c8e0" stroke-width="4" stroke-linecap="round"/><line x1="102" y1="22" x2="108" y2="22" stroke="#39ff84" stroke-width="3" stroke-linecap="round"/><line x1="105" y1="22" x2="72" y2="32" stroke="#6090b0" stroke-width="1.5" stroke-linecap="round"/><circle cx="55" cy="26" r="4" fill="none" stroke="#39ff84" stroke-width="1.8"/><line x1="55" y1="30" x2="55" y2="52" stroke="#2a6090" stroke-width="3" stroke-linecap="round"/><line x1="52" y1="52" x2="48" y2="65" stroke="#2a6090" stroke-width="2" stroke-linecap="round"/><line x1="58" y1="52" x2="62" y2="65" stroke="#2a6090" stroke-width="2" stroke-linecap="round"/><line x1="53" y1="32" x2="44" y2="24" stroke="#4a90c0" stroke-width="2" stroke-linecap="round"/><line x1="44" y1="24" x2="52" y2="34" stroke="#4a90c0" stroke-width="2" stroke-linecap="round"/><line x1="57" y1="32" x2="66" y2="24" stroke="#4a90c0" stroke-width="2" stroke-linecap="round"/><line x1="66" y1="24" x2="72" y2="32" stroke="#4a90c0" stroke-width="2" stroke-linecap="round"/><line x1="48" y1="30" x2="44" y2="22" stroke="#39ff8488" stroke-width="1.5" stroke-linecap="round"/><line x1="70" y1="28" x2="74" y2="20" stroke="#39ff8488" stroke-width="1.5" stroke-linecap="round"/>
     </svg>`,
-  'Cable Tricep Pushdown': `<svg width="100%" viewBox="0 0 120 75" style="background:#0a1420;border-radius:12px;display:block;width:100%;">
+  'Cable Tricep Pushdown': `<svg width="100%" viewBox="0 0 120 75" style="background:#f0f6ff;border-radius:12px;display:block;width:100%;">
       <text x="60" y="9" text-anchor="middle" fill="#39ff84" font-size="6.5" font-family="sans-serif" font-weight="700">TRICEP PUSHDOWN</text>
-      <text x="60" y="17" text-anchor="middle" fill="#4a7090" font-size="5" font-family="sans-serif">lateral + medial head</text>
-      <line x1="60" y1="18" x2="60" y2="28" stroke="#4a7090" stroke-width="1.5" stroke-linecap="round"/><line x1="45" y1="18" x2="75" y2="18" stroke="#39ff84" stroke-width="3" stroke-linecap="round"/><line x1="45" y1="15" x2="45" y2="22" stroke="#1e3448" stroke-width="3" stroke-linecap="round"/><line x1="75" y1="15" x2="75" y2="22" stroke="#1e3448" stroke-width="3" stroke-linecap="round"/><circle cx="60" cy="30" r="4" fill="none" stroke="#39ff84" stroke-width="1.8"/><line x1="60" y1="34" x2="60" y2="56" stroke="#8ab" stroke-width="3" stroke-linecap="round"/><line x1="57" y1="56" x2="52" y2="68" stroke="#8ab" stroke-width="2" stroke-linecap="round"/><line x1="63" y1="56" x2="68" y2="68" stroke="#8ab" stroke-width="2" stroke-linecap="round"/><line x1="57" y1="36" x2="52" y2="40" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="52" y1="40" x2="50" y2="56" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="63" y1="36" x2="68" y2="40" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="68" y1="40" x2="70" y2="56" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="44" y1="56" x2="76" y2="56" stroke="#39ff84" stroke-width="3" stroke-linecap="round"/><line x1="53" y1="46" x2="53" y2="54" stroke="#39ff8488" stroke-width="1.5" stroke-linecap="round"/><line x1="67" y1="46" x2="67" y2="54" stroke="#39ff8488" stroke-width="1.5" stroke-linecap="round"/>
+      <text x="60" y="17" text-anchor="middle" fill="#6090b0" font-size="5" font-family="sans-serif">lateral + medial head</text>
+      <line x1="60" y1="18" x2="60" y2="28" stroke="#6090b0" stroke-width="1.5" stroke-linecap="round"/><line x1="45" y1="18" x2="75" y2="18" stroke="#39ff84" stroke-width="3" stroke-linecap="round"/><line x1="45" y1="15" x2="45" y2="22" stroke="#b0c8e0" stroke-width="3" stroke-linecap="round"/><line x1="75" y1="15" x2="75" y2="22" stroke="#b0c8e0" stroke-width="3" stroke-linecap="round"/><circle cx="60" cy="30" r="4" fill="none" stroke="#39ff84" stroke-width="1.8"/><line x1="60" y1="34" x2="60" y2="56" stroke="#2a6090" stroke-width="3" stroke-linecap="round"/><line x1="57" y1="56" x2="52" y2="68" stroke="#2a6090" stroke-width="2" stroke-linecap="round"/><line x1="63" y1="56" x2="68" y2="68" stroke="#2a6090" stroke-width="2" stroke-linecap="round"/><line x1="57" y1="36" x2="52" y2="40" stroke="#4a90c0" stroke-width="2" stroke-linecap="round"/><line x1="52" y1="40" x2="50" y2="56" stroke="#4a90c0" stroke-width="2" stroke-linecap="round"/><line x1="63" y1="36" x2="68" y2="40" stroke="#4a90c0" stroke-width="2" stroke-linecap="round"/><line x1="68" y1="40" x2="70" y2="56" stroke="#4a90c0" stroke-width="2" stroke-linecap="round"/><line x1="44" y1="56" x2="76" y2="56" stroke="#39ff84" stroke-width="3" stroke-linecap="round"/><line x1="53" y1="46" x2="53" y2="54" stroke="#39ff8488" stroke-width="1.5" stroke-linecap="round"/><line x1="67" y1="46" x2="67" y2="54" stroke="#39ff8488" stroke-width="1.5" stroke-linecap="round"/>
     </svg>`,
-  'Back Squat': `<svg width="100%" viewBox="0 0 120 75" style="background:#0a1420;border-radius:12px;display:block;width:100%;">
+  'Back Squat': `<svg width="100%" viewBox="0 0 120 75" style="background:#f0f6ff;border-radius:12px;display:block;width:100%;">
       <text x="60" y="9" text-anchor="middle" fill="#39ff84" font-size="6.5" font-family="sans-serif" font-weight="700">BACK SQUAT</text>
-      <text x="60" y="17" text-anchor="middle" fill="#4a7090" font-size="5" font-family="sans-serif">quads · glutes · hamstrings</text>
-      <line x1="20" y1="20" x2="20" y2="70" stroke="#1e3448" stroke-width="2.5" stroke-linecap="round"/><line x1="100" y1="20" x2="100" y2="70" stroke="#1e3448" stroke-width="2.5" stroke-linecap="round"/><circle cx="60" cy="24" r="4" fill="none" stroke="#39ff84" stroke-width="1.8"/><line x1="60" y1="28" x2="60" y2="44" stroke="#8ab" stroke-width="3" stroke-linecap="round"/><line x1="60" y1="44" x2="46" y2="56" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="46" y1="56" x2="50" y2="68" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="60" y1="44" x2="74" y2="56" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="74" y1="56" x2="70" y2="68" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="30" y1="32" x2="90" y2="32" stroke="#39ff84" stroke-width="3" stroke-linecap="round"/><line x1="27" y1="28" x2="27" y2="36" stroke="#f59e0b" stroke-width="4" stroke-linecap="round"/><line x1="93" y1="28" x2="93" y2="36" stroke="#f59e0b" stroke-width="4" stroke-linecap="round"/><line x1="60" y1="68" x2="60" y2="58" stroke="#39ff8488" stroke-width="1.5" stroke-linecap="round"/><line x1="57" y1="61" x2="60" y2="58" stroke="#39ff8488" stroke-width="1.5" stroke-linecap="round"/><line x1="63" y1="61" x2="60" y2="58" stroke="#39ff8488" stroke-width="1.5" stroke-linecap="round"/>
+      <text x="60" y="17" text-anchor="middle" fill="#6090b0" font-size="5" font-family="sans-serif">quads · glutes · hamstrings</text>
+      <line x1="20" y1="20" x2="20" y2="70" stroke="#b0c8e0" stroke-width="2.5" stroke-linecap="round"/><line x1="100" y1="20" x2="100" y2="70" stroke="#b0c8e0" stroke-width="2.5" stroke-linecap="round"/><circle cx="60" cy="24" r="4" fill="none" stroke="#39ff84" stroke-width="1.8"/><line x1="60" y1="28" x2="60" y2="44" stroke="#2a6090" stroke-width="3" stroke-linecap="round"/><line x1="60" y1="44" x2="46" y2="56" stroke="#2a6090" stroke-width="2.5" stroke-linecap="round"/><line x1="46" y1="56" x2="50" y2="68" stroke="#2a6090" stroke-width="2.5" stroke-linecap="round"/><line x1="60" y1="44" x2="74" y2="56" stroke="#2a6090" stroke-width="2.5" stroke-linecap="round"/><line x1="74" y1="56" x2="70" y2="68" stroke="#2a6090" stroke-width="2.5" stroke-linecap="round"/><line x1="30" y1="32" x2="90" y2="32" stroke="#39ff84" stroke-width="3" stroke-linecap="round"/><line x1="27" y1="28" x2="27" y2="36" stroke="#f59e0b" stroke-width="4" stroke-linecap="round"/><line x1="93" y1="28" x2="93" y2="36" stroke="#f59e0b" stroke-width="4" stroke-linecap="round"/><line x1="60" y1="68" x2="60" y2="58" stroke="#39ff8488" stroke-width="1.5" stroke-linecap="round"/><line x1="57" y1="61" x2="60" y2="58" stroke="#39ff8488" stroke-width="1.5" stroke-linecap="round"/><line x1="63" y1="61" x2="60" y2="58" stroke="#39ff8488" stroke-width="1.5" stroke-linecap="round"/>
     </svg>`,
-  'Romanian Deadlift': `<svg width="100%" viewBox="0 0 120 75" style="background:#0a1420;border-radius:12px;display:block;width:100%;">
+  'Romanian Deadlift': `<svg width="100%" viewBox="0 0 120 75" style="background:#f0f6ff;border-radius:12px;display:block;width:100%;">
       <text x="60" y="9" text-anchor="middle" fill="#39ff84" font-size="6.5" font-family="sans-serif" font-weight="700">ROMANIAN DL</text>
-      <text x="60" y="17" text-anchor="middle" fill="#4a7090" font-size="5" font-family="sans-serif">hamstrings · glutes · hinge</text>
-      <circle cx="85" cy="28" r="4" fill="none" stroke="#39ff84" stroke-width="1.8"/><line x1="85" y1="32" x2="85" y2="44" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="85" y1="38" x2="40" y2="44" stroke="#8ab" stroke-width="3" stroke-linecap="round"/><line x1="40" y1="44" x2="45" y2="65" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="45" y1="65" x2="55" y2="65" stroke="#8ab" stroke-width="2" stroke-linecap="round"/><line x1="48" y1="44" x2="52" y2="65" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="52" y1="65" x2="62" y2="65" stroke="#8ab" stroke-width="2" stroke-linecap="round"/><line x1="60" y1="44" x2="56" y2="58" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="70" y1="44" x2="68" y2="58" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="50" y1="58" x2="62" y2="58" stroke="#f59e0b" stroke-width="4" stroke-linecap="round"/><line x1="62" y1="58" x2="74" y2="58" stroke="#f59e0b" stroke-width="4" stroke-linecap="round"/><path d="M85 50 Q75 55 68 50" fill="none" stroke="#39ff8488" stroke-width="1.5"/>
+      <text x="60" y="17" text-anchor="middle" fill="#6090b0" font-size="5" font-family="sans-serif">hamstrings · glutes · hinge</text>
+      <circle cx="85" cy="28" r="4" fill="none" stroke="#39ff84" stroke-width="1.8"/><line x1="85" y1="32" x2="85" y2="44" stroke="#2a6090" stroke-width="2.5" stroke-linecap="round"/><line x1="85" y1="38" x2="40" y2="44" stroke="#2a6090" stroke-width="3" stroke-linecap="round"/><line x1="40" y1="44" x2="45" y2="65" stroke="#2a6090" stroke-width="2.5" stroke-linecap="round"/><line x1="45" y1="65" x2="55" y2="65" stroke="#2a6090" stroke-width="2" stroke-linecap="round"/><line x1="48" y1="44" x2="52" y2="65" stroke="#2a6090" stroke-width="2.5" stroke-linecap="round"/><line x1="52" y1="65" x2="62" y2="65" stroke="#2a6090" stroke-width="2" stroke-linecap="round"/><line x1="60" y1="44" x2="56" y2="58" stroke="#4a90c0" stroke-width="2" stroke-linecap="round"/><line x1="70" y1="44" x2="68" y2="58" stroke="#4a90c0" stroke-width="2" stroke-linecap="round"/><line x1="50" y1="58" x2="62" y2="58" stroke="#f59e0b" stroke-width="4" stroke-linecap="round"/><line x1="62" y1="58" x2="74" y2="58" stroke="#f59e0b" stroke-width="4" stroke-linecap="round"/><path d="M85 50 Q75 55 68 50" fill="none" stroke="#39ff8488" stroke-width="1.5"/>
     </svg>`,
-  'Walking Lunges': `<svg width="100%" viewBox="0 0 120 75" style="background:#0a1420;border-radius:12px;display:block;width:100%;">
+  'Walking Lunges': `<svg width="100%" viewBox="0 0 120 75" style="background:#f0f6ff;border-radius:12px;display:block;width:100%;">
       <text x="60" y="9" text-anchor="middle" fill="#39ff84" font-size="6.5" font-family="sans-serif" font-weight="700">WALKING LUNGE</text>
-      <text x="60" y="17" text-anchor="middle" fill="#4a7090" font-size="5" font-family="sans-serif">quads · glutes · balance</text>
-      <circle cx="55" cy="24" r="4" fill="none" stroke="#39ff84" stroke-width="1.8"/><line x1="55" y1="28" x2="55" y2="44" stroke="#8ab" stroke-width="3" stroke-linecap="round"/><line x1="55" y1="44" x2="75" y2="52" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="75" y1="52" x2="78" y2="68" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="55" y1="44" x2="42" y2="52" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="42" y1="52" x2="38" y2="62" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="38" y1="62" x2="48" y2="65" stroke="#8ab" stroke-width="2" stroke-linecap="round"/><line x1="53" y1="34" x2="44" y2="40" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="57" y1="34" x2="66" y2="40" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="38" y1="38" x2="50" y2="40" stroke="#f59e0b" stroke-width="4" stroke-linecap="round"/><line x1="62" y1="38" x2="74" y2="40" stroke="#f59e0b" stroke-width="4" stroke-linecap="round"/>
+      <text x="60" y="17" text-anchor="middle" fill="#6090b0" font-size="5" font-family="sans-serif">quads · glutes · balance</text>
+      <circle cx="55" cy="24" r="4" fill="none" stroke="#39ff84" stroke-width="1.8"/><line x1="55" y1="28" x2="55" y2="44" stroke="#2a6090" stroke-width="3" stroke-linecap="round"/><line x1="55" y1="44" x2="75" y2="52" stroke="#2a6090" stroke-width="2.5" stroke-linecap="round"/><line x1="75" y1="52" x2="78" y2="68" stroke="#2a6090" stroke-width="2.5" stroke-linecap="round"/><line x1="55" y1="44" x2="42" y2="52" stroke="#2a6090" stroke-width="2.5" stroke-linecap="round"/><line x1="42" y1="52" x2="38" y2="62" stroke="#2a6090" stroke-width="2.5" stroke-linecap="round"/><line x1="38" y1="62" x2="48" y2="65" stroke="#2a6090" stroke-width="2" stroke-linecap="round"/><line x1="53" y1="34" x2="44" y2="40" stroke="#4a90c0" stroke-width="2" stroke-linecap="round"/><line x1="57" y1="34" x2="66" y2="40" stroke="#4a90c0" stroke-width="2" stroke-linecap="round"/><line x1="38" y1="38" x2="50" y2="40" stroke="#f59e0b" stroke-width="4" stroke-linecap="round"/><line x1="62" y1="38" x2="74" y2="40" stroke="#f59e0b" stroke-width="4" stroke-linecap="round"/>
     </svg>`,
-  'Leg Press': `<svg width="100%" viewBox="0 0 120 75" style="background:#0a1420;border-radius:12px;display:block;width:100%;">
+  'Leg Press': `<svg width="100%" viewBox="0 0 120 75" style="background:#f0f6ff;border-radius:12px;display:block;width:100%;">
       <text x="60" y="9" text-anchor="middle" fill="#39ff84" font-size="6.5" font-family="sans-serif" font-weight="700">LEG PRESS</text>
-      <text x="60" y="17" text-anchor="middle" fill="#4a7090" font-size="5" font-family="sans-serif">quads · glutes</text>
-      <line x1="20" y1="30" x2="20" y2="70" stroke="#1e3448" stroke-width="4" stroke-linecap="round"/><line x1="20" y1="70" x2="60" y2="70" stroke="#1e3448" stroke-width="3" stroke-linecap="round"/><line x1="70" y1="20" x2="95" y2="20" stroke="#39ff84" stroke-width="3" stroke-linecap="round"/><line x1="70" y1="17" x2="70" y2="24" stroke="#f59e0b" stroke-width="3" stroke-linecap="round"/><line x1="95" y1="17" x2="95" y2="24" stroke="#f59e0b" stroke-width="3" stroke-linecap="round"/><circle cx="26" cy="36" r="4" fill="none" stroke="#39ff84" stroke-width="1.8"/><line x1="26" y1="40" x2="30" y2="58" stroke="#8ab" stroke-width="3" stroke-linecap="round"/><line x1="30" y1="58" x2="55" y2="52" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="55" y1="52" x2="72" y2="26" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="82" y1="28" x2="88" y2="22" stroke="#39ff8488" stroke-width="1.5" stroke-linecap="round"/><line x1="84" y1="25" x2="88" y2="22" stroke="#39ff8488" stroke-width="1.5" stroke-linecap="round"/>
+      <text x="60" y="17" text-anchor="middle" fill="#6090b0" font-size="5" font-family="sans-serif">quads · glutes</text>
+      <line x1="20" y1="30" x2="20" y2="70" stroke="#b0c8e0" stroke-width="4" stroke-linecap="round"/><line x1="20" y1="70" x2="60" y2="70" stroke="#b0c8e0" stroke-width="3" stroke-linecap="round"/><line x1="70" y1="20" x2="95" y2="20" stroke="#39ff84" stroke-width="3" stroke-linecap="round"/><line x1="70" y1="17" x2="70" y2="24" stroke="#f59e0b" stroke-width="3" stroke-linecap="round"/><line x1="95" y1="17" x2="95" y2="24" stroke="#f59e0b" stroke-width="3" stroke-linecap="round"/><circle cx="26" cy="36" r="4" fill="none" stroke="#39ff84" stroke-width="1.8"/><line x1="26" y1="40" x2="30" y2="58" stroke="#2a6090" stroke-width="3" stroke-linecap="round"/><line x1="30" y1="58" x2="55" y2="52" stroke="#2a6090" stroke-width="2.5" stroke-linecap="round"/><line x1="55" y1="52" x2="72" y2="26" stroke="#2a6090" stroke-width="2.5" stroke-linecap="round"/><line x1="82" y1="28" x2="88" y2="22" stroke="#39ff8488" stroke-width="1.5" stroke-linecap="round"/><line x1="84" y1="25" x2="88" y2="22" stroke="#39ff8488" stroke-width="1.5" stroke-linecap="round"/>
     </svg>`,
-  'Leg Curl': `<svg width="100%" viewBox="0 0 120 75" style="background:#0a1420;border-radius:12px;display:block;width:100%;">
+  'Leg Curl': `<svg width="100%" viewBox="0 0 120 75" style="background:#f0f6ff;border-radius:12px;display:block;width:100%;">
       <text x="60" y="9" text-anchor="middle" fill="#39ff84" font-size="6.5" font-family="sans-serif" font-weight="700">LEG CURL</text>
-      <text x="60" y="17" text-anchor="middle" fill="#4a7090" font-size="5" font-family="sans-serif">hamstrings · knee flexion</text>
-      <line x1="15" y1="45" x2="95" y2="45" stroke="#1e3448" stroke-width="3" stroke-linecap="round"/><circle cx="95" cy="40" r="4" fill="none" stroke="#39ff84" stroke-width="1.8"/><line x1="91" y1="42" x2="30" y2="44" stroke="#8ab" stroke-width="3" stroke-linecap="round"/><line x1="30" y1="44" x2="28" y2="58" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="40" y1="44" x2="38" y2="56" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="38" y1="56" x2="46" y2="44" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="46" y1="44" x2="52" y2="35" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="48" y1="33" x2="56" y2="37" stroke="#39ff84" stroke-width="4" stroke-linecap="round"/><path d="M35 56 Q30 50 36 44" fill="none" stroke="#39ff8488" stroke-width="1.5"/>
+      <text x="60" y="17" text-anchor="middle" fill="#6090b0" font-size="5" font-family="sans-serif">hamstrings · knee flexion</text>
+      <line x1="15" y1="45" x2="95" y2="45" stroke="#b0c8e0" stroke-width="3" stroke-linecap="round"/><circle cx="95" cy="40" r="4" fill="none" stroke="#39ff84" stroke-width="1.8"/><line x1="91" y1="42" x2="30" y2="44" stroke="#2a6090" stroke-width="3" stroke-linecap="round"/><line x1="30" y1="44" x2="28" y2="58" stroke="#2a6090" stroke-width="2.5" stroke-linecap="round"/><line x1="40" y1="44" x2="38" y2="56" stroke="#2a6090" stroke-width="2.5" stroke-linecap="round"/><line x1="38" y1="56" x2="46" y2="44" stroke="#4a90c0" stroke-width="2" stroke-linecap="round"/><line x1="46" y1="44" x2="52" y2="35" stroke="#4a90c0" stroke-width="2" stroke-linecap="round"/><line x1="48" y1="33" x2="56" y2="37" stroke="#39ff84" stroke-width="4" stroke-linecap="round"/><path d="M35 56 Q30 50 36 44" fill="none" stroke="#39ff8488" stroke-width="1.5"/>
     </svg>`,
-  'Calf Raises': `<svg width="100%" viewBox="0 0 120 75" style="background:#0a1420;border-radius:12px;display:block;width:100%;">
+  'Calf Raises': `<svg width="100%" viewBox="0 0 120 75" style="background:#f0f6ff;border-radius:12px;display:block;width:100%;">
       <text x="60" y="9" text-anchor="middle" fill="#39ff84" font-size="6.5" font-family="sans-serif" font-weight="700">CALF RAISES</text>
-      <text x="60" y="17" text-anchor="middle" fill="#4a7090" font-size="5" font-family="sans-serif">gastrocnemius · soleus</text>
-      <line x1="35" y1="60" x2="85" y2="60" stroke="#1e3448" stroke-width="3" stroke-linecap="round"/><line x1="35" y1="58" x2="35" y2="68" stroke="#1e3448" stroke-width="2" stroke-linecap="round"/><circle cx="60" cy="24" r="4" fill="none" stroke="#39ff84" stroke-width="1.8"/><line x1="60" y1="28" x2="60" y2="50" stroke="#8ab" stroke-width="3" stroke-linecap="round"/><line x1="57" y1="50" x2="54" y2="60" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="63" y1="50" x2="66" y2="60" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="54" y1="60" x2="57" y2="65" stroke="#cde" stroke-width="2.5" stroke-linecap="round"/><line x1="66" y1="60" x2="63" y2="65" stroke="#cde" stroke-width="2.5" stroke-linecap="round"/><line x1="55" y1="56" x2="55" y2="50" stroke="#39ff8488" stroke-width="1.5" stroke-linecap="round"/><line x1="65" y1="56" x2="65" y2="50" stroke="#39ff8488" stroke-width="1.5" stroke-linecap="round"/><line x1="60" y1="36" x2="20" y2="36" stroke="#4a7090" stroke-width="1.5" stroke-linecap="round"/><line x1="20" y1="30" x2="20" y2="68" stroke="#1e3448" stroke-width="2" stroke-linecap="round"/>
+      <text x="60" y="17" text-anchor="middle" fill="#6090b0" font-size="5" font-family="sans-serif">gastrocnemius · soleus</text>
+      <line x1="35" y1="60" x2="85" y2="60" stroke="#b0c8e0" stroke-width="3" stroke-linecap="round"/><line x1="35" y1="58" x2="35" y2="68" stroke="#b0c8e0" stroke-width="2" stroke-linecap="round"/><circle cx="60" cy="24" r="4" fill="none" stroke="#39ff84" stroke-width="1.8"/><line x1="60" y1="28" x2="60" y2="50" stroke="#2a6090" stroke-width="3" stroke-linecap="round"/><line x1="57" y1="50" x2="54" y2="60" stroke="#2a6090" stroke-width="2.5" stroke-linecap="round"/><line x1="63" y1="50" x2="66" y2="60" stroke="#2a6090" stroke-width="2.5" stroke-linecap="round"/><line x1="54" y1="60" x2="57" y2="65" stroke="#4a90c0" stroke-width="2.5" stroke-linecap="round"/><line x1="66" y1="60" x2="63" y2="65" stroke="#4a90c0" stroke-width="2.5" stroke-linecap="round"/><line x1="55" y1="56" x2="55" y2="50" stroke="#39ff8488" stroke-width="1.5" stroke-linecap="round"/><line x1="65" y1="56" x2="65" y2="50" stroke="#39ff8488" stroke-width="1.5" stroke-linecap="round"/><line x1="60" y1="36" x2="20" y2="36" stroke="#6090b0" stroke-width="1.5" stroke-linecap="round"/><line x1="20" y1="30" x2="20" y2="68" stroke="#b0c8e0" stroke-width="2" stroke-linecap="round"/>
     </svg>`,
-  'Dumbbell Shoulder Press': `<svg width="100%" viewBox="0 0 120 75" style="background:#0a1420;border-radius:12px;display:block;width:100%;">
+  'Dumbbell Shoulder Press': `<svg width="100%" viewBox="0 0 120 75" style="background:#f0f6ff;border-radius:12px;display:block;width:100%;">
       <text x="60" y="9" text-anchor="middle" fill="#39ff84" font-size="6.5" font-family="sans-serif" font-weight="700">SHOULDER PRESS</text>
-      <text x="60" y="17" text-anchor="middle" fill="#4a7090" font-size="5" font-family="sans-serif">anterior delt · triceps</text>
-      <circle cx="60" cy="26" r="4" fill="none" stroke="#39ff84" stroke-width="1.8"/><line x1="60" y1="30" x2="60" y2="52" stroke="#8ab" stroke-width="3" stroke-linecap="round"/><line x1="57" y1="52" x2="52" y2="65" stroke="#8ab" stroke-width="2" stroke-linecap="round"/><line x1="63" y1="52" x2="68" y2="65" stroke="#8ab" stroke-width="2" stroke-linecap="round"/><line x1="57" y1="34" x2="38" y2="36" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="38" y1="36" x2="38" y2="26" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="63" y1="34" x2="82" y2="36" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="82" y1="36" x2="82" y2="26" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="32" y1="23" x2="44" y2="23" stroke="#f59e0b" stroke-width="4" stroke-linecap="round"/><line x1="76" y1="23" x2="88" y2="23" stroke="#f59e0b" stroke-width="4" stroke-linecap="round"/><line x1="38" y1="30" x2="38" y2="24" stroke="#39ff8488" stroke-width="1.5" stroke-linecap="round"/><line x1="82" y1="30" x2="82" y2="24" stroke="#39ff8488" stroke-width="1.5" stroke-linecap="round"/>
+      <text x="60" y="17" text-anchor="middle" fill="#6090b0" font-size="5" font-family="sans-serif">anterior delt · triceps</text>
+      <circle cx="60" cy="26" r="4" fill="none" stroke="#39ff84" stroke-width="1.8"/><line x1="60" y1="30" x2="60" y2="52" stroke="#2a6090" stroke-width="3" stroke-linecap="round"/><line x1="57" y1="52" x2="52" y2="65" stroke="#2a6090" stroke-width="2" stroke-linecap="round"/><line x1="63" y1="52" x2="68" y2="65" stroke="#2a6090" stroke-width="2" stroke-linecap="round"/><line x1="57" y1="34" x2="38" y2="36" stroke="#4a90c0" stroke-width="2" stroke-linecap="round"/><line x1="38" y1="36" x2="38" y2="26" stroke="#4a90c0" stroke-width="2" stroke-linecap="round"/><line x1="63" y1="34" x2="82" y2="36" stroke="#4a90c0" stroke-width="2" stroke-linecap="round"/><line x1="82" y1="36" x2="82" y2="26" stroke="#4a90c0" stroke-width="2" stroke-linecap="round"/><line x1="32" y1="23" x2="44" y2="23" stroke="#f59e0b" stroke-width="4" stroke-linecap="round"/><line x1="76" y1="23" x2="88" y2="23" stroke="#f59e0b" stroke-width="4" stroke-linecap="round"/><line x1="38" y1="30" x2="38" y2="24" stroke="#39ff8488" stroke-width="1.5" stroke-linecap="round"/><line x1="82" y1="30" x2="82" y2="24" stroke="#39ff8488" stroke-width="1.5" stroke-linecap="round"/>
     </svg>`,
-  'Bicep Curl + Tricep Pushdown': `<svg width="100%" viewBox="0 0 120 75" style="background:#0a1420;border-radius:12px;display:block;width:100%;">
+  'Bicep Curl + Tricep Pushdown': `<svg width="100%" viewBox="0 0 120 75" style="background:#f0f6ff;border-radius:12px;display:block;width:100%;">
       <text x="60" y="9" text-anchor="middle" fill="#39ff84" font-size="6.5" font-family="sans-serif" font-weight="700">BICEP + TRICEP</text>
-      <text x="60" y="17" text-anchor="middle" fill="#4a7090" font-size="5" font-family="sans-serif">superset · full arm</text>
-      <text x="30" y="27" text-anchor="middle" fill="#f59e0b" font-size="5" font-family="sans-serif">CURL</text><circle cx="30" cy="32" r="3" fill="none" stroke="#39ff84" stroke-width="1.8"/><line x1="30" y1="35" x2="30" y2="50" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="28" y1="38" x2="20" y2="42" stroke="#cde" stroke-width="1.8" stroke-linecap="round"/><line x1="20" y1="42" x2="18" y2="35" stroke="#cde" stroke-width="1.8" stroke-linecap="round"/><line x1="32" y1="38" x2="40" y2="42" stroke="#cde" stroke-width="1.8" stroke-linecap="round"/><line x1="40" y1="42" x2="42" y2="35" stroke="#cde" stroke-width="1.8" stroke-linecap="round"/><line x1="14" y1="33" x2="22" y2="33" stroke="#f59e0b" stroke-width="3" stroke-linecap="round"/><line x1="38" y1="33" x2="46" y2="33" stroke="#f59e0b" stroke-width="3" stroke-linecap="round"/><line x1="60" y1="25" x2="60" y2="70" stroke="#1e3448" stroke-width="1" stroke-linecap="round"/><text x="90" y="27" text-anchor="middle" fill="#a78bfa" font-size="5" font-family="sans-serif">PUSH</text><circle cx="90" cy="32" r="3" fill="none" stroke="#39ff84" stroke-width="1.8"/><line x1="90" y1="35" x2="90" y2="52" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="88" y1="37" x2="82" y2="40" stroke="#cde" stroke-width="1.8" stroke-linecap="round"/><line x1="82" y1="40" x2="80" y2="54" stroke="#cde" stroke-width="1.8" stroke-linecap="round"/><line x1="92" y1="37" x2="98" y2="40" stroke="#cde" stroke-width="1.8" stroke-linecap="round"/><line x1="98" y1="40" x2="100" y2="54" stroke="#cde" stroke-width="1.8" stroke-linecap="round"/><line x1="74" y1="54" x2="106" y2="54" stroke="#39ff84" stroke-width="3" stroke-linecap="round"/>
+      <text x="60" y="17" text-anchor="middle" fill="#6090b0" font-size="5" font-family="sans-serif">superset · full arm</text>
+      <text x="30" y="27" text-anchor="middle" fill="#f59e0b" font-size="5" font-family="sans-serif">CURL</text><circle cx="30" cy="32" r="3" fill="none" stroke="#39ff84" stroke-width="1.8"/><line x1="30" y1="35" x2="30" y2="50" stroke="#2a6090" stroke-width="2.5" stroke-linecap="round"/><line x1="28" y1="38" x2="20" y2="42" stroke="#4a90c0" stroke-width="1.8" stroke-linecap="round"/><line x1="20" y1="42" x2="18" y2="35" stroke="#4a90c0" stroke-width="1.8" stroke-linecap="round"/><line x1="32" y1="38" x2="40" y2="42" stroke="#4a90c0" stroke-width="1.8" stroke-linecap="round"/><line x1="40" y1="42" x2="42" y2="35" stroke="#4a90c0" stroke-width="1.8" stroke-linecap="round"/><line x1="14" y1="33" x2="22" y2="33" stroke="#f59e0b" stroke-width="3" stroke-linecap="round"/><line x1="38" y1="33" x2="46" y2="33" stroke="#f59e0b" stroke-width="3" stroke-linecap="round"/><line x1="60" y1="25" x2="60" y2="70" stroke="#b0c8e0" stroke-width="1" stroke-linecap="round"/><text x="90" y="27" text-anchor="middle" fill="#a78bfa" font-size="5" font-family="sans-serif">PUSH</text><circle cx="90" cy="32" r="3" fill="none" stroke="#39ff84" stroke-width="1.8"/><line x1="90" y1="35" x2="90" y2="52" stroke="#2a6090" stroke-width="2.5" stroke-linecap="round"/><line x1="88" y1="37" x2="82" y2="40" stroke="#4a90c0" stroke-width="1.8" stroke-linecap="round"/><line x1="82" y1="40" x2="80" y2="54" stroke="#4a90c0" stroke-width="1.8" stroke-linecap="round"/><line x1="92" y1="37" x2="98" y2="40" stroke="#4a90c0" stroke-width="1.8" stroke-linecap="round"/><line x1="98" y1="40" x2="100" y2="54" stroke="#4a90c0" stroke-width="1.8" stroke-linecap="round"/><line x1="74" y1="54" x2="106" y2="54" stroke="#39ff84" stroke-width="3" stroke-linecap="round"/>
     </svg>`,
-  'Easy Walk': `<svg width="100%" viewBox="0 0 120 75" style="background:#0a1420;border-radius:12px;display:block;width:100%;">
+  'Easy Walk': `<svg width="100%" viewBox="0 0 120 75" style="background:#f0f6ff;border-radius:12px;display:block;width:100%;">
       <text x="60" y="9" text-anchor="middle" fill="#39ff84" font-size="6.5" font-family="sans-serif" font-weight="700">EASY WALK</text>
-      <text x="60" y="17" text-anchor="middle" fill="#4a7090" font-size="5" font-family="sans-serif">active recovery · blood flow</text>
-      <circle cx="60" cy="24" r="4" fill="none" stroke="#39ff84" stroke-width="1.8"/><line x1="60" y1="28" x2="58" y2="48" stroke="#8ab" stroke-width="3" stroke-linecap="round"/><line x1="58" y1="34" x2="46" y2="40" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="58" y1="34" x2="70" y2="44" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="58" y1="48" x2="46" y2="60" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="46" y1="60" x2="50" y2="70" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="58" y1="48" x2="68" y2="56" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="68" y1="56" x2="60" y2="64" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="20" y1="70" x2="100" y2="70" stroke="#1e3448" stroke-width="1.5" stroke-linecap="round"/><line x1="25" y1="50" x2="32" y2="50" stroke="#39ff8444" stroke-width="1.5" stroke-linecap="round"/><line x1="20" y1="55" x2="30" y2="55" stroke="#39ff8444" stroke-width="1.5" stroke-linecap="round"/>
+      <text x="60" y="17" text-anchor="middle" fill="#6090b0" font-size="5" font-family="sans-serif">active recovery · blood flow</text>
+      <circle cx="60" cy="24" r="4" fill="none" stroke="#39ff84" stroke-width="1.8"/><line x1="60" y1="28" x2="58" y2="48" stroke="#2a6090" stroke-width="3" stroke-linecap="round"/><line x1="58" y1="34" x2="46" y2="40" stroke="#4a90c0" stroke-width="2" stroke-linecap="round"/><line x1="58" y1="34" x2="70" y2="44" stroke="#4a90c0" stroke-width="2" stroke-linecap="round"/><line x1="58" y1="48" x2="46" y2="60" stroke="#2a6090" stroke-width="2.5" stroke-linecap="round"/><line x1="46" y1="60" x2="50" y2="70" stroke="#2a6090" stroke-width="2.5" stroke-linecap="round"/><line x1="58" y1="48" x2="68" y2="56" stroke="#2a6090" stroke-width="2.5" stroke-linecap="round"/><line x1="68" y1="56" x2="60" y2="64" stroke="#2a6090" stroke-width="2.5" stroke-linecap="round"/><line x1="20" y1="70" x2="100" y2="70" stroke="#b0c8e0" stroke-width="1.5" stroke-linecap="round"/><line x1="25" y1="50" x2="32" y2="50" stroke="#39ff8444" stroke-width="1.5" stroke-linecap="round"/><line x1="20" y1="55" x2="30" y2="55" stroke="#39ff8444" stroke-width="1.5" stroke-linecap="round"/>
     </svg>`,
-  'Hip Flexor Stretch': `<svg width="100%" viewBox="0 0 120 75" style="background:#0a1420;border-radius:12px;display:block;width:100%;">
+  'Hip Flexor Stretch': `<svg width="100%" viewBox="0 0 120 75" style="background:#f0f6ff;border-radius:12px;display:block;width:100%;">
       <text x="60" y="9" text-anchor="middle" fill="#39ff84" font-size="6.5" font-family="sans-serif" font-weight="700">HIP FLEXOR</text>
-      <text x="60" y="17" text-anchor="middle" fill="#4a7090" font-size="5" font-family="sans-serif">mobility · squat depth</text>
-      <circle cx="65" cy="26" r="4" fill="none" stroke="#39ff84" stroke-width="1.8"/><line x1="65" y1="30" x2="63" y2="48" stroke="#8ab" stroke-width="3" stroke-linecap="round"/><line x1="63" y1="48" x2="78" y2="48" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="78" y1="48" x2="80" y2="65" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="78" y1="65" x2="90" y2="65" stroke="#8ab" stroke-width="2" stroke-linecap="round"/><line x1="63" y1="48" x2="50" y2="55" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="50" y1="55" x2="48" y2="68" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="40" y1="68" x2="56" y2="68" stroke="#8ab" stroke-width="2" stroke-linecap="round"/><path d="M62 46 Q56 42 58 36" fill="none" stroke="#39ff8488" stroke-width="2"/><line x1="10" y1="68" x2="110" y2="68" stroke="#1e3448" stroke-width="1.5" stroke-linecap="round"/>
+      <text x="60" y="17" text-anchor="middle" fill="#6090b0" font-size="5" font-family="sans-serif">mobility · squat depth</text>
+      <circle cx="65" cy="26" r="4" fill="none" stroke="#39ff84" stroke-width="1.8"/><line x1="65" y1="30" x2="63" y2="48" stroke="#2a6090" stroke-width="3" stroke-linecap="round"/><line x1="63" y1="48" x2="78" y2="48" stroke="#2a6090" stroke-width="2.5" stroke-linecap="round"/><line x1="78" y1="48" x2="80" y2="65" stroke="#2a6090" stroke-width="2.5" stroke-linecap="round"/><line x1="78" y1="65" x2="90" y2="65" stroke="#2a6090" stroke-width="2" stroke-linecap="round"/><line x1="63" y1="48" x2="50" y2="55" stroke="#2a6090" stroke-width="2.5" stroke-linecap="round"/><line x1="50" y1="55" x2="48" y2="68" stroke="#2a6090" stroke-width="2.5" stroke-linecap="round"/><line x1="40" y1="68" x2="56" y2="68" stroke="#2a6090" stroke-width="2" stroke-linecap="round"/><path d="M62 46 Q56 42 58 36" fill="none" stroke="#39ff8488" stroke-width="2"/><line x1="10" y1="68" x2="110" y2="68" stroke="#b0c8e0" stroke-width="1.5" stroke-linecap="round"/>
     </svg>`,
-  'Pigeon Pose': `<svg width="100%" viewBox="0 0 120 75" style="background:#0a1420;border-radius:12px;display:block;width:100%;">
+  'Pigeon Pose': `<svg width="100%" viewBox="0 0 120 75" style="background:#f0f6ff;border-radius:12px;display:block;width:100%;">
       <text x="60" y="9" text-anchor="middle" fill="#39ff84" font-size="6.5" font-family="sans-serif" font-weight="700">PIGEON POSE</text>
-      <text x="60" y="17" text-anchor="middle" fill="#4a7090" font-size="5" font-family="sans-serif">hip rotators · piriformis</text>
-      <line x1="30" y1="52" x2="70" y2="48" stroke="#8ab" stroke-width="3" stroke-linecap="round"/><line x1="30" y1="52" x2="25" y2="68" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="70" y1="48" x2="95" y2="60" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="50" y1="50" x2="50" y2="32" stroke="#8ab" stroke-width="3" stroke-linecap="round"/><circle cx="50" cy="28" r="4" fill="none" stroke="#39ff84" stroke-width="1.8"/><line x1="50" y1="32" x2="30" y2="40" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="50" y1="32" x2="70" y2="40" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="15" y1="68" x2="105" y2="68" stroke="#1e3448" stroke-width="1.5" stroke-linecap="round"/><path d="M35 60 Q28 54 32 48" fill="none" stroke="#39ff8488" stroke-width="2"/>
+      <text x="60" y="17" text-anchor="middle" fill="#6090b0" font-size="5" font-family="sans-serif">hip rotators · piriformis</text>
+      <line x1="30" y1="52" x2="70" y2="48" stroke="#2a6090" stroke-width="3" stroke-linecap="round"/><line x1="30" y1="52" x2="25" y2="68" stroke="#2a6090" stroke-width="2.5" stroke-linecap="round"/><line x1="70" y1="48" x2="95" y2="60" stroke="#2a6090" stroke-width="2.5" stroke-linecap="round"/><line x1="50" y1="50" x2="50" y2="32" stroke="#2a6090" stroke-width="3" stroke-linecap="round"/><circle cx="50" cy="28" r="4" fill="none" stroke="#39ff84" stroke-width="1.8"/><line x1="50" y1="32" x2="30" y2="40" stroke="#4a90c0" stroke-width="2" stroke-linecap="round"/><line x1="50" y1="32" x2="70" y2="40" stroke="#4a90c0" stroke-width="2" stroke-linecap="round"/><line x1="15" y1="68" x2="105" y2="68" stroke="#b0c8e0" stroke-width="1.5" stroke-linecap="round"/><path d="M35 60 Q28 54 32 48" fill="none" stroke="#39ff8488" stroke-width="2"/>
     </svg>`,
-  'Thoracic Rotation': `<svg width="100%" viewBox="0 0 120 75" style="background:#0a1420;border-radius:12px;display:block;width:100%;">
+  'Thoracic Rotation': `<svg width="100%" viewBox="0 0 120 75" style="background:#f0f6ff;border-radius:12px;display:block;width:100%;">
       <text x="60" y="9" text-anchor="middle" fill="#39ff84" font-size="6.5" font-family="sans-serif" font-weight="700">THORACIC ROTATION</text>
-      <text x="60" y="17" text-anchor="middle" fill="#4a7090" font-size="5" font-family="sans-serif">upper back mobility</text>
-      <circle cx="90" cy="46" r="4" fill="none" stroke="#39ff84" stroke-width="1.8"/><line x1="86" y1="48" x2="40" y2="50" stroke="#8ab" stroke-width="3" stroke-linecap="round"/><line x1="55" y1="50" x2="50" y2="62" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="50" y1="62" x2="65" y2="62" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="72" y1="50" x2="55" y2="44" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="72" y1="50" x2="88" y2="34" stroke="#39ff84" stroke-width="2" stroke-linecap="round"/><path d="M78 50 Q84 42 88 38" fill="none" stroke="#39ff8488" stroke-width="2"/><line x1="15" y1="65" x2="105" y2="65" stroke="#1e3448" stroke-width="1.5" stroke-linecap="round"/>
+      <text x="60" y="17" text-anchor="middle" fill="#6090b0" font-size="5" font-family="sans-serif">upper back mobility</text>
+      <circle cx="90" cy="46" r="4" fill="none" stroke="#39ff84" stroke-width="1.8"/><line x1="86" y1="48" x2="40" y2="50" stroke="#2a6090" stroke-width="3" stroke-linecap="round"/><line x1="55" y1="50" x2="50" y2="62" stroke="#2a6090" stroke-width="2.5" stroke-linecap="round"/><line x1="50" y1="62" x2="65" y2="62" stroke="#2a6090" stroke-width="2.5" stroke-linecap="round"/><line x1="72" y1="50" x2="55" y2="44" stroke="#4a90c0" stroke-width="2" stroke-linecap="round"/><line x1="72" y1="50" x2="88" y2="34" stroke="#39ff84" stroke-width="2" stroke-linecap="round"/><path d="M78 50 Q84 42 88 38" fill="none" stroke="#39ff8488" stroke-width="2"/><line x1="15" y1="65" x2="105" y2="65" stroke="#b0c8e0" stroke-width="1.5" stroke-linecap="round"/>
     </svg>`,
-  'Hamstring Stretch': `<svg width="100%" viewBox="0 0 120 75" style="background:#0a1420;border-radius:12px;display:block;width:100%;">
+  'Hamstring Stretch': `<svg width="100%" viewBox="0 0 120 75" style="background:#f0f6ff;border-radius:12px;display:block;width:100%;">
       <text x="60" y="9" text-anchor="middle" fill="#39ff84" font-size="6.5" font-family="sans-serif" font-weight="700">HAMSTRING STRETCH</text>
-      <text x="60" y="17" text-anchor="middle" fill="#4a7090" font-size="5" font-family="sans-serif">flexibility · injury prevention</text>
-      <circle cx="25" cy="32" r="4" fill="none" stroke="#39ff84" stroke-width="1.8"/><line x1="25" y1="36" x2="28" y2="52" stroke="#8ab" stroke-width="3" stroke-linecap="round"/><line x1="28" y1="52" x2="80" y2="52" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="80" y1="50" x2="86" y2="56" stroke="#8ab" stroke-width="2" stroke-linecap="round"/><line x1="28" y1="52" x2="28" y2="65" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="25" y1="40" x2="55" y2="52" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="25" y1="44" x2="60" y2="52" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="15" y1="65" x2="105" y2="65" stroke="#1e3448" stroke-width="1.5" stroke-linecap="round"/><path d="M30 48 Q50 44 58 48" fill="none" stroke="#39ff8488" stroke-width="2"/>
+      <text x="60" y="17" text-anchor="middle" fill="#6090b0" font-size="5" font-family="sans-serif">flexibility · injury prevention</text>
+      <circle cx="25" cy="32" r="4" fill="none" stroke="#39ff84" stroke-width="1.8"/><line x1="25" y1="36" x2="28" y2="52" stroke="#2a6090" stroke-width="3" stroke-linecap="round"/><line x1="28" y1="52" x2="80" y2="52" stroke="#2a6090" stroke-width="2.5" stroke-linecap="round"/><line x1="80" y1="50" x2="86" y2="56" stroke="#2a6090" stroke-width="2" stroke-linecap="round"/><line x1="28" y1="52" x2="28" y2="65" stroke="#2a6090" stroke-width="2.5" stroke-linecap="round"/><line x1="25" y1="40" x2="55" y2="52" stroke="#4a90c0" stroke-width="2" stroke-linecap="round"/><line x1="25" y1="44" x2="60" y2="52" stroke="#4a90c0" stroke-width="2" stroke-linecap="round"/><line x1="15" y1="65" x2="105" y2="65" stroke="#b0c8e0" stroke-width="1.5" stroke-linecap="round"/><path d="M30 48 Q50 44 58 48" fill="none" stroke="#39ff8488" stroke-width="2"/>
     </svg>`,
-  'Foam Roll': `<svg width="100%" viewBox="0 0 120 75" style="background:#0a1420;border-radius:12px;display:block;width:100%;">
+  'Foam Roll': `<svg width="100%" viewBox="0 0 120 75" style="background:#f0f6ff;border-radius:12px;display:block;width:100%;">
       <text x="60" y="9" text-anchor="middle" fill="#39ff84" font-size="6.5" font-family="sans-serif" font-weight="700">FOAM ROLL</text>
-      <text x="60" y="17" text-anchor="middle" fill="#4a7090" font-size="5" font-family="sans-serif">fascia · muscle recovery</text>
-      <ellipse cx="60" cy="58" rx="28" ry="6" fill="#1e3448" stroke="#39ff84" stroke-width="1.5"/><circle cx="95" cy="50" r="4" fill="none" stroke="#39ff84" stroke-width="1.8"/><line x1="91" y1="52" x2="32" y2="52" stroke="#8ab" stroke-width="3" stroke-linecap="round"/><line x1="32" y1="52" x2="28" y2="65" stroke="#8ab" stroke-width="2" stroke-linecap="round"/><line x1="44" y1="52" x2="42" y2="65" stroke="#8ab" stroke-width="2" stroke-linecap="round"/><line x1="80" y1="52" x2="75" y2="64" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="68" y1="52" x2="65" y2="64" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="15" y1="65" x2="105" y2="65" stroke="#1e3448" stroke-width="1.5" stroke-linecap="round"/>
+      <text x="60" y="17" text-anchor="middle" fill="#6090b0" font-size="5" font-family="sans-serif">fascia · muscle recovery</text>
+      <ellipse cx="60" cy="58" rx="28" ry="6" fill="#b0c8e0" stroke="#39ff84" stroke-width="1.5"/><circle cx="95" cy="50" r="4" fill="none" stroke="#39ff84" stroke-width="1.8"/><line x1="91" y1="52" x2="32" y2="52" stroke="#2a6090" stroke-width="3" stroke-linecap="round"/><line x1="32" y1="52" x2="28" y2="65" stroke="#2a6090" stroke-width="2" stroke-linecap="round"/><line x1="44" y1="52" x2="42" y2="65" stroke="#2a6090" stroke-width="2" stroke-linecap="round"/><line x1="80" y1="52" x2="75" y2="64" stroke="#4a90c0" stroke-width="2" stroke-linecap="round"/><line x1="68" y1="52" x2="65" y2="64" stroke="#4a90c0" stroke-width="2" stroke-linecap="round"/><line x1="15" y1="65" x2="105" y2="65" stroke="#b0c8e0" stroke-width="1.5" stroke-linecap="round"/>
     </svg>`,
-  'Apple Fitness+ Core': `<svg width="100%" viewBox="0 0 120 75" style="background:#0a1420;border-radius:12px;display:block;width:100%;">
+  'Apple Fitness+ Core': `<svg width="100%" viewBox="0 0 120 75" style="background:#f0f6ff;border-radius:12px;display:block;width:100%;">
       <text x="60" y="9" text-anchor="middle" fill="#39ff84" font-size="6.5" font-family="sans-serif" font-weight="700">APPLE FITNESS+ CORE</text>
-      <text x="60" y="17" text-anchor="middle" fill="#4a7090" font-size="5" font-family="sans-serif">10 min guided finisher</text>
-      <circle cx="95" cy="38" r="4" fill="none" stroke="#39ff84" stroke-width="1.8"/><line x1="91" y1="40" x2="30" y2="46" stroke="#8ab" stroke-width="3" stroke-linecap="round"/><line x1="30" y1="46" x2="25" y2="58" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="44" y1="48" x2="42" y2="58" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="78" y1="46" x2="75" y2="58" stroke="#8ab" stroke-width="2" stroke-linecap="round"/><line x1="88" y1="44" x2="88" y2="58" stroke="#8ab" stroke-width="2" stroke-linecap="round"/><circle cx="60" cy="28" r="8" fill="none" stroke="#39ff84" stroke-width="1.5"/><text x="60" y="31" text-anchor="middle" fill="#39ff84" font-size="8" font-family="sans-serif">✓</text><line x1="15" y1="58" x2="105" y2="58" stroke="#1e3448" stroke-width="1.5" stroke-linecap="round"/>
+      <text x="60" y="17" text-anchor="middle" fill="#6090b0" font-size="5" font-family="sans-serif">10 min guided finisher</text>
+      <circle cx="95" cy="38" r="4" fill="none" stroke="#39ff84" stroke-width="1.8"/><line x1="91" y1="40" x2="30" y2="46" stroke="#2a6090" stroke-width="3" stroke-linecap="round"/><line x1="30" y1="46" x2="25" y2="58" stroke="#2a6090" stroke-width="2.5" stroke-linecap="round"/><line x1="44" y1="48" x2="42" y2="58" stroke="#2a6090" stroke-width="2.5" stroke-linecap="round"/><line x1="78" y1="46" x2="75" y2="58" stroke="#2a6090" stroke-width="2" stroke-linecap="round"/><line x1="88" y1="44" x2="88" y2="58" stroke="#2a6090" stroke-width="2" stroke-linecap="round"/><circle cx="60" cy="28" r="8" fill="none" stroke="#39ff84" stroke-width="1.5"/><text x="60" y="31" text-anchor="middle" fill="#39ff84" font-size="8" font-family="sans-serif">✓</text><line x1="15" y1="58" x2="105" y2="58" stroke="#b0c8e0" stroke-width="1.5" stroke-linecap="round"/>
     </svg>`,
 };
 // 25 exercises defined
 const RESTAURANTS = {
-  'Naya':{emoji:'🫓',color:'#f59e0b',items:[
+  'Naya':{emoji:'🫓',color:'var(--orange)',items:[
     {name:'Chicken Shawarma Salad',cal:380,protein:32,carbs:18,fat:18,emoji:'🥗'},
     {name:'Beef Shawarma Salad',cal:430,protein:34,carbs:18,fat:22,emoji:'🥗'},
     {name:'Chicken Shawarma Bowl',cal:480,protein:36,carbs:52,fat:12,emoji:'🫓'},
@@ -727,7 +725,7 @@ const RESTAURANTS = {
     {name:'Garlic Whip',cal:60,protein:0,carbs:2,fat:6,emoji:'🧄'},
     {name:'Hummus',cal:120,protein:6,carbs:10,fat:7,emoji:'🫘'},
   ]},
-  'Chipotle':{emoji:'🌯',color:'#ef4444',items:[
+  'Chipotle':{emoji:'🌯',color:'var(--red)',items:[
     {name:'Chicken Burrito Bowl',cal:650,protein:40,carbs:70,fat:17,emoji:'🌯'},
     {name:'Steak Burrito Bowl',cal:680,protein:38,carbs:70,fat:20,emoji:'🌯'},
     {name:'Chicken Burrito',cal:860,protein:42,carbs:96,fat:24,emoji:'🌯'},
@@ -735,7 +733,7 @@ const RESTAURANTS = {
     {name:'Chicken Bowl (no rice)',cal:440,protein:40,carbs:22,fat:17,emoji:'🥗'},
     {name:'Chips + Guac',cal:510,protein:5,carbs:60,fat:28,emoji:'🥑'},
   ]},
-  'Cava':{emoji:'🥙',color:'#22d3ee',items:[
+  'Cava':{emoji:'🥙',color:'var(--cyan)',items:[
     {name:'Chicken Bowl',cal:620,protein:40,carbs:65,fat:18,emoji:'🥙'},
     {name:'Chicken Salad',cal:480,protein:38,carbs:22,fat:22,emoji:'🥗'},
     {name:'Lamb Bowl',cal:680,protein:38,carbs:65,fat:24,emoji:'🥙'},
@@ -743,7 +741,7 @@ const RESTAURANTS = {
     {name:'Braised Lamb + Greens',cal:420,protein:34,carbs:14,fat:26,emoji:'🥗'},
     {name:'Crazy Feta',cal:70,protein:2,carbs:2,fat:6,emoji:'🧀'},
   ]},
-  'Dos Toros':{emoji:'🌮',color:'#a78bfa',items:[
+  'Dos Toros':{emoji:'🌮',color:'var(--purple)',items:[
     {name:'Chicken Burrito',cal:780,protein:42,carbs:84,fat:24,emoji:'🌯'},
     {name:'Chicken Bowl',cal:620,protein:40,carbs:68,fat:16,emoji:'🥗'},
     {name:'Steak Bowl',cal:660,protein:37,carbs:68,fat:19,emoji:'🥗'},
@@ -751,7 +749,7 @@ const RESTAURANTS = {
     {name:'Steak Taco',cal:290,protein:17,carbs:24,fat:11,emoji:'🌮'},
     {name:'Chips',cal:230,protein:3,carbs:32,fat:10,emoji:'🥨'},
   ]},
-  'Westville':{emoji:'🥗',color:'#39ff84',items:[
+  'Westville':{emoji:'🥗',color:'var(--green)',items:[
     {name:'Grilled Chicken Sandwich',cal:620,protein:42,carbs:52,fat:18,emoji:'🥪'},
     {name:'Turkey Burger',cal:650,protein:44,carbs:48,fat:22,emoji:'🍔'},
     {name:'Grilled Salmon',cal:540,protein:46,carbs:22,fat:28,emoji:'🐟'},
@@ -911,9 +909,9 @@ function renderHeader(){
   const sw=settings.startWeight||180;
   const gw=settings.goalWeight||170;
   const lost=sw-cw;
-  document.getElementById('hdr-weight').innerHTML=cw+'<span style="font-size:14px;font-weight:500;color:#4a7090;margin-left:4px;">lbs</span>';
+  document.getElementById('hdr-weight').innerHTML=cw+'<span style="font-size:14px;font-weight:500;color:rgba(255,255,255,0.6);margin-left:4px;">lbs</span>';
   document.getElementById('hdr-lost').textContent=lost>0?`${lost.toFixed(1)} lbs lost`:`Start: ${sw} lbs`;
-  document.getElementById('hdr-lost').style.color=lost>0?'#39ff84':'#4a7090';
+  document.getElementById('hdr-lost').style.color=lost>0?'#aaffcc':'rgba(255,255,255,0.6)';
   document.getElementById('hdr-goal').textContent=gw;
   document.getElementById('hdr-days').textContent=getDaysLeft()+'d left';
   document.getElementById('hdr-prog').style.width=getProgress()+'%';
@@ -971,7 +969,7 @@ function renderHome(){
   let wkBanner='';
   if(todayWk&&todayWk!=='Rest Day'){
     const done=(d.workouts||[]).some(w=>w.name===todayWk);
-    wkBanner=`<div onclick="showTab('lift',document.querySelectorAll('.nav button')[2])" style="background:linear-gradient(135deg,rgba(13,40,24,0.95),rgba(10,25,18,0.95));border:1px solid rgba(57,255,132,0.3);border-radius:20px;padding:18px;margin-bottom:14px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;box-shadow:0 8px 32px rgba(57,255,132,0.1);">
+    wkBanner=`<div onclick="showTab('lift',document.querySelectorAll('.nav button')[2])" style="background:linear-gradient(135deg,#e8fff2,#f0fff8);border:1.5px solid rgba(0,168,84,0.3);border-radius:20px;padding:18px;margin-bottom:14px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;box-shadow:0 8px 32px rgba(57,255,132,0.1);">
       <div>
         <div style="font-family:'Barlow Condensed',sans-serif;font-size:10px;color:var(--green);letter-spacing:3px;font-weight:700;margin-bottom:4px;">TODAY'S WORKOUT</div>
         <div style="font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:900;">${(WORKOUTS[todayWk]?.emoji||'💪')} ${todayWk}</div>
@@ -980,7 +978,7 @@ function renderHome(){
       <div style="font-size:${done?'32':'24'}px;background:rgba(57,255,132,0.1);width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:1px solid rgba(57,255,132,0.2);">${done?'✅':'▷'}</div>
     </div>`;
   } else if(todayWk==='Rest Day'){
-    wkBanner=`<div class="card" style="text-align:center;padding:22px;margin-bottom:14px;border-color:rgba(167,139,250,0.3);">
+    wkBanner=`<div class="card" style="text-align:center;padding:22px;margin-bottom:14px;border-color:rgba(124,58,237,0.3);">
       <div style="font-size:32px;margin-bottom:8px;">🧘</div>
       <div style="font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:900;">REST DAY</div>
       <div style="font-size:12px;color:var(--muted);margin-top:4px;">Recovery is when your body builds muscle</div>
@@ -1082,16 +1080,16 @@ function renderFood(){
       <div class="card" style="display:flex;justify-content:space-between;align-items:center;">
         <div style="flex:1;">
           <div style="font-size:14px;font-weight:700;margin-bottom:2px;">${item.emoji} ${esc(item.name)}</div>
-          <div style="font-size:11px;color:#6b8aaa;">P ${item.protein}g · C ${item.carbs}g · F ${item.fat}g</div>
+          <div style="font-size:11px;color:var(--sub);">P ${item.protein}g · C ${item.carbs}g · F ${item.fat}g</div>
         </div>
         <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;">
-          <span style="font-size:18px;font-weight:900;color:#f59e0b;">${item.cal}</span>
+          <span style="font-size:18px;font-weight:900;color:var(--orange);">${item.cal}</span>
           <button class="btn" style="padding:6px 12px;font-size:11px;" onclick="addRestItem(${i})">+ Add</button>
         </div>
       </div>`).join('');
     el.innerHTML=`
       <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
-        <button onclick="menuRest=null;renderFood();" style="background:#1e3448;border:none;border-radius:8px;color:#fff;padding:8px 14px;cursor:pointer;font-weight:700;font-size:13px;">← Back</button>
+        <button onclick="menuRest=null;renderFood();" style="background:#e8f0f8;border:none;border-radius:8px;color:#fff;padding:8px 14px;cursor:pointer;font-weight:700;font-size:13px;">← Back</button>
         <div style="font-size:18px;font-weight:800;">${r.emoji} ${menuRest}</div>
       </div>
       ${items}`;
@@ -1112,8 +1110,8 @@ function renderFood(){
       <div class="meal-item">
         <div>
           <div style="font-size:14px;font-weight:700;">${f.emoji||'🍽️'} ${esc(f.name)}</div>
-          <div style="font-size:11px;color:#6b8aaa;">${f.cal} cal · P ${f.protein}g</div>
-          ${f.note?`<div style="font-size:10px;color:#4a6580;font-style:italic;">${esc(f.note)}</div>`:''}
+          <div style="font-size:11px;color:var(--sub);">${f.cal} cal · P ${f.protein}g</div>
+          ${f.note?`<div style="font-size:10px;color:var(--muted);font-style:italic;">${esc(f.note)}</div>`:''}
         </div>
         <button class="rm-btn" onclick="removeMealItem('${sec.key}','${f.id}')">×</button>
       </div>`).join('');
@@ -1124,7 +1122,7 @@ function renderFood(){
             <span style="font-size:15px;">${sec.emoji}</span>
             <span style="font-size:13px;font-weight:800;color:${sec.color};letter-spacing:2px;">${sec.label.toUpperCase()}</span>
           </div>
-          ${items.length?`<span style="font-size:11px;color:#6b8aaa;">${secCal} cal</span>`:''}
+          ${items.length?`<span style="font-size:11px;color:var(--sub);">${secCal} cal</span>`:''}
         </div>
         ${itemsHtml}
         <div style="display:flex;gap:8px;margin-top:4px;">
@@ -1145,8 +1143,8 @@ function renderFood(){
 
   el.innerHTML=`
     <div style="display:flex;gap:8px;margin-bottom:16px;">
-      <button onclick="foodMode='log';renderFood();" style="flex:1;padding:10px;background:${foodMode==='log'?'linear-gradient(135deg,rgba(57,255,132,0.2),rgba(0,212,255,0.1))':'rgba(17,28,39,0.9)'};border:1px solid ${foodMode==='log'?'rgba(57,255,132,0.4)':'var(--border)'};border-radius:12px;color:${foodMode==='log'?'var(--green)':'var(--muted)'};font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;letter-spacing:1px;font-family:'Barlow Condensed',sans-serif;">📋 FOOD LOG</button>
-      <button onclick="foodMode='plans';renderFood();" style="flex:1;padding:10px;background:${foodMode==='plans'?'linear-gradient(135deg,rgba(57,255,132,0.2),rgba(0,212,255,0.1))':'rgba(17,28,39,0.9)'};border:1px solid ${foodMode==='plans'?'rgba(57,255,132,0.4)':'var(--border)'};border-radius:12px;color:${foodMode==='plans'?'var(--green)':'var(--muted)'};font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;letter-spacing:1px;font-family:'Barlow Condensed',sans-serif;">🤖 MEAL PLANS</button>
+      <button onclick="foodMode='log';renderFood();" style="flex:1;padding:10px;background:${foodMode==='log'?'linear-gradient(135deg,rgba(0,168,84,0.12),rgba(0,153,204,0.08))':'rgba(17,28,39,0.9)'};border:1px solid ${foodMode==='log'?'rgba(57,255,132,0.4)':'var(--border)'};border-radius:12px;color:${foodMode==='log'?'var(--green)':'var(--muted)'};font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;letter-spacing:1px;font-family:'Barlow Condensed',sans-serif;">📋 FOOD LOG</button>
+      <button onclick="foodMode='plans';renderFood();" style="flex:1;padding:10px;background:${foodMode==='plans'?'linear-gradient(135deg,rgba(0,168,84,0.12),rgba(0,153,204,0.08))':'rgba(17,28,39,0.9)'};border:1px solid ${foodMode==='plans'?'rgba(57,255,132,0.4)':'var(--border)'};border-radius:12px;color:${foodMode==='plans'?'var(--green)':'var(--muted)'};font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;letter-spacing:1px;font-family:'Barlow Condensed',sans-serif;">🤖 MEAL PLANS</button>
     </div>
     <div style="margin-bottom:20px;">
       <div class="lbl">NYC Restaurants</div>
@@ -1320,7 +1318,7 @@ function renderBodyMetrics(){
       </div>
     </div>
 
-    ${proj?`<div style="background:linear-gradient(135deg,rgba(0,212,255,0.12),rgba(57,255,132,0.08));border:1px solid rgba(0,212,255,0.25);border-radius:20px;padding:20px;margin-bottom:14px;text-align:center;">
+    ${proj?`<div style="background:linear-gradient(135deg,#e8f7ff,#edfff5);border:1.5px solid #a0d8f0;border-radius:20px;padding:20px;margin-bottom:14px;text-align:center;">
       <div style="font-family:'Barlow Condensed',sans-serif;font-size:10px;color:var(--cyan);letter-spacing:3px;font-weight:700;margin-bottom:8px;">PROJECTED GOAL DATE</div>
       <div style="font-family:'Barlow Condensed',sans-serif;font-size:36px;font-weight:900;color:#fff;letter-spacing:-1px;">${proj.date}</div>
       <div style="font-size:12px;color:var(--muted);margin-top:6px;">${proj.days} days · ${lbsLeft.toFixed(1)} lbs to go at ${deficit} cal/day deficit</div>
@@ -1424,7 +1422,7 @@ function renderMealPlanner(){
   plan.meals.forEach(m=>m.items.forEach(i=>{planCal+=i.cal;planPro+=i.protein;planCarb+=i.carbs;planFat+=i.fat;}));
 
   const planTabs=MEAL_PLANS.map((p,i)=>`
-    <button onclick="selectedPlan=${i};renderFood();" style="flex:1;padding:10px 6px;background:${selectedPlan===i?'linear-gradient(135deg,rgba(57,255,132,0.2),rgba(0,212,255,0.1))':'none'};border:1px solid ${selectedPlan===i?'rgba(57,255,132,0.4)':'transparent'};border-radius:10px;color:${selectedPlan===i?'var(--green)':'var(--muted)'};font-size:9px;letter-spacing:1px;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-weight:700;display:flex;flex-direction:column;align-items:center;gap:3px;transition:all 0.2s;">
+    <button onclick="selectedPlan=${i};renderFood();" style="flex:1;padding:10px 6px;background:${selectedPlan===i?'linear-gradient(135deg,rgba(0,168,84,0.12),rgba(0,153,204,0.08))':'none'};border:1px solid ${selectedPlan===i?'rgba(57,255,132,0.4)':'transparent'};border-radius:10px;color:${selectedPlan===i?'var(--green)':'var(--muted)'};font-size:9px;letter-spacing:1px;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-weight:700;display:flex;flex-direction:column;align-items:center;gap:3px;transition:all 0.2s;">
       <span style="font-size:18px;">${p.emoji}</span>
       <span>${p.name.split(' ')[0].toUpperCase()}</span>
     </button>`).join('');
@@ -1451,7 +1449,7 @@ function renderMealPlanner(){
             <div style="font-size:10px;color:var(--muted);">${mCal} cal · ${mPro}g protein</div>
           </div>
         </div>
-        <button onclick="addMealToPlan(${selectedPlan},'${m.sec}')" style="background:rgba(57,255,132,0.1);border:1px solid rgba(57,255,132,0.3);border-radius:8px;color:var(--green);padding:6px 12px;cursor:pointer;font-size:11px;font-weight:700;font-family:inherit;">+ Add</button>
+        <button onclick="addMealToPlan(${selectedPlan},'${m.sec}')" style="background:rgba(57,255,132,0.1);border:1.5px solid rgba(0,168,84,0.3);border-radius:8px;color:var(--green);padding:6px 12px;cursor:pointer;font-size:11px;font-weight:700;font-family:inherit;">+ Add</button>
       </div>
       ${m.items.map(i=>`<div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid var(--border);">
         <span style="font-size:13px;">${i.emoji} ${i.name}</span>
@@ -1508,34 +1506,34 @@ function renderLift(){
         return `<div class="card" style="margin-bottom:12px;">
           ${svgHtml?`<div style="margin-bottom:10px;">${svgHtml}</div>`:''}
           <div style="font-weight:800;font-size:15px;margin-bottom:4px;">${ex.name}</div>
-          <div style="font-size:13px;color:#22d3ee;font-weight:700;margin-bottom:6px;">${ex.sets}</div>
-          <div style="font-size:12px;color:#b0c4dc;margin-bottom:8px;line-height:1.5;">${ex.note}</div>
-          <div style="background:#0d1820;border-radius:10px;padding:12px;border-left:3px solid #39ff84;">
-            <div style="font-size:10px;color:#39ff84;font-weight:700;letter-spacing:2px;margin-bottom:4px;">COACHING CUE</div>
-            <div style="font-size:12px;color:#8ab;line-height:1.6;">${ex.coaching}</div>
+          <div style="font-size:13px;color:var(--cyan);font-weight:700;margin-bottom:6px;">${ex.sets}</div>
+          <div style="font-size:12px;color:var(--text2);margin-bottom:8px;line-height:1.5;">${ex.note}</div>
+          <div style="background:#f5f8fa;border-radius:10px;padding:12px;border-left:3px solid #39ff84;">
+            <div style="font-size:10px;color:var(--green);font-weight:700;letter-spacing:2px;margin-bottom:4px;">COACHING CUE</div>
+            <div style="font-size:12px;color:var(--sub);line-height:1.6;">${ex.coaching}</div>
           </div>
         </div>`;
       }).join('');
       wkContent=`
-        <div style="background:#0d2010;border-radius:12px;padding:14px;margin-bottom:14px;border:1px solid #39ff8433;">
-          <div style="font-size:10px;color:#39ff84;letter-spacing:2px;font-weight:700;margin-bottom:4px;">TODAY: ${todayWk}</div>
-          <div style="font-size:12px;color:#b0c4dc;margin-bottom:6px;">${plan.focus} · ${plan.duration} · ${plan.calories}</div>
-          <div style="font-size:11px;color:#4a7090;line-height:1.5;margin-bottom:6px;"><span style="color:#f59e0b;font-weight:700;">WARMUP:</span> ${plan.warmup}</div>
-          <div style="font-size:11px;color:#4a7090;"><span style="color:#a78bfa;font-weight:700;">REST:</span> ${plan.rest}</div>
+        <div style="background:#edfff5;border-radius:12px;padding:14px;margin-bottom:14px;border:1px solid #39ff8433;">
+          <div style="font-size:10px;color:var(--green);letter-spacing:2px;font-weight:700;margin-bottom:4px;">TODAY: ${todayWk}</div>
+          <div style="font-size:12px;color:var(--text2);margin-bottom:6px;">${plan.focus} · ${plan.duration} · ${plan.calories}</div>
+          <div style="font-size:11px;color:var(--muted);line-height:1.5;margin-bottom:6px;"><span style="color:var(--orange);font-weight:700;">WARMUP:</span> ${plan.warmup}</div>
+          <div style="font-size:11px;color:var(--muted);"><span style="color:var(--purple);font-weight:700;">REST:</span> ${plan.rest}</div>
         </div>
         ${exercises}
-        <div style="background:#0d1820;border-radius:12px;padding:14px;border:1px solid #1e3448;margin-bottom:14px;">
-          <div style="font-size:10px;color:#f59e0b;font-weight:700;letter-spacing:2px;margin-bottom:6px;">COACH TIPS</div>
-          <div style="font-size:12px;color:#b0c4dc;line-height:1.6;">${plan.tips}</div>
+        <div style="background:#f5f8fa;border-radius:12px;padding:14px;border:1px solid var(--border);margin-bottom:14px;">
+          <div style="font-size:10px;color:var(--orange);font-weight:700;letter-spacing:2px;margin-bottom:6px;">COACH TIPS</div>
+          <div style="font-size:12px;color:var(--text2);line-height:1.6;">${plan.tips}</div>
         </div>`;
     } else if(todayWk==='Rest Day'){
-      wkContent=`<div class="card" style="text-align:center;padding:28px;"><div style="font-size:28px;margin-bottom:8px;">🧘</div><div style="font-size:18px;font-weight:800;">Rest Day</div><div style="font-size:12px;color:#4a7090;margin-top:6px;">Recovery is when your body actually builds muscle.<br>Sleep 7-8 hours. Hit your protein.</div></div>`;
+      wkContent=`<div class="card" style="text-align:center;padding:28px;"><div style="font-size:28px;margin-bottom:8px;">🧘</div><div style="font-size:18px;font-weight:800;">Rest Day</div><div style="font-size:12px;color:var(--muted);margin-top:6px;">Recovery is when your body actually builds muscle.<br>Sleep 7-8 hours. Hit your protein.</div></div>`;
     } else {
-      wkContent=`<div class="card" style="text-align:center;padding:24px;"><div style="font-size:13px;color:#4a7090;">No schedule set. Go to SCHEDULE tab to set your week.</div></div>`;
+      wkContent=`<div class="card" style="text-align:center;padding:24px;"><div style="font-size:13px;color:var(--muted);">No schedule set. Go to SCHEDULE tab to set your week.</div></div>`;
     }
     const logged=(d.workouts||[]).map(w=>`
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px;padding:8px 12px;background:#1a2535;border-radius:8px;">
-        <span style="font-size:13px;color:#39ff84;">${esc(w.name)}</span>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px;padding:8px 12px;background:#f0f4f8;border-radius:8px;">
+        <span style="font-size:13px;color:var(--green);">${esc(w.name)}</span>
         <button class="rm-btn" onclick="removeWorkout('${w.id}')">×</button>
       </div>`).join('');
     content=`${wkContent}
@@ -1554,26 +1552,26 @@ function renderLift(){
           <span style="font-size:28px;">${plan.emoji}</span>
           <div>
             <div style="font-weight:800;font-size:16px;">${name}</div>
-            <div style="font-size:11px;color:#39ff84;">${plan.duration} · ${plan.focus}</div>
-            <div style="font-size:11px;color:#f59e0b;">${plan.calories}</div>
+            <div style="font-size:11px;color:var(--green);">${plan.duration} · ${plan.focus}</div>
+            <div style="font-size:11px;color:var(--orange);">${plan.calories}</div>
           </div>
         </div>
-        <div style="font-size:10px;color:#4a7090;margin-bottom:8px;padding:10px;background:#0d1820;border-radius:8px;">
-          <span style="color:#f59e0b;font-weight:700;">WARMUP: </span>${plan.warmup}
+        <div style="font-size:10px;color:var(--muted);margin-bottom:8px;padding:10px;background:#f5f8fa;border-radius:8px;">
+          <span style="color:var(--orange);font-weight:700;">WARMUP: </span>${plan.warmup}
         </div>
         ${plan.exercises.map((ex,i)=>`
           <div style="margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid #1e3448;">
             ${EXERCISE_SVGS[ex.name]?`<div style="margin-bottom:8px;">${EXERCISE_SVGS[ex.name]}</div>`:''}
             <div style="font-size:13px;font-weight:800;margin-bottom:2px;">${i+1}. ${ex.name}</div>
-            <div style="font-size:12px;color:#22d3ee;font-weight:700;margin-bottom:4px;">${ex.sets}</div>
-            <div style="font-size:11px;color:#b0c4dc;margin-bottom:6px;">${ex.note}</div>
-            <div style="font-size:11px;color:#8ab;line-height:1.5;background:#0a1420;padding:8px;border-radius:8px;border-left:2px solid #39ff84;">${ex.coaching}</div>
+            <div style="font-size:12px;color:var(--cyan);font-weight:700;margin-bottom:4px;">${ex.sets}</div>
+            <div style="font-size:11px;color:var(--text2);margin-bottom:6px;">${ex.note}</div>
+            <div style="font-size:11px;color:var(--sub);line-height:1.5;background:#f0f6ff;padding:8px;border-radius:8px;border-left:2px solid #39ff84;">${ex.coaching}</div>
           </div>`).join('')}
-        <div style="background:#0d1820;border-radius:10px;padding:12px;margin-bottom:10px;">
-          <div style="font-size:10px;color:#f59e0b;font-weight:700;letter-spacing:2px;margin-bottom:4px;">COACH TIPS</div>
-          <div style="font-size:12px;color:#b0c4dc;line-height:1.6;">${plan.tips}</div>
+        <div style="background:#f5f8fa;border-radius:10px;padding:12px;margin-bottom:10px;">
+          <div style="font-size:10px;color:var(--orange);font-weight:700;letter-spacing:2px;margin-bottom:4px;">COACH TIPS</div>
+          <div style="font-size:12px;color:var(--text2);line-height:1.6;">${plan.tips}</div>
         </div>
-        <div style="font-size:10px;color:#4a7090;margin-bottom:10px;"><span style="color:#a78bfa;font-weight:700;">REST: </span>${plan.rest}</div>
+        <div style="font-size:10px;color:var(--muted);margin-bottom:10px;"><span style="color:var(--purple);font-weight:700;">REST: </span>${plan.rest}</div>
         <button class="btn" style="width:100%;text-align:center;" onclick="addWorkout('${name}')">✓ Log This Workout</button>
       </div>`).join('');
   } else if(wkMode==='prs'){
@@ -1583,13 +1581,13 @@ function renderLift(){
     const opts=['','Push Day','Pull Day','Lower Body','Upper Body','Active Recovery','Rest Day'];
     const rows=days.map((day,i)=>`
       <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px;">
-        <div style="width:82px;font-size:12px;color:#b0c4dc;">${day}</div>
-        <select style="flex:1;background:#0d1a27;border:1px solid #2a4060;border-radius:8px;color:#eef4fb;padding:8px 10px;font-size:12px;font-family:inherit;" onchange="schedule[${i}]=this.value;save('ft_sc3',schedule);">
+        <div style="width:82px;font-size:12px;color:var(--text2);">${day}</div>
+        <select style="flex:1;background:#f0f5ff;border:1px solid var(--border2);border-radius:8px;color:var(--text);padding:8px 10px;font-size:12px;font-family:inherit;" onchange="schedule[${i}]=this.value;save('ft_sc3',schedule);">
           ${opts.map(o=>`<option value="${o}" ${(schedule[i]||'')===(o)?'selected':''}>${o||'— off —'}</option>`).join('')}
         </select>
       </div>`).join('');
     content=`
-      <div style="font-size:10px;color:#7a9bbd;letter-spacing:2px;margin-bottom:14px;">SET YOUR WEEKLY SCHEDULE</div>
+      <div style="font-size:10px;color:var(--sub);letter-spacing:2px;margin-bottom:14px;">SET YOUR WEEKLY SCHEDULE</div>
       ${rows}
       <button class="btn" style="width:100%;margin-top:8px;" onclick="alert('Schedule saved!')">✓ Save Schedule</button>`;
   }
@@ -1615,16 +1613,16 @@ function renderWeight(){
     const pts=entries.map(([,w],i)=>`${toX(i)},${toY(w)}`).join(' ');
     const goalY=toY(gw);
     const dots=entries.map(([date,w],i)=>`
-      <circle cx="${toX(i)}" cy="${toY(w)}" r="4" fill="${w<=gw?'#39ff84':'#f59e0b'}" stroke="#0a1420" stroke-width="1.5"/>
+      <circle cx="${toX(i)}" cy="${toY(w)}" r="4" fill="${w<=gw?'#39ff84':'#f59e0b'}" stroke="#e8f2ff" stroke-width="1.5"/>
       ${(i===0||i===entries.length-1||entries.length<=6)?`<text x="${toX(i)}" y="${toY(w)-8}" text-anchor="middle" fill="#fff" font-size="8" font-family="sans-serif" font-weight="700">${w}</text>`:''}`).join('');
-    chartHtml=`<div style="background:#0a1420;border-radius:16px;padding:16px;border:1px solid #1e3448;margin-bottom:14px;">
+    chartHtml=`<div style="background:#f0f6ff;border-radius:16px;padding:16px;border:1px solid var(--border);margin-bottom:14px;">
       <svg width="100%" viewBox="0 0 ${W} ${H}" style="display:block;">
         <line x1="${P}" y1="${goalY}" x2="${W-P}" y2="${goalY}" stroke="#39ff84" stroke-width="1.5" stroke-dasharray="6,4" opacity="0.5"/>
         <polygon points="${toX(0)},${H-P} ${pts} ${toX(entries.length-1)},${H-P}" fill="#39ff8415"/>
         <polyline points="${pts}" fill="none" stroke="#39ff84" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
         ${dots}
       </svg>
-      <div style="display:flex;justify-content:space-between;margin-top:6px;font-size:10px;color:#4a7090;">
+      <div style="display:flex;justify-content:space-between;margin-top:6px;font-size:10px;color:var(--muted);">
         <span>${entries[0][0].slice(5)}</span>
         <span>${entries[entries.length-1][0].slice(5)}</span>
       </div>
@@ -1635,7 +1633,7 @@ function renderWeight(){
     const diff=sw-w;
     return `<div class="card" style="display:flex;justify-content:space-between;align-items:center;">
       <div>
-        <div style="font-size:12px;color:#4a7090;">${date}</div>
+        <div style="font-size:12px;color:var(--muted);">${date}</div>
         <div style="font-size:22px;font-weight:900;">${w} lbs</div>
       </div>
       <div style="display:flex;align-items:center;gap:10px;">
@@ -1646,16 +1644,16 @@ function renderWeight(){
   }).join('');
 
   el.innerHTML=`
-    <div class="card" style="margin-bottom:14px;border:2px solid #a78bfa44;">
+    <div class="card" style="margin-bottom:14px;border:2px solid rgba(124,58,237,0.25);">
       <div class="lbl">Log Weight</div>
       <div style="display:flex;gap:8px;">
         <input type="number" step="0.1" placeholder="178.5" id="wt-inp" class="inp" style="flex:1;font-size:24px;font-weight:900;text-align:center;" onkeydown="if(event.key==='Enter')logWeight(this.value)">
         <button class="btn" style="background:#a78bfa;" onclick="logWeight(document.getElementById('wt-inp').value)">LOG</button>
       </div>
-      ${weights[selDate]?`<div style="margin-top:10px;display:flex;justify-content:space-between;align-items:center;"><span style="font-size:12px;color:#a78bfa;">Logged: ${weights[selDate]} lbs</span><button onclick="removeWeight('${selDate}')" style="background:none;border:none;color:#6b8aaa;cursor:pointer;font-size:13px;">Remove</button></div>`:''}
+      ${weights[selDate]?`<div style="margin-top:10px;display:flex;justify-content:space-between;align-items:center;"><span style="font-size:12px;color:var(--purple);">Logged: ${weights[selDate]} lbs</span><button onclick="removeWeight('${selDate}')" style="background:none;border:none;color:var(--sub);cursor:pointer;font-size:13px;">Remove</button></div>`:''}
     </div>
     ${chartHtml}
-    ${entries.length===0?'<div class="card" style="text-align:center;padding:24px;color:#4a7090;">No weights logged yet</div>':history}`;
+    ${entries.length===0?'<div class="card" style="text-align:center;padding:24px;color:var(--muted);">No weights logged yet</div>':history}`;
 }
 
 // ── RENDER STATS ─────────────────────────────────────────────────
@@ -1674,7 +1672,7 @@ function renderStats(){
   const WORKOUT_GOAL=settings.weeklyWorkoutGoal||4;
 
   // ── WEIGHT CHART ──
-  let weightChart='<div class="card" style="margin-bottom:14px;text-align:center;padding:24px;color:#4a7090;">Log at least 2 weights to see your chart</div>';
+  let weightChart='<div class="card" style="margin-bottom:14px;text-align:center;padding:24px;color:var(--muted);">Log at least 2 weights to see your chart</div>';
   if(entries.length>=2){
     const vals=entries.map(([,w])=>w);
     const all=[...vals,gw,sw];
@@ -1685,10 +1683,10 @@ function renderStats(){
     const pts=entries.map(([,w],i)=>`${toX(i)},${toY(w)}`).join(' ');
     const goalY=toY(gw);
     const dots=entries.map(([date,w],i)=>`
-      <circle cx="${toX(i)}" cy="${toY(w)}" r="4.5" fill="${w<=gw?'#39ff84':'#f59e0b'}" stroke="#0a1420" stroke-width="2"/>
+      <circle cx="${toX(i)}" cy="${toY(w)}" r="4.5" fill="${w<=gw?'#39ff84':'#f59e0b'}" stroke="#e8f2ff" stroke-width="2"/>
       ${(i===0||i===entries.length-1||entries.length<=5)?`<text x="${toX(i)}" y="${toY(w)-9}" text-anchor="middle" fill="#fff" font-size="8" font-family="sans-serif" font-weight="700">${w}</text>`:''}`).join('');
-    weightChart=`<div style="background:#0a1420;border-radius:16px;padding:16px;border:1px solid #1e3448;margin-bottom:14px;">
-      <div style="font-size:10px;color:#a78bfa;letter-spacing:3px;font-weight:700;margin-bottom:10px;">WEIGHT PROGRESS</div>
+    weightChart=`<div style="background:#f0f6ff;border-radius:16px;padding:16px;border:1px solid var(--border);margin-bottom:14px;">
+      <div style="font-size:10px;color:var(--purple);letter-spacing:3px;font-weight:700;margin-bottom:10px;">WEIGHT PROGRESS</div>
       <svg width="100%" viewBox="0 0 ${W} ${H}" style="display:block;overflow:visible;">
         <defs><linearGradient id="wg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#39ff84" stop-opacity="0.3"/><stop offset="100%" stop-color="#39ff84" stop-opacity="0"/></linearGradient></defs>
         <line x1="${P}" y1="${goalY}" x2="${W-P}" y2="${goalY}" stroke="#39ff84" stroke-width="1" stroke-dasharray="5,4" opacity="0.4"/>
@@ -1697,7 +1695,7 @@ function renderStats(){
         <polyline points="${pts}" fill="none" stroke="#a78bfa" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
         ${dots}
       </svg>
-      <div style="display:flex;justify-content:space-between;margin-top:4px;font-size:10px;color:#4a7090;">
+      <div style="display:flex;justify-content:space-between;margin-top:4px;font-size:10px;color:var(--muted);">
         <span>${entries[0][0].slice(5)}</span>
         ${entries.length>2?`<span>${entries[Math.floor(entries.length/2)][0].slice(5)}</span>`:''}
         <span>${entries[entries.length-1][0].slice(5)}</span>
@@ -1732,10 +1730,10 @@ function renderStats(){
   }).join('');
   // goal line
   const goalLineY=chartH-(DAILY_CAL/maxCal)*(chartH-20);
-  const calChart=`<div style="background:#0a1420;border-radius:16px;padding:16px;border:1px solid #1e3448;margin-bottom:14px;">
+  const calChart=`<div style="background:#f0f6ff;border-radius:16px;padding:16px;border:1px solid var(--border);margin-bottom:14px;">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
-      <div style="font-size:10px;color:#f59e0b;letter-spacing:3px;font-weight:700;">CALORIES — LAST 7 DAYS</div>
-      <div style="font-size:10px;color:#4a7090;">goal: ${DAILY_CAL}</div>
+      <div style="font-size:10px;color:var(--orange);letter-spacing:3px;font-weight:700;">CALORIES — LAST 7 DAYS</div>
+      <div style="font-size:10px;color:var(--muted);">goal: ${DAILY_CAL}</div>
     </div>
     <svg width="100%" viewBox="0 0 ${chartW+10} ${chartH+24}" style="display:block;">
       <line x1="0" y1="${goalLineY}" x2="${chartW}" y2="${goalLineY}" stroke="#f59e0b" stroke-width="1" stroke-dasharray="4,3" opacity="0.5"/>
@@ -1757,10 +1755,10 @@ function renderStats(){
       <text x="${x+barW/2}" y="${chartH+10}" text-anchor="middle" fill="${d.date===today()?'#fff':'#4a7090'}" font-size="8" font-family="sans-serif">${d.label}</text>`;
   }).join('');
   const proGoalY=chartH-(DAILY_PRO/maxPro)*(chartH-20);
-  const proChart=`<div style="background:#0a1420;border-radius:16px;padding:16px;border:1px solid #1e3448;margin-bottom:14px;">
+  const proChart=`<div style="background:#f0f6ff;border-radius:16px;padding:16px;border:1px solid var(--border);margin-bottom:14px;">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
-      <div style="font-size:10px;color:#39ff84;letter-spacing:3px;font-weight:700;">PROTEIN — LAST 7 DAYS</div>
-      <div style="font-size:10px;color:#4a7090;">goal: ${DAILY_PRO}g</div>
+      <div style="font-size:10px;color:var(--green);letter-spacing:3px;font-weight:700;">PROTEIN — LAST 7 DAYS</div>
+      <div style="font-size:10px;color:var(--muted);">goal: ${DAILY_PRO}g</div>
     </div>
     <svg width="100%" viewBox="0 0 ${chartW+10} ${chartH+24}" style="display:block;">
       <line x1="0" y1="${proGoalY}" x2="${chartW}" y2="${proGoalY}" stroke="#39ff84" stroke-width="1" stroke-dasharray="4,3" opacity="0.5"/>
@@ -1812,16 +1810,16 @@ function renderStats(){
       <div style="font-size:9px;color:${d.key===today()?'#fff':'#4a7090'};font-weight:${d.key===today()?'700':'400'}">${d.label}</div>
     </div>`).join('');
 
-  const wkChart=`<div style="background:#0a1420;border-radius:16px;padding:16px;border:1px solid #1e3448;margin-bottom:14px;">
+  const wkChart=`<div style="background:#f0f6ff;border-radius:16px;padding:16px;border:1px solid var(--border);margin-bottom:14px;">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
-      <div style="font-size:10px;color:#22d3ee;letter-spacing:3px;font-weight:700;">THIS WEEK</div>
+      <div style="font-size:10px;color:var(--cyan);letter-spacing:3px;font-weight:700;">THIS WEEK</div>
       <div style="display:flex;align-items:center;gap:8px;">
         <span style="font-size:18px;font-weight:900;color:${thisWeekCount>=WORKOUT_GOAL?'#39ff84':'#fff'}">${thisWeekCount}</span>
-        <span style="font-size:12px;color:#4a7090;">/ ${WORKOUT_GOAL} workouts</span>
-        ${streak>0?`<span style="background:#f59e0b22;border:1px solid #f59e0b44;border-radius:8px;padding:2px 8px;font-size:10px;color:#f59e0b;font-weight:700;">🔥 ${streak}wk streak</span>`:''}
+        <span style="font-size:12px;color:var(--muted);">/ ${WORKOUT_GOAL} workouts</span>
+        ${streak>0?`<span style="background:#f59e0b22;border:1px solid #f59e0b44;border-radius:8px;padding:2px 8px;font-size:10px;color:var(--orange);font-weight:700;">🔥 ${streak}wk streak</span>`:''}
       </div>
     </div>
-    <div style="height:6px;background:#1e3448;border-radius:999px;overflow:hidden;margin-bottom:14px;">
+    <div style="height:6px;background:#e8f0f8;border-radius:999px;overflow:hidden;margin-bottom:14px;">
       <div style="height:100%;border-radius:999px;background:${wkPct>=100?'#39ff84':'linear-gradient(90deg,#22d3ee,#39ff84)'};width:${wkPct}%;transition:width 0.8s;"></div>
     </div>
     <div style="display:flex;justify-content:space-around;">${wkDots}</div>
@@ -1844,10 +1842,10 @@ function renderStats(){
       <text x="${x+wkBarW/2}" y="${wkH+12}" text-anchor="middle" fill="${wb.current?'#fff':'#4a7090'}" font-size="8" font-family="sans-serif" font-weight="${wb.current?'700':'400'}">${wb.current?'Now':`-${8-i-1}w`}</text>`;
   }).join('');
   const goalLineWk=wkH-(WORKOUT_GOAL/Math.max(WORKOUT_GOAL+1,1))*wkH;
-  const wkHistChart=`<div style="background:#0a1420;border-radius:16px;padding:16px;border:1px solid #1e3448;margin-bottom:14px;">
+  const wkHistChart=`<div style="background:#f0f6ff;border-radius:16px;padding:16px;border:1px solid var(--border);margin-bottom:14px;">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
-      <div style="font-size:10px;color:#22d3ee;letter-spacing:3px;font-weight:700;">WORKOUTS / WEEK</div>
-      <div style="font-size:10px;color:#4a7090;">goal: ${WORKOUT_GOAL}/wk</div>
+      <div style="font-size:10px;color:var(--cyan);letter-spacing:3px;font-weight:700;">WORKOUTS / WEEK</div>
+      <div style="font-size:10px;color:var(--muted);">goal: ${WORKOUT_GOAL}/wk</div>
     </div>
     <svg width="100%" viewBox="0 0 ${weekBars.length*(wkBarW+wkGap)+10} ${wkH+20}" style="display:block;">
       <line x1="0" y1="${goalLineWk}" x2="${weekBars.length*(wkBarW+wkGap)}" y2="${goalLineWk}" stroke="#39ff84" stroke-width="1" stroke-dasharray="4,3" opacity="0.5"/>
@@ -1867,20 +1865,20 @@ function renderStats(){
       <div class="lbl">Lost</div><div style="font-size:20px;font-weight:900;color:${lost>0?'#39ff84':'#fff'}">${lost>0?'-':''}${lost.toFixed(1)} lbs</div>
     </div>
     <div class="card" style="padding:14px;">
-      <div class="lbl">To Go</div><div style="font-size:20px;font-weight:900;color:#f59e0b;">${Math.max(0,cw-gw).toFixed(1)} lbs</div>
+      <div class="lbl">To Go</div><div style="font-size:20px;font-weight:900;color:var(--orange);">${Math.max(0,cw-gw).toFixed(1)} lbs</div>
     </div>
   </div>`;
 
   // ── PROGRESS BAR ──
   const progBar=`<div class="card" style="margin-bottom:14px;">
     <div class="lbl">Progress to Goal</div>
-    <div style="display:flex;justify-content:space-between;font-size:11px;font-weight:600;color:#4a7090;margin-bottom:6px;">
-      <span>${sw} lbs</span><span style="color:#39ff84;font-size:13px;font-weight:800;">${prog.toFixed(0)}%</span><span>${gw} lbs</span>
+    <div style="display:flex;justify-content:space-between;font-size:11px;font-weight:600;color:var(--muted);margin-bottom:6px;">
+      <span>${sw} lbs</span><span style="color:var(--green);font-size:13px;font-weight:800;">${prog.toFixed(0)}%</span><span>${gw} lbs</span>
     </div>
-    <div style="height:12px;background:#1e3448;border-radius:999px;overflow:hidden;">
+    <div style="height:12px;background:#e8f0f8;border-radius:999px;overflow:hidden;">
       <div style="height:100%;border-radius:999px;background:linear-gradient(90deg,#39ff84,#00d4ff);width:${prog}%;transition:width 1s;"></div>
     </div>
-    <div style="font-size:11px;color:#4a7090;text-align:center;margin-top:8px;">${dl} days until ${gd}</div>
+    <div style="font-size:11px;color:var(--muted);text-align:center;margin-top:8px;">${dl} days until ${gd}</div>
   </div>`;
 
   const bodySection = renderBodyMetrics();
@@ -1891,34 +1889,34 @@ function renderGoals(){
   const el=document.getElementById('tab-goals');
   const s=settings;
   el.innerHTML=`
-    <div class="card" style="margin-bottom:12px;border:2px solid #39ff8422;">
+    <div class="card" style="margin-bottom:12px;border:2px solid rgba(0,168,84,0.25);">
       <div class="lbl">Weight Goal</div>
       <div class="grid2" style="margin-bottom:0;">
         <div><div class="lbl">Start</div><input type="number" step="0.5" value="${s.startWeight||180}" class="inp" style="font-size:20px;font-weight:900;text-align:center;" id="g-sw"></div>
-        <div><div class="lbl">Goal</div><input type="number" step="0.5" value="${s.goalWeight||170}" class="inp" style="font-size:20px;font-weight:900;text-align:center;border-color:#39ff84;" id="g-gw"></div>
+        <div><div class="lbl">Goal</div><input type="number" step="0.5" value="${s.goalWeight||170}" class="inp" style="font-size:20px;font-weight:900;text-align:center;border-color:var(--green);" id="g-gw"></div>
       </div>
     </div>
-    <div class="card" style="margin-bottom:12px;border:2px solid #00d4ff22;">
+    <div class="card" style="margin-bottom:12px;border:2px solid rgba(0,212,255,0.25);">
       <div class="lbl">Timeline</div>
       <div class="grid2" style="margin-bottom:0;">
         <div><div class="lbl">Start Date</div><input type="date" value="${s.startDate||'2026-03-03'}" class="inp" style="font-size:13px;" id="g-sd"></div>
         <div><div class="lbl">Goal Date</div><input type="date" value="${s.goalDate||'2026-05-06'}" class="inp" style="font-size:13px;border-color:#00d4ff;" id="g-gd"></div>
       </div>
     </div>
-    <div class="card" style="margin-bottom:12px;border:2px solid #f59e0b22;">
+    <div class="card" style="margin-bottom:12px;border:2px solid rgba(245,158,11,0.25);">
       <div class="lbl">Daily Targets</div>
       <div class="grid2" style="margin-bottom:0;">
-        <div><div class="lbl">Calories</div><input type="number" step="50" value="${s.dailyCal||2000}" class="inp" style="font-size:20px;font-weight:900;text-align:center;border-color:#f59e0b;" id="g-cal"></div>
-        <div><div class="lbl">Protein (g)</div><input type="number" step="5" value="${s.dailyProtein||170}" class="inp" style="font-size:20px;font-weight:900;text-align:center;border-color:#39ff84;" id="g-pro"></div>
+        <div><div class="lbl">Calories</div><input type="number" step="50" value="${s.dailyCal||2000}" class="inp" style="font-size:20px;font-weight:900;text-align:center;border-color:var(--orange);" id="g-cal"></div>
+        <div><div class="lbl">Protein (g)</div><input type="number" step="5" value="${s.dailyProtein||170}" class="inp" style="font-size:20px;font-weight:900;text-align:center;border-color:var(--green);" id="g-pro"></div>
       </div>
     </div>
-    <div class="card" style="margin-bottom:16px;border:2px solid #22d3ee22;">
+    <div class="card" style="margin-bottom:16px;border:2px solid rgba(34,211,238,0.25);">
       <div class="lbl">Workout Goal</div>
       <div style="display:flex;align-items:center;gap:12px;">
         <div style="flex:1;">
-          <input type="number" step="1" min="1" max="7" value="${s.weeklyWorkoutGoal||4}" class="inp" style="font-size:28px;font-weight:900;text-align:center;border-color:#22d3ee;" id="g-wk">
+          <input type="number" step="1" min="1" max="7" value="${s.weeklyWorkoutGoal||4}" class="inp" style="font-size:28px;font-weight:900;text-align:center;border-color:var(--cyan);" id="g-wk">
         </div>
-        <div style="font-size:13px;color:#4a7090;line-height:1.5;">workouts<br>per week</div>
+        <div style="font-size:13px;color:var(--muted);line-height:1.5;">workouts<br>per week</div>
       </div>
       <div style="margin-top:10px;">
         <div style="display:flex;gap:6px;justify-content:center;">
@@ -1927,7 +1925,7 @@ function renderGoals(){
       </div>
     </div>
     <button class="btn" style="width:100%;font-size:15px;padding:16px;margin-bottom:10px;" onclick="applySettings()">✓ Save Changes</button>
-    <div id="g-saved" style="text-align:center;font-size:12px;color:#4a7090;display:none;">All goals saved ✓</div>`;
+    <div id="g-saved" style="text-align:center;font-size:12px;color:var(--muted);display:none;">All goals saved ✓</div>`;
 }
 function applySettings(){
   saveSettings({
