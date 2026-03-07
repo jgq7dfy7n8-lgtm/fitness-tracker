@@ -1,0 +1,1071 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>Fitness Tracker</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+body{background:#0a0f14;color:#fff;font-family:system-ui,-apple-system,sans-serif;max-width:480px;margin:0 auto;padding-bottom:80px;min-height:100vh;}
+input,select,button{font-family:inherit;outline:none;}
+.card{background:#111c27;border-radius:16px;padding:18px;border:1px solid #1e3448;margin-bottom:10px;}
+.inp{background:#0d1820;border:2px solid #1e3448;border-radius:10px;padding:12px 14px;color:#fff;font-size:14px;width:100%;}
+.btn{background:#39ff84;border:none;border-radius:10px;color:#000;padding:12px 20px;font-weight:800;font-size:13px;cursor:pointer;}
+.lbl{font-size:10px;color:#4a7090;letter-spacing:3px;font-weight:700;margin-bottom:10px;display:block;text-transform:uppercase;}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;}
+.nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:#080d12;border-top:2px solid #1e3448;padding:8px 4px 14px;display:flex;gap:2px;z-index:100;}
+.nav button{flex:1;padding:6px 2px;background:none;border:1px solid transparent;border-radius:8px;color:#4a7090;font-size:7px;letter-spacing:0.4px;cursor:pointer;font-family:inherit;font-weight:700;display:flex;flex-direction:column;align-items:center;gap:3px;}
+.nav button.active{background:#39ff8422;border-color:#39ff8466;color:#39ff84;}
+.nav button span.icon{font-size:16px;}
+.tab{display:none;padding:16px 16px 0;}
+.tab.active{display:block;}
+.header{background:linear-gradient(180deg,#0d2a1a,#0a0f14);padding:24px 16px 0;border-bottom:1px solid #1e3448;}
+.pill{background:#39ff8422;border:1px solid #39ff8455;border-radius:12px;padding:10px 14px;text-align:right;}
+.progress-bar{height:6px;background:#1e3448;border-radius:999px;overflow:hidden;margin-bottom:14px;}
+.progress-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,#39ff84,#00d4ff);transition:width 0.8s ease;}
+.row{display:flex;align-items:center;gap:8px;}
+.between{display:flex;justify-content:space-between;align-items:center;}
+.seg{display:flex;background:#152638;border-radius:10px;padding:4px;margin-bottom:14px;}
+.seg button{flex:1;padding:8px 4px;background:none;border:none;border-radius:8px;color:#6b8aaa;font-size:10px;letter-spacing:2px;cursor:pointer;font-family:inherit;font-weight:400;}
+.seg button.active{background:#39ff84;color:#0d1a27;font-weight:700;}
+.meal-item{background:#122030;border-radius:10px;padding:10px 14px;margin-bottom:6px;display:flex;justify-content:space-between;align-items:center;}
+.rm-btn{background:none;border:none;color:#6b8aaa;cursor:pointer;font-size:18px;line-height:1;padding:0 4px;}
+.rest-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:16px;}
+.rest-btn{background:#111c27;border-radius:12px;padding:12px 6px;cursor:pointer;border:1px solid #2a4060;display:flex;flex-direction:column;align-items:center;gap:6px;font-family:inherit;}
+.rest-btn span{font-size:10px;font-weight:800;color:#fff;}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+
+<div class="header" id="header">
+  <div class="between" style="margin-bottom:14px;">
+    <div>
+      <div style="font-size:10px;letter-spacing:4px;color:#39ff84;font-weight:700;margin-bottom:4px;">10 LB CUT</div>
+      <div style="font-size:34px;font-weight:900;letter-spacing:-2px;line-height:1;" id="hdr-weight">180<span style="font-size:14px;font-weight:500;color:#4a7090;margin-left:4px;">lbs</span></div>
+      <div style="font-size:12px;color:#4a7090;margin-top:4px;font-weight:600;" id="hdr-lost">Start: 180 lbs</div>
+    </div>
+    <div class="pill">
+      <div style="font-size:10px;color:#39ff84;font-weight:700;letter-spacing:2px;">GOAL</div>
+      <div style="font-size:22px;font-weight:900;color:#39ff84;" id="hdr-goal">170</div>
+      <div style="font-size:10px;color:#4a7090;margin-top:2px;" id="hdr-days">-- d left</div>
+    </div>
+  </div>
+  <div class="progress-bar"><div class="progress-fill" id="hdr-prog" style="width:0%"></div></div>
+  <div class="row" style="padding-bottom:14px;gap:8px;">
+    <input type="date" id="sel-date" style="background:#0d1820;border:1px solid #1e3448;border-radius:8px;color:#fff;padding:7px 12px;font-size:12px;font-weight:600;">
+    <button onclick="setToday()" style="background:#1e3448;border:none;border-radius:8px;color:#39ff84;padding:7px 12px;font-size:11px;cursor:pointer;font-weight:700;">TODAY</button>
+  </div>
+</div>
+
+<!-- TABS -->
+
+<div class="tab active" id="tab-home"></div>
+<div class="tab" id="tab-food"></div>
+<div class="tab" id="tab-lift"></div>
+<div class="tab" id="tab-weight"></div>
+<div class="tab" id="tab-stats"></div>
+<div class="tab" id="tab-goals"></div>
+
+<!-- NAV -->
+
+<nav class="nav">
+  <button class="active" onclick="showTab('home',this)"><span class="icon">⚡</span><span>HOME</span></button>
+  <button onclick="showTab('food',this)"><span class="icon">🍽️</span><span>FOOD</span></button>
+  <button onclick="showTab('lift',this)"><span class="icon">💪</span><span>LIFT</span></button>
+  <button onclick="showTab('weight',this)"><span class="icon">⚖️</span><span>WEIGHT</span></button>
+  <button onclick="showTab('stats',this)"><span class="icon">📈</span><span>STATS</span></button>
+  <button onclick="showTab('goals',this)"><span class="icon">⚙️</span><span>GOALS</span></button>
+</nav>
+
+<script>
+// ── STORAGE ──────────────────────────────────────────────────────
+function load(k,d){try{const s=localStorage.getItem(k);return s?JSON.parse(s):d;}catch(e){return d;}}
+function save(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}}
+
+// ── STATE ─────────────────────────────────────────────────────────
+let settings = load('ft_s3', {goalWeight:170,startWeight:180,goalDate:'2026-05-06',startDate:'2026-03-03',dailyCal:2000,dailyProtein:170});
+let logs     = load('ft_l3', {});
+let weights  = load('ft_w3', {});
+let schedule = load('ft_sc3', {});
+let selDate  = new Date().toISOString().split('T')[0];
+let curTab   = 'home';
+let wkMode   = 'today';
+let menuRest = null;
+
+// ── HELPERS ───────────────────────────────────────────────────────
+function today(){ return new Date().toISOString().split('T')[0]; }
+function todayDOW(){ return new Date().getDay(); }
+function daysSince(d){ return Math.max(0,Math.round((new Date()-new Date(d))/(864e5))); }
+function h(tag,cls,style,html,attrs){
+  const a=attrs?Object.entries(attrs).map(([k,v])=>` ${k}="${v}"`).join(''):'';
+  return `<${tag}${cls?` class="${cls}"`:''}${style?` style="${style}"`:''}${a}>${html||''}</${tag}>`;
+}
+function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+// ── DATA ──────────────────────────────────────────────────────────
+const MEAL_SECS = [
+  {key:'breakfast',label:'Breakfast',emoji:'🌅',color:'#f59e0b'},
+  {key:'lunch',    label:'Lunch',    emoji:'☀️', color:'#22d3ee'},
+  {key:'dinner',   label:'Dinner',   emoji:'🌙', color:'#a78bfa'},
+  {key:'snacks',   label:'Snacks',   emoji:'🍎', color:'#39ff84'},
+];
+
+const WORKOUTS = {
+  'Push Day':{
+    emoji:'💪', duration:'45 min', focus:'Chest · Shoulders · Triceps',
+    calories:'~280-360 cal',
+    warmup:'3 min: 2 sets of 10 pushups + arm circles to prime chest and shoulders before loading the bar.',
+    tips:'Timing: bench ~13 min, incline ~8 min, laterals ~6 min, cable tri extension ~6 min, pushdown ~6 min = 39 min lifting. Straight into the 10 min core class. Done in 45 flat.',
+    rest:'90s after bench · 75s after incline · 60s after all isolation',
+    exercises:[
+      {name:'Bench Press', sets:'4 sets × 8-10 reps',
+       note:'Heaviest lift first. Bar to mid-chest, elbows ~45°. Rest 90s.',
+       coaching:'Squeeze the bar like you\'re bending it — this activates your lats and keeps your shoulders safe. Big breath in, brace hard, lower 2 sec, press explosively. If you can\'t lock out cleanly, drop the weight.'},
+      {name:'Dumbbell Incline Press', sets:'3 sets × 10-12 reps',
+       note:'Bench at 30-45°. Full stretch at the bottom, press to meet at the top. Rest 75s.',
+       coaching:'The incline targets the upper chest (clavicular head) which most people underdev. Don\'t go steeper than 45° or it shifts to front delts. Control the descent — feel the upper chest loading on every rep.'},
+      {name:'Dumbbell Lateral Raise', sets:'3 sets × 15 reps',
+       note:'Slight elbow bend, raise to shoulder height only. Lead with elbows. Slow negative (3s down). Rest 60s.',
+       coaching:'This builds the middle delt — the wide-shoulder look. Almost everyone goes too heavy here and uses momentum. Drop the weight, slow it down, and actually feel the muscle working. Pinky slightly higher than thumb at the top.'},
+      {name:'Cable Overhead Tricep Extension', sets:'3 sets × 12-15 reps',
+       note:'High pulley, rope attachment. Face away from stack, hands behind head, extend to full lockout. Elbows stay pointed forward. Rest 60s.',
+       coaching:'This hits the long head of the tricep — the biggest portion. The overhead position puts it in a fully stretched position before contraction, which is optimal for growth. Keep elbows from flaring — they should point straight ahead throughout.'},
+      {name:'Cable Tricep Pushdown', sets:'3 sets × 12-15 reps',
+       note:'High pulley, rope or bar. Elbows pinned to sides. Full lockout at the bottom every rep. Rest 60s.',
+       coaching:'Two tricep exercises sounds like a lot — it\'s not. The extension hits the long head, the pushdown hits the lateral and medial heads. Together they cover the entire muscle. Full lockout is mandatory — that\'s peak contraction. If you skip it, you\'re leaving gains behind.'},
+      {name:'Apple Fitness+ Core', sets:'10 min',
+       note:'Core class to finish. Non-negotiable.',
+       coaching:'The core class ties everything together. Open Apple Fitness+ right after your last set while you\'re still warm.'},
+    ]},
+
+  'Pull Day':{
+    emoji:'🔗', duration:'45 min', focus:'Back · Biceps · Rear Delts',
+    calories:'~280-360 cal',
+    warmup:'3 min: shoulder rolls + 15 light-weight lat pulldowns to groove the movement before loading.',
+    tips:'Back training is all about feeling the right muscles work. You can always tell when you\'re pulling with your back vs just yanking with your arms. Chase the feeling of your lats contracting — not the number on the weight stack.',
+    rest:'90s after first pulldown · 75s after compound rows · 60s after curls',
+    exercises:[
+      {name:'Wide-Grip Lat Pulldown', sets:'4 sets × 8-10 reps',
+       note:'Overhand wide grip, pull bar to upper chest. Lean back 10-15°. Full dead hang at the top every rep. Rest 90s.',
+       coaching:'Before you pull, depress your shoulder blades — actively pull them down and back. This fires the lats instead of just your biceps. Think "elbows to your hip pockets." Squeeze hard for 1 sec at full contraction.'},
+      {name:'Close-Grip Lat Pulldown', sets:'3 sets × 10-12 reps',
+       note:'Narrow neutral grip handle, pull to sternum. Full stretch at the top. Rest 75s.',
+       coaching:'The neutral close grip lets you pull through a longer range and hammers the lower lats and teres major — muscles the wide grip misses. Two pulldown variations gives you complete lat coverage. Keep chest up throughout.'},
+      {name:'Seated Cable Row', sets:'3 sets × 10-12 reps',
+       note:'Neutral grip, pull handle to navel. Drive elbows back hard, squeeze shoulder blades together at the end. Torso stays upright — no rocking. Rest 75s.',
+       coaching:'The row trains horizontal pulling which the pulldowns don\'t. At full contraction your elbows should be behind your torso — that\'s where the rhomboids and mid-traps are maximally activated. Most people rush the return. Control it.'},
+      {name:'Cable Bicep Curl', sets:'3 sets × 12-15 reps',
+       note:'Low pulley, straight bar or EZ-bar. Elbows pinned to sides throughout. Full extension at the bottom. Rest 60s.',
+       coaching:'Cables keep constant tension at the bottom of the movement — where dumbbells go completely slack. That bottom range is critical for building the long head of the bicep. Slow the negative to 3 seconds on every rep. No swinging.'},
+      {name:'Dumbbell Hammer Curl', sets:'3 sets × 12 reps',
+       note:'Neutral grip (thumbs up), curl both or alternating. Full extension at bottom, squeeze at top. Rest 60s.',
+       coaching:'Hammer curls build the brachialis — the muscle under the bicep that pushes it up and gives you arm thickness and peak. Regular curls miss it entirely. Same strict form: elbows pinned, no swinging. You\'ll feel this in a different part of the arm than a regular curl.'},
+      {name:'Apple Fitness+ Core', sets:'10 min',
+       note:'Core class to finish.',
+       coaching:'Open Apple Fitness+ right after your last set. Core class finishes the session strong.'},
+    ]},
+
+  'Lower Body':{
+    emoji:'🦵', duration:'45 min', focus:'Quads · Hamstrings · Glutes · Calves',
+    calories:'~420-540 cal',
+    warmup:'3 min: 15 bodyweight squats, 10 leg swings per side, 15 glute bridges — activate the posterior chain before loading.',
+    tips:'Eat carbs 1 hour before this session — a banana, some rice, or oats gives your legs the glycogen they need. Protein within 30 min after. Your legs will be sore tomorrow. That soreness is adaptation.',
+    rest:'2 min after squats · 90s after RDL · 75s after press/curl · 45s calves',
+    exercises:[
+      {name:'Back Squat', sets:'4 sets × 6-8 reps',
+       note:'Bar on upper or lower traps. Feet shoulder-width, toes out 15-30°. Hit parallel — thighs parallel to floor — every rep. Rest 2 min.',
+       coaching:'Before unracking: big breath into your belly, brace your abs hard, squeeze your lats. Push your knees out over your toes as you descend. Drive through your full foot coming up. If your knees cave in, the weight is too heavy — reduce it and fix the pattern first.'},
+      {name:'Romanian Deadlift', sets:'3 sets × 10 reps',
+       note:'Dumbbells in hand. Hinge at hips — push them back — lower along your thighs until you feel a hard hamstring stretch. Drive hips forward to stand. Rest 90s.',
+       coaching:'This is a hinge, not a squat — your knees stay slightly bent but don\'t bend more. Feel the tension build in your hamstrings as the weights descend. That deep stretch at the bottom is the whole point. Keep the dumbbells close to your legs the entire way down.'},
+      {name:'Walking Lunges', sets:'3 sets × 10 each leg',
+       note:'Dumbbells at sides. Step, lower back knee toward floor, drive off front foot. 20 total steps per set. Rest 75s.',
+       coaching:'Torso stays upright — don\'t lean forward. Front knee tracks over your second toe. Lunges hit each leg independently and expose any imbalances. If balance is an issue, do stationary reverse lunges instead — same muscles, more stable.'},
+      {name:'Leg Press', sets:'3 sets × 12-15 reps',
+       note:'Feet shoulder-width on platform. Lower to 90° knee bend. Press through your full foot. Don\'t lock knees out at top. Rest 75s.',
+       coaching:'You can go heavier here than squats — use it to accumulate quad volume after the heavy squat work. Keep tension on the muscle by not fully extending at the top. High reps here burns extra calories and builds the muscle detail.'},
+      {name:'Leg Curl', sets:'3 sets × 12-15 reps',
+       note:'Lying or seated machine. 2 sec up, 3 sec down. Full range every rep. Rest 60s.',
+       coaching:'Most people have weaker hamstrings than quads from sitting all day. This directly addresses the imbalance. If one leg is noticeably stronger, do single-leg curls to equalize — an uncorrected imbalance will eventually cause a strain.'},
+      {name:'Calf Raises', sets:'3 sets × 20 reps',
+       note:'Edge of a step for full range. Full stretch at bottom, full contraction at top. 1 sec pause at peak. Rest 45s.',
+       coaching:'Calves only respond to full range and slow tempo — bouncing through reps does nothing. 2 sec up, 1 sec hold, 2 sec down. The deep burn means you\'re actually loading the muscle.'},
+      {name:'Apple Fitness+ Core', sets:'10 min',
+       note:'Core class to finish.',
+       coaching:'Your legs are cooked but your core is fresh. Core class after legs — important for protecting your spine under load in future sessions.'},
+    ]},
+
+  'Upper Body':{
+    emoji:'🏋️', duration:'45 min', focus:'Chest · Back · Biceps · Triceps',
+    calories:'~300-390 cal',
+    warmup:'3 min: arm circles, 10 pushups, 10 light dumbbell rows to prime the whole upper body.',
+    tips:'The superset at the end saves about 6 minutes and creates a massive arm pump. Don\'t skip it. By this point you\'re tired — but the arms are relatively fresh since the earlier exercises didn\'t directly fatigue them much.',
+    rest:'90s after bench · 75s after all compound rows/press · 75s between supersets',
+    exercises:[
+      {name:'Bench Press', sets:'4 sets × 8-10 reps',
+       note:'Heaviest compound first. Mid-chest contact, elbows 45°. Rest 90s.',
+       coaching:'Squeeze the bar, brace hard, lower slow, press explosive. Your chest should be the thing pushing the bar — not your shoulders or triceps. If it tilts unevenly, one side is stronger. Address it with single-arm dumbbell work.'},
+      {name:'Wide-Grip Lat Pulldown', sets:'3 sets × 10-12 reps',
+       note:'Wide overhand grip, pull to upper chest. Full dead hang at the top. Rest 75s.',
+       coaching:'Depress your shoulder blades before pulling — this is what makes it a lat exercise rather than a bicep exercise. Think "elbows to hip pockets." Squeeze for 1 sec at the bottom.'},
+      {name:'Dumbbell Shoulder Press', sets:'3 sets × 10-12 reps',
+       note:'Seated or standing. Dumbbells at ear height, press straight up, full lockout. Rest 75s.',
+       coaching:'Brace your core and squeeze your glutes to protect your lower back. The dumbbell version forces each side to work independently — critical for fixing imbalances that a barbell hides.'},
+      {name:'Seated Cable Row', sets:'3 sets × 10-12 reps',
+       note:'Neutral grip, pull to navel, drive elbows back, squeeze shoulder blades. Torso upright — no rocking. Rest 75s.',
+       coaching:'Pause at full contraction for 1 sec — your elbows should be behind your torso. That\'s where the mid-back is fully contracted. Rushing the return is the most common way to make this exercise useless.'},
+      {name:'Bicep Curl + Tricep Pushdown', sets:'3 supersets × 12 each',
+       note:'SUPERSET: do bicep curls immediately followed by pushdowns with no rest between. Rest 75s between supersets.',
+       coaching:'Supersetting biceps and triceps is time-efficient and actually works well — while one muscle contracts, the opposite one gets extra blood flow. Full lockout on pushdowns. Elbows pinned on curls. This is your arm finisher — make every rep count.'},
+      {name:'Apple Fitness+ Core', sets:'10 min',
+       note:'Core class to finish.',
+       coaching:'Core last. Spine needs to be stable and fresh for the core work to have maximum effect — don\'t do it first.'},
+    ]},
+
+  'Active Recovery':{
+    emoji:'🧘', duration:'25-35 min', focus:'Mobility · Flexibility · Blood Flow',
+    calories:'~80-140 cal',
+    warmup:'None — start easy.',
+    tips:'Sleep 7-8 hours tonight and hit your protein. Your muscles are rebuilding right now — give them what they need. Recovery is when your body actually builds muscle and burns fat — not during the workout itself.',
+    rest:'Move at your own pace',
+    exercises:[
+      {name:'Easy Walk', sets:'15-20 min',
+       note:'Easy conversational pace. Outdoors if possible — sunlight and fresh air lower cortisol and help recovery.',
+       coaching:'This isn\'t cardio — it\'s active blood flow. Walking mobilizes your joints, delivers nutrients to sore muscles, and shifts your nervous system out of the stress state. Don\'t add pace or incline. Just walk and let the body do its work.'},
+      {name:'Hip Flexor Stretch', sets:'2 × 45s each side',
+       note:'Kneeling lunge, back knee on floor. Shift weight forward until you feel a stretch deep in the front hip of the back leg. Torso tall.',
+       coaching:'Tight hip flexors from sitting reduce your squat depth and cause lower back pain. This directly addresses both. Breathe into the stretch — don\'t force it. Over weeks you\'ll notice your squat depth improving.'},
+      {name:'Pigeon Pose', sets:'2 × 60s each side',
+       note:'Shin forward, back leg extended, sink hips down. Fold torso forward if comfortable.',
+       coaching:'The most effective hip stretch you can do. Targets the piriformis and external rotators — tight from squatting and daily sitting. Let gravity work over the full 60 seconds. Breathe slowly and consciously release the tension.'},
+      {name:'Thoracic Rotation', sets:'2 × 10 each side',
+       note:'Side lying, knees bent 90°. Hold top knee down. Rotate top arm open behind you, eyes follow. Exhale as you open.',
+       coaching:'Upper back mobility is critical for pressing safely. Desk workers develop stiff thoracic spines which forces the lower back and shoulders to compensate — that\'s how injuries happen. This restores the rotation your spine needs.'},
+      {name:'Hamstring Stretch', sets:'2 × 45s each side',
+       note:'Seated, one leg straight, reach forward with a flat back. Feel the stretch in the belly of the hamstring — not your lower back.',
+       coaching:'After heavy RDLs and leg curls your hamstrings are shortened and tight. This restores their resting length. Back must stay flat — if it rounds, you\'re stretching your spine, not your hamstrings.'},
+      {name:'Foam Roll', sets:'5 min total',
+       note:'Quads, IT band, upper back. 1 inch per second. Pause 20-30s on tight spots.',
+       coaching:'Foam rolling breaks up fascial adhesions and reduces soreness. It\'s not supposed to be comfortable — the sore spots are exactly where you need time. Quads and IT band after leg days. Upper back after push/pull days.'},
+    ]},
+};
+
+
+
+const EXERCISE_SVGS = {
+  'Bench Press': `<svg width="100%" viewBox="0 0 120 75" style="background:#0a1420;border-radius:12px;display:block;width:100%;">
+      <text x="60" y="9" text-anchor="middle" fill="#39ff84" font-size="6.5" font-family="sans-serif" font-weight="700">BENCH PRESS</text>
+      <text x="60" y="17" text-anchor="middle" fill="#4a7090" font-size="5" font-family="sans-serif">chest · triceps · shoulders</text>
+      <circle cx="95" cy="54" r="4" fill="none" stroke="#39ff84" stroke-width="1.8"/><line x1="20" y1="58" x2="100" y2="58" stroke="#1e3448" stroke-width="3" stroke-linecap="round"/><line x1="30" y1="58" x2="30" y2="68" stroke="#1e3448" stroke-width="2.5" stroke-linecap="round"/><line x1="90" y1="58" x2="90" y2="68" stroke="#1e3448" stroke-width="2.5" stroke-linecap="round"/><line x1="91" y1="54" x2="30" y2="54" stroke="#8ab" stroke-width="3" stroke-linecap="round"/><line x1="75" y1="54" x2="68" y2="65" stroke="#8ab" stroke-width="2" stroke-linecap="round"/><line x1="50" y1="54" x2="43" y2="65" stroke="#8ab" stroke-width="2" stroke-linecap="round"/><line x1="70" y1="54" x2="68" y2="38" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="55" y1="54" x2="53" y2="38" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="45" y1="38" x2="80" y2="38" stroke="#39ff84" stroke-width="3" stroke-linecap="round"/><line x1="42" y1="34" x2="42" y2="42" stroke="#f59e0b" stroke-width="4" stroke-linecap="round"/><line x1="83" y1="34" x2="83" y2="42" stroke="#f59e0b" stroke-width="4" stroke-linecap="round"/>
+    </svg>`,
+  'Wide-Grip Lat Pulldown': `<svg width="100%" viewBox="0 0 120 75" style="background:#0a1420;border-radius:12px;display:block;width:100%;">
+      <text x="60" y="9" text-anchor="middle" fill="#39ff84" font-size="6.5" font-family="sans-serif" font-weight="700">WIDE PULLDOWN</text>
+      <text x="60" y="17" text-anchor="middle" fill="#4a7090" font-size="5" font-family="sans-serif">outer lats · width</text>
+      <line x1="20" y1="22" x2="100" y2="22" stroke="#39ff84" stroke-width="3" stroke-linecap="round"/><line x1="20" y1="18" x2="20" y2="28" stroke="#1e3448" stroke-width="3" stroke-linecap="round"/><line x1="100" y1="18" x2="100" y2="28" stroke="#1e3448" stroke-width="3" stroke-linecap="round"/><circle cx="60" cy="34" r="4" fill="none" stroke="#39ff84" stroke-width="1.8"/><line x1="60" y1="30" x2="28" y2="23" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="60" y1="30" x2="92" y2="23" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="60" y1="38" x2="60" y2="58" stroke="#8ab" stroke-width="3" stroke-linecap="round"/><line x1="57" y1="58" x2="52" y2="70" stroke="#8ab" stroke-width="2" stroke-linecap="round"/><line x1="63" y1="58" x2="68" y2="70" stroke="#8ab" stroke-width="2" stroke-linecap="round"/><line x1="35" y1="28" x2="40" y2="34" stroke="#39ff8488" stroke-width="1.5" stroke-linecap="round"/><line x1="85" y1="28" x2="80" y2="34" stroke="#39ff8488" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>`,
+  'Close-Grip Lat Pulldown': `<svg width="100%" viewBox="0 0 120 75" style="background:#0a1420;border-radius:12px;display:block;width:100%;">
+      <text x="60" y="9" text-anchor="middle" fill="#39ff84" font-size="6.5" font-family="sans-serif" font-weight="700">CLOSE PULLDOWN</text>
+      <text x="60" y="17" text-anchor="middle" fill="#4a7090" font-size="5" font-family="sans-serif">lower lats · thickness</text>
+      <line x1="20" y1="22" x2="100" y2="22" stroke="#39ff84" stroke-width="3" stroke-linecap="round"/><line x1="20" y1="18" x2="20" y2="28" stroke="#1e3448" stroke-width="3" stroke-linecap="round"/><line x1="100" y1="18" x2="100" y2="28" stroke="#1e3448" stroke-width="3" stroke-linecap="round"/><circle cx="60" cy="34" r="4" fill="none" stroke="#39ff84" stroke-width="1.8"/><line x1="60" y1="30" x2="48" y2="23" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="60" y1="30" x2="72" y2="23" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="60" y1="38" x2="60" y2="58" stroke="#8ab" stroke-width="3" stroke-linecap="round"/><line x1="57" y1="58" x2="52" y2="70" stroke="#8ab" stroke-width="2" stroke-linecap="round"/><line x1="63" y1="58" x2="68" y2="70" stroke="#8ab" stroke-width="2" stroke-linecap="round"/><line x1="45" y1="28" x2="50" y2="34" stroke="#39ff8488" stroke-width="1.5" stroke-linecap="round"/><line x1="75" y1="28" x2="70" y2="34" stroke="#39ff8488" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>`,
+  'Seated Cable Row': `<svg width="100%" viewBox="0 0 120 75" style="background:#0a1420;border-radius:12px;display:block;width:100%;">
+      <text x="60" y="9" text-anchor="middle" fill="#39ff84" font-size="6.5" font-family="sans-serif" font-weight="700">CABLE ROW</text>
+      <text x="60" y="17" text-anchor="middle" fill="#4a7090" font-size="5" font-family="sans-serif">mid-back · rhomboids · lats</text>
+      <line x1="15" y1="25" x2="15" y2="65" stroke="#1e3448" stroke-width="4" stroke-linecap="round"/><line x1="12" y1="48" x2="18" y2="48" stroke="#39ff84" stroke-width="3" stroke-linecap="round"/><circle cx="75" cy="32" r="4" fill="none" stroke="#39ff84" stroke-width="1.8"/><line x1="75" y1="36" x2="75" y2="52" stroke="#8ab" stroke-width="3" stroke-linecap="round"/><line x1="75" y1="52" x2="60" y2="52" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="60" y1="52" x2="60" y2="65" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="75" y1="52" x2="90" y2="52" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="90" y1="52" x2="90" y2="65" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="73" y1="40" x2="50" y2="46" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="50" y1="46" x2="18" y2="48" stroke="#4a7090" stroke-width="1.5" stroke-linecap="round"/><line x1="65" y1="42" x2="75" y2="42" stroke="#39ff8488" stroke-width="1.5" stroke-linecap="round"/><line x1="72" y1="39" x2="75" y2="42" stroke="#39ff8488" stroke-width="1.5" stroke-linecap="round"/><line x1="72" y1="45" x2="75" y2="42" stroke="#39ff8488" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>`,
+  'Cable Bicep Curl': `<svg width="100%" viewBox="0 0 120 75" style="background:#0a1420;border-radius:12px;display:block;width:100%;">
+      <text x="60" y="9" text-anchor="middle" fill="#39ff84" font-size="6.5" font-family="sans-serif" font-weight="700">CABLE CURL</text>
+      <text x="60" y="17" text-anchor="middle" fill="#4a7090" font-size="5" font-family="sans-serif">biceps · constant tension</text>
+      <line x1="15" y1="20" x2="15" y2="70" stroke="#1e3448" stroke-width="4" stroke-linecap="round"/><line x1="12" y1="22" x2="18" y2="22" stroke="#39ff84" stroke-width="3" stroke-linecap="round"/><line x1="15" y1="22" x2="42" y2="42" stroke="#4a7090" stroke-width="1.5" stroke-linecap="round"/><circle cx="60" cy="26" r="4" fill="none" stroke="#39ff84" stroke-width="1.8"/><line x1="60" y1="30" x2="60" y2="52" stroke="#8ab" stroke-width="3" stroke-linecap="round"/><line x1="57" y1="52" x2="52" y2="65" stroke="#8ab" stroke-width="2" stroke-linecap="round"/><line x1="63" y1="52" x2="68" y2="65" stroke="#8ab" stroke-width="2" stroke-linecap="round"/><line x1="58" y1="34" x2="44" y2="40" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="44" y1="40" x2="42" y2="32" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="62" y1="34" x2="76" y2="40" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="76" y1="40" x2="80" y2="48" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="80" y1="48" x2="88" y2="48" stroke="#f59e0b" stroke-width="4" stroke-linecap="round"/>
+    </svg>`,
+  'Dumbbell Hammer Curl': `<svg width="100%" viewBox="0 0 120 75" style="background:#0a1420;border-radius:12px;display:block;width:100%;">
+      <text x="60" y="9" text-anchor="middle" fill="#39ff84" font-size="6.5" font-family="sans-serif" font-weight="700">HAMMER CURL</text>
+      <text x="60" y="17" text-anchor="middle" fill="#4a7090" font-size="5" font-family="sans-serif">brachialis · bicep peak</text>
+      <circle cx="60" cy="26" r="4" fill="none" stroke="#39ff84" stroke-width="1.8"/><line x1="60" y1="30" x2="60" y2="52" stroke="#8ab" stroke-width="3" stroke-linecap="round"/><line x1="57" y1="52" x2="52" y2="65" stroke="#8ab" stroke-width="2" stroke-linecap="round"/><line x1="63" y1="52" x2="68" y2="65" stroke="#8ab" stroke-width="2" stroke-linecap="round"/><line x1="58" y1="34" x2="42" y2="40" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="42" y1="40" x2="40" y2="32" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="62" y1="34" x2="78" y2="40" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="78" y1="40" x2="80" y2="32" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="40" y1="28" x2="40" y2="38" stroke="#f59e0b" stroke-width="4" stroke-linecap="round"/><line x1="80" y1="28" x2="80" y2="38" stroke="#f59e0b" stroke-width="4" stroke-linecap="round"/>
+    </svg>`,
+  'Dumbbell Incline Press': `<svg width="100%" viewBox="0 0 120 75" style="background:#0a1420;border-radius:12px;display:block;width:100%;">
+      <text x="60" y="9" text-anchor="middle" fill="#39ff84" font-size="6.5" font-family="sans-serif" font-weight="700">INCLINE PRESS</text>
+      <text x="60" y="17" text-anchor="middle" fill="#4a7090" font-size="5" font-family="sans-serif">upper chest · front delts</text>
+      <line x1="15" y1="68" x2="85" y2="48" stroke="#1e3448" stroke-width="3" stroke-linecap="round"/><line x1="15" y1="68" x2="15" y2="75" stroke="#1e3448" stroke-width="3" stroke-linecap="round"/><line x1="85" y1="48" x2="95" y2="68" stroke="#1e3448" stroke-width="3" stroke-linecap="round"/><circle cx="88" cy="44" r="4" fill="none" stroke="#39ff84" stroke-width="1.8"/><line x1="84" y1="46" x2="30" y2="62" stroke="#8ab" stroke-width="3" stroke-linecap="round"/><line x1="40" y1="62" x2="32" y2="72" stroke="#8ab" stroke-width="2" stroke-linecap="round"/><line x1="55" y1="60" x2="50" y2="72" stroke="#8ab" stroke-width="2" stroke-linecap="round"/><line x1="72" y1="52" x2="66" y2="38" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="58" y1="56" x2="54" y2="40" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="58" y1="36" x2="72" y2="36" stroke="#39ff84" stroke-width="3" stroke-linecap="round"/><line x1="55" y1="33" x2="55" y2="39" stroke="#f59e0b" stroke-width="4" stroke-linecap="round"/><line x1="75" y1="33" x2="75" y2="39" stroke="#f59e0b" stroke-width="4" stroke-linecap="round"/>
+    </svg>`,
+  'Dumbbell Lateral Raise': `<svg width="100%" viewBox="0 0 120 75" style="background:#0a1420;border-radius:12px;display:block;width:100%;">
+      <text x="60" y="9" text-anchor="middle" fill="#39ff84" font-size="6.5" font-family="sans-serif" font-weight="700">LATERAL RAISE</text>
+      <text x="60" y="17" text-anchor="middle" fill="#4a7090" font-size="5" font-family="sans-serif">medial delt · shoulder width</text>
+      <circle cx="60" cy="26" r="4" fill="none" stroke="#39ff84" stroke-width="1.8"/><line x1="60" y1="30" x2="60" y2="52" stroke="#8ab" stroke-width="3" stroke-linecap="round"/><line x1="57" y1="52" x2="52" y2="65" stroke="#8ab" stroke-width="2" stroke-linecap="round"/><line x1="63" y1="52" x2="68" y2="65" stroke="#8ab" stroke-width="2" stroke-linecap="round"/><line x1="58" y1="34" x2="30" y2="36" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="62" y1="34" x2="90" y2="36" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="24" y1="33" x2="24" y2="39" stroke="#f59e0b" stroke-width="4" stroke-linecap="round"/><line x1="96" y1="33" x2="96" y2="39" stroke="#f59e0b" stroke-width="4" stroke-linecap="round"/><path d="M35 44 Q30 38 34 34" fill="none" stroke="#39ff8488" stroke-width="1.5"/><path d="M85 44 Q90 38 86 34" fill="none" stroke="#39ff8488" stroke-width="1.5"/>
+    </svg>`,
+  'Cable Overhead Tricep Extension': `<svg width="100%" viewBox="0 0 120 75" style="background:#0a1420;border-radius:12px;display:block;width:100%;">
+      <text x="60" y="9" text-anchor="middle" fill="#39ff84" font-size="6.5" font-family="sans-serif" font-weight="700">CABLE TRICEP EXT</text>
+      <text x="60" y="17" text-anchor="middle" fill="#4a7090" font-size="5" font-family="sans-serif">long head tricep</text>
+      <line x1="105" y1="20" x2="105" y2="70" stroke="#1e3448" stroke-width="4" stroke-linecap="round"/><line x1="102" y1="22" x2="108" y2="22" stroke="#39ff84" stroke-width="3" stroke-linecap="round"/><line x1="105" y1="22" x2="72" y2="32" stroke="#4a7090" stroke-width="1.5" stroke-linecap="round"/><circle cx="55" cy="26" r="4" fill="none" stroke="#39ff84" stroke-width="1.8"/><line x1="55" y1="30" x2="55" y2="52" stroke="#8ab" stroke-width="3" stroke-linecap="round"/><line x1="52" y1="52" x2="48" y2="65" stroke="#8ab" stroke-width="2" stroke-linecap="round"/><line x1="58" y1="52" x2="62" y2="65" stroke="#8ab" stroke-width="2" stroke-linecap="round"/><line x1="53" y1="32" x2="44" y2="24" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="44" y1="24" x2="52" y2="34" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="57" y1="32" x2="66" y2="24" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="66" y1="24" x2="72" y2="32" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="48" y1="30" x2="44" y2="22" stroke="#39ff8488" stroke-width="1.5" stroke-linecap="round"/><line x1="70" y1="28" x2="74" y2="20" stroke="#39ff8488" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>`,
+  'Cable Tricep Pushdown': `<svg width="100%" viewBox="0 0 120 75" style="background:#0a1420;border-radius:12px;display:block;width:100%;">
+      <text x="60" y="9" text-anchor="middle" fill="#39ff84" font-size="6.5" font-family="sans-serif" font-weight="700">TRICEP PUSHDOWN</text>
+      <text x="60" y="17" text-anchor="middle" fill="#4a7090" font-size="5" font-family="sans-serif">lateral + medial head</text>
+      <line x1="60" y1="18" x2="60" y2="28" stroke="#4a7090" stroke-width="1.5" stroke-linecap="round"/><line x1="45" y1="18" x2="75" y2="18" stroke="#39ff84" stroke-width="3" stroke-linecap="round"/><line x1="45" y1="15" x2="45" y2="22" stroke="#1e3448" stroke-width="3" stroke-linecap="round"/><line x1="75" y1="15" x2="75" y2="22" stroke="#1e3448" stroke-width="3" stroke-linecap="round"/><circle cx="60" cy="30" r="4" fill="none" stroke="#39ff84" stroke-width="1.8"/><line x1="60" y1="34" x2="60" y2="56" stroke="#8ab" stroke-width="3" stroke-linecap="round"/><line x1="57" y1="56" x2="52" y2="68" stroke="#8ab" stroke-width="2" stroke-linecap="round"/><line x1="63" y1="56" x2="68" y2="68" stroke="#8ab" stroke-width="2" stroke-linecap="round"/><line x1="57" y1="36" x2="52" y2="40" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="52" y1="40" x2="50" y2="56" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="63" y1="36" x2="68" y2="40" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="68" y1="40" x2="70" y2="56" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="44" y1="56" x2="76" y2="56" stroke="#39ff84" stroke-width="3" stroke-linecap="round"/><line x1="53" y1="46" x2="53" y2="54" stroke="#39ff8488" stroke-width="1.5" stroke-linecap="round"/><line x1="67" y1="46" x2="67" y2="54" stroke="#39ff8488" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>`,
+  'Back Squat': `<svg width="100%" viewBox="0 0 120 75" style="background:#0a1420;border-radius:12px;display:block;width:100%;">
+      <text x="60" y="9" text-anchor="middle" fill="#39ff84" font-size="6.5" font-family="sans-serif" font-weight="700">BACK SQUAT</text>
+      <text x="60" y="17" text-anchor="middle" fill="#4a7090" font-size="5" font-family="sans-serif">quads · glutes · hamstrings</text>
+      <line x1="20" y1="20" x2="20" y2="70" stroke="#1e3448" stroke-width="2.5" stroke-linecap="round"/><line x1="100" y1="20" x2="100" y2="70" stroke="#1e3448" stroke-width="2.5" stroke-linecap="round"/><circle cx="60" cy="24" r="4" fill="none" stroke="#39ff84" stroke-width="1.8"/><line x1="60" y1="28" x2="60" y2="44" stroke="#8ab" stroke-width="3" stroke-linecap="round"/><line x1="60" y1="44" x2="46" y2="56" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="46" y1="56" x2="50" y2="68" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="60" y1="44" x2="74" y2="56" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="74" y1="56" x2="70" y2="68" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="30" y1="32" x2="90" y2="32" stroke="#39ff84" stroke-width="3" stroke-linecap="round"/><line x1="27" y1="28" x2="27" y2="36" stroke="#f59e0b" stroke-width="4" stroke-linecap="round"/><line x1="93" y1="28" x2="93" y2="36" stroke="#f59e0b" stroke-width="4" stroke-linecap="round"/><line x1="60" y1="68" x2="60" y2="58" stroke="#39ff8488" stroke-width="1.5" stroke-linecap="round"/><line x1="57" y1="61" x2="60" y2="58" stroke="#39ff8488" stroke-width="1.5" stroke-linecap="round"/><line x1="63" y1="61" x2="60" y2="58" stroke="#39ff8488" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>`,
+  'Romanian Deadlift': `<svg width="100%" viewBox="0 0 120 75" style="background:#0a1420;border-radius:12px;display:block;width:100%;">
+      <text x="60" y="9" text-anchor="middle" fill="#39ff84" font-size="6.5" font-family="sans-serif" font-weight="700">ROMANIAN DL</text>
+      <text x="60" y="17" text-anchor="middle" fill="#4a7090" font-size="5" font-family="sans-serif">hamstrings · glutes · hinge</text>
+      <circle cx="85" cy="28" r="4" fill="none" stroke="#39ff84" stroke-width="1.8"/><line x1="85" y1="32" x2="85" y2="44" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="85" y1="38" x2="40" y2="44" stroke="#8ab" stroke-width="3" stroke-linecap="round"/><line x1="40" y1="44" x2="45" y2="65" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="45" y1="65" x2="55" y2="65" stroke="#8ab" stroke-width="2" stroke-linecap="round"/><line x1="48" y1="44" x2="52" y2="65" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="52" y1="65" x2="62" y2="65" stroke="#8ab" stroke-width="2" stroke-linecap="round"/><line x1="60" y1="44" x2="56" y2="58" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="70" y1="44" x2="68" y2="58" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="50" y1="58" x2="62" y2="58" stroke="#f59e0b" stroke-width="4" stroke-linecap="round"/><line x1="62" y1="58" x2="74" y2="58" stroke="#f59e0b" stroke-width="4" stroke-linecap="round"/><path d="M85 50 Q75 55 68 50" fill="none" stroke="#39ff8488" stroke-width="1.5"/>
+    </svg>`,
+  'Walking Lunges': `<svg width="100%" viewBox="0 0 120 75" style="background:#0a1420;border-radius:12px;display:block;width:100%;">
+      <text x="60" y="9" text-anchor="middle" fill="#39ff84" font-size="6.5" font-family="sans-serif" font-weight="700">WALKING LUNGE</text>
+      <text x="60" y="17" text-anchor="middle" fill="#4a7090" font-size="5" font-family="sans-serif">quads · glutes · balance</text>
+      <circle cx="55" cy="24" r="4" fill="none" stroke="#39ff84" stroke-width="1.8"/><line x1="55" y1="28" x2="55" y2="44" stroke="#8ab" stroke-width="3" stroke-linecap="round"/><line x1="55" y1="44" x2="75" y2="52" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="75" y1="52" x2="78" y2="68" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="55" y1="44" x2="42" y2="52" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="42" y1="52" x2="38" y2="62" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="38" y1="62" x2="48" y2="65" stroke="#8ab" stroke-width="2" stroke-linecap="round"/><line x1="53" y1="34" x2="44" y2="40" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="57" y1="34" x2="66" y2="40" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="38" y1="38" x2="50" y2="40" stroke="#f59e0b" stroke-width="4" stroke-linecap="round"/><line x1="62" y1="38" x2="74" y2="40" stroke="#f59e0b" stroke-width="4" stroke-linecap="round"/>
+    </svg>`,
+  'Leg Press': `<svg width="100%" viewBox="0 0 120 75" style="background:#0a1420;border-radius:12px;display:block;width:100%;">
+      <text x="60" y="9" text-anchor="middle" fill="#39ff84" font-size="6.5" font-family="sans-serif" font-weight="700">LEG PRESS</text>
+      <text x="60" y="17" text-anchor="middle" fill="#4a7090" font-size="5" font-family="sans-serif">quads · glutes</text>
+      <line x1="20" y1="30" x2="20" y2="70" stroke="#1e3448" stroke-width="4" stroke-linecap="round"/><line x1="20" y1="70" x2="60" y2="70" stroke="#1e3448" stroke-width="3" stroke-linecap="round"/><line x1="70" y1="20" x2="95" y2="20" stroke="#39ff84" stroke-width="3" stroke-linecap="round"/><line x1="70" y1="17" x2="70" y2="24" stroke="#f59e0b" stroke-width="3" stroke-linecap="round"/><line x1="95" y1="17" x2="95" y2="24" stroke="#f59e0b" stroke-width="3" stroke-linecap="round"/><circle cx="26" cy="36" r="4" fill="none" stroke="#39ff84" stroke-width="1.8"/><line x1="26" y1="40" x2="30" y2="58" stroke="#8ab" stroke-width="3" stroke-linecap="round"/><line x1="30" y1="58" x2="55" y2="52" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="55" y1="52" x2="72" y2="26" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="82" y1="28" x2="88" y2="22" stroke="#39ff8488" stroke-width="1.5" stroke-linecap="round"/><line x1="84" y1="25" x2="88" y2="22" stroke="#39ff8488" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>`,
+  'Leg Curl': `<svg width="100%" viewBox="0 0 120 75" style="background:#0a1420;border-radius:12px;display:block;width:100%;">
+      <text x="60" y="9" text-anchor="middle" fill="#39ff84" font-size="6.5" font-family="sans-serif" font-weight="700">LEG CURL</text>
+      <text x="60" y="17" text-anchor="middle" fill="#4a7090" font-size="5" font-family="sans-serif">hamstrings · knee flexion</text>
+      <line x1="15" y1="45" x2="95" y2="45" stroke="#1e3448" stroke-width="3" stroke-linecap="round"/><circle cx="95" cy="40" r="4" fill="none" stroke="#39ff84" stroke-width="1.8"/><line x1="91" y1="42" x2="30" y2="44" stroke="#8ab" stroke-width="3" stroke-linecap="round"/><line x1="30" y1="44" x2="28" y2="58" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="40" y1="44" x2="38" y2="56" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="38" y1="56" x2="46" y2="44" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="46" y1="44" x2="52" y2="35" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="48" y1="33" x2="56" y2="37" stroke="#39ff84" stroke-width="4" stroke-linecap="round"/><path d="M35 56 Q30 50 36 44" fill="none" stroke="#39ff8488" stroke-width="1.5"/>
+    </svg>`,
+  'Calf Raises': `<svg width="100%" viewBox="0 0 120 75" style="background:#0a1420;border-radius:12px;display:block;width:100%;">
+      <text x="60" y="9" text-anchor="middle" fill="#39ff84" font-size="6.5" font-family="sans-serif" font-weight="700">CALF RAISES</text>
+      <text x="60" y="17" text-anchor="middle" fill="#4a7090" font-size="5" font-family="sans-serif">gastrocnemius · soleus</text>
+      <line x1="35" y1="60" x2="85" y2="60" stroke="#1e3448" stroke-width="3" stroke-linecap="round"/><line x1="35" y1="58" x2="35" y2="68" stroke="#1e3448" stroke-width="2" stroke-linecap="round"/><circle cx="60" cy="24" r="4" fill="none" stroke="#39ff84" stroke-width="1.8"/><line x1="60" y1="28" x2="60" y2="50" stroke="#8ab" stroke-width="3" stroke-linecap="round"/><line x1="57" y1="50" x2="54" y2="60" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="63" y1="50" x2="66" y2="60" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="54" y1="60" x2="57" y2="65" stroke="#cde" stroke-width="2.5" stroke-linecap="round"/><line x1="66" y1="60" x2="63" y2="65" stroke="#cde" stroke-width="2.5" stroke-linecap="round"/><line x1="55" y1="56" x2="55" y2="50" stroke="#39ff8488" stroke-width="1.5" stroke-linecap="round"/><line x1="65" y1="56" x2="65" y2="50" stroke="#39ff8488" stroke-width="1.5" stroke-linecap="round"/><line x1="60" y1="36" x2="20" y2="36" stroke="#4a7090" stroke-width="1.5" stroke-linecap="round"/><line x1="20" y1="30" x2="20" y2="68" stroke="#1e3448" stroke-width="2" stroke-linecap="round"/>
+    </svg>`,
+  'Dumbbell Shoulder Press': `<svg width="100%" viewBox="0 0 120 75" style="background:#0a1420;border-radius:12px;display:block;width:100%;">
+      <text x="60" y="9" text-anchor="middle" fill="#39ff84" font-size="6.5" font-family="sans-serif" font-weight="700">SHOULDER PRESS</text>
+      <text x="60" y="17" text-anchor="middle" fill="#4a7090" font-size="5" font-family="sans-serif">anterior delt · triceps</text>
+      <circle cx="60" cy="26" r="4" fill="none" stroke="#39ff84" stroke-width="1.8"/><line x1="60" y1="30" x2="60" y2="52" stroke="#8ab" stroke-width="3" stroke-linecap="round"/><line x1="57" y1="52" x2="52" y2="65" stroke="#8ab" stroke-width="2" stroke-linecap="round"/><line x1="63" y1="52" x2="68" y2="65" stroke="#8ab" stroke-width="2" stroke-linecap="round"/><line x1="57" y1="34" x2="38" y2="36" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="38" y1="36" x2="38" y2="26" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="63" y1="34" x2="82" y2="36" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="82" y1="36" x2="82" y2="26" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="32" y1="23" x2="44" y2="23" stroke="#f59e0b" stroke-width="4" stroke-linecap="round"/><line x1="76" y1="23" x2="88" y2="23" stroke="#f59e0b" stroke-width="4" stroke-linecap="round"/><line x1="38" y1="30" x2="38" y2="24" stroke="#39ff8488" stroke-width="1.5" stroke-linecap="round"/><line x1="82" y1="30" x2="82" y2="24" stroke="#39ff8488" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>`,
+  'Bicep Curl + Tricep Pushdown': `<svg width="100%" viewBox="0 0 120 75" style="background:#0a1420;border-radius:12px;display:block;width:100%;">
+      <text x="60" y="9" text-anchor="middle" fill="#39ff84" font-size="6.5" font-family="sans-serif" font-weight="700">BICEP + TRICEP</text>
+      <text x="60" y="17" text-anchor="middle" fill="#4a7090" font-size="5" font-family="sans-serif">superset · full arm</text>
+      <text x="30" y="27" text-anchor="middle" fill="#f59e0b" font-size="5" font-family="sans-serif">CURL</text><circle cx="30" cy="32" r="3" fill="none" stroke="#39ff84" stroke-width="1.8"/><line x1="30" y1="35" x2="30" y2="50" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="28" y1="38" x2="20" y2="42" stroke="#cde" stroke-width="1.8" stroke-linecap="round"/><line x1="20" y1="42" x2="18" y2="35" stroke="#cde" stroke-width="1.8" stroke-linecap="round"/><line x1="32" y1="38" x2="40" y2="42" stroke="#cde" stroke-width="1.8" stroke-linecap="round"/><line x1="40" y1="42" x2="42" y2="35" stroke="#cde" stroke-width="1.8" stroke-linecap="round"/><line x1="14" y1="33" x2="22" y2="33" stroke="#f59e0b" stroke-width="3" stroke-linecap="round"/><line x1="38" y1="33" x2="46" y2="33" stroke="#f59e0b" stroke-width="3" stroke-linecap="round"/><line x1="60" y1="25" x2="60" y2="70" stroke="#1e3448" stroke-width="1" stroke-linecap="round"/><text x="90" y="27" text-anchor="middle" fill="#a78bfa" font-size="5" font-family="sans-serif">PUSH</text><circle cx="90" cy="32" r="3" fill="none" stroke="#39ff84" stroke-width="1.8"/><line x1="90" y1="35" x2="90" y2="52" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="88" y1="37" x2="82" y2="40" stroke="#cde" stroke-width="1.8" stroke-linecap="round"/><line x1="82" y1="40" x2="80" y2="54" stroke="#cde" stroke-width="1.8" stroke-linecap="round"/><line x1="92" y1="37" x2="98" y2="40" stroke="#cde" stroke-width="1.8" stroke-linecap="round"/><line x1="98" y1="40" x2="100" y2="54" stroke="#cde" stroke-width="1.8" stroke-linecap="round"/><line x1="74" y1="54" x2="106" y2="54" stroke="#39ff84" stroke-width="3" stroke-linecap="round"/>
+    </svg>`,
+  'Easy Walk': `<svg width="100%" viewBox="0 0 120 75" style="background:#0a1420;border-radius:12px;display:block;width:100%;">
+      <text x="60" y="9" text-anchor="middle" fill="#39ff84" font-size="6.5" font-family="sans-serif" font-weight="700">EASY WALK</text>
+      <text x="60" y="17" text-anchor="middle" fill="#4a7090" font-size="5" font-family="sans-serif">active recovery · blood flow</text>
+      <circle cx="60" cy="24" r="4" fill="none" stroke="#39ff84" stroke-width="1.8"/><line x1="60" y1="28" x2="58" y2="48" stroke="#8ab" stroke-width="3" stroke-linecap="round"/><line x1="58" y1="34" x2="46" y2="40" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="58" y1="34" x2="70" y2="44" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="58" y1="48" x2="46" y2="60" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="46" y1="60" x2="50" y2="70" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="58" y1="48" x2="68" y2="56" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="68" y1="56" x2="60" y2="64" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="20" y1="70" x2="100" y2="70" stroke="#1e3448" stroke-width="1.5" stroke-linecap="round"/><line x1="25" y1="50" x2="32" y2="50" stroke="#39ff8444" stroke-width="1.5" stroke-linecap="round"/><line x1="20" y1="55" x2="30" y2="55" stroke="#39ff8444" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>`,
+  'Hip Flexor Stretch': `<svg width="100%" viewBox="0 0 120 75" style="background:#0a1420;border-radius:12px;display:block;width:100%;">
+      <text x="60" y="9" text-anchor="middle" fill="#39ff84" font-size="6.5" font-family="sans-serif" font-weight="700">HIP FLEXOR</text>
+      <text x="60" y="17" text-anchor="middle" fill="#4a7090" font-size="5" font-family="sans-serif">mobility · squat depth</text>
+      <circle cx="65" cy="26" r="4" fill="none" stroke="#39ff84" stroke-width="1.8"/><line x1="65" y1="30" x2="63" y2="48" stroke="#8ab" stroke-width="3" stroke-linecap="round"/><line x1="63" y1="48" x2="78" y2="48" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="78" y1="48" x2="80" y2="65" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="78" y1="65" x2="90" y2="65" stroke="#8ab" stroke-width="2" stroke-linecap="round"/><line x1="63" y1="48" x2="50" y2="55" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="50" y1="55" x2="48" y2="68" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="40" y1="68" x2="56" y2="68" stroke="#8ab" stroke-width="2" stroke-linecap="round"/><path d="M62 46 Q56 42 58 36" fill="none" stroke="#39ff8488" stroke-width="2"/><line x1="10" y1="68" x2="110" y2="68" stroke="#1e3448" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>`,
+  'Pigeon Pose': `<svg width="100%" viewBox="0 0 120 75" style="background:#0a1420;border-radius:12px;display:block;width:100%;">
+      <text x="60" y="9" text-anchor="middle" fill="#39ff84" font-size="6.5" font-family="sans-serif" font-weight="700">PIGEON POSE</text>
+      <text x="60" y="17" text-anchor="middle" fill="#4a7090" font-size="5" font-family="sans-serif">hip rotators · piriformis</text>
+      <line x1="30" y1="52" x2="70" y2="48" stroke="#8ab" stroke-width="3" stroke-linecap="round"/><line x1="30" y1="52" x2="25" y2="68" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="70" y1="48" x2="95" y2="60" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="50" y1="50" x2="50" y2="32" stroke="#8ab" stroke-width="3" stroke-linecap="round"/><circle cx="50" cy="28" r="4" fill="none" stroke="#39ff84" stroke-width="1.8"/><line x1="50" y1="32" x2="30" y2="40" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="50" y1="32" x2="70" y2="40" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="15" y1="68" x2="105" y2="68" stroke="#1e3448" stroke-width="1.5" stroke-linecap="round"/><path d="M35 60 Q28 54 32 48" fill="none" stroke="#39ff8488" stroke-width="2"/>
+    </svg>`,
+  'Thoracic Rotation': `<svg width="100%" viewBox="0 0 120 75" style="background:#0a1420;border-radius:12px;display:block;width:100%;">
+      <text x="60" y="9" text-anchor="middle" fill="#39ff84" font-size="6.5" font-family="sans-serif" font-weight="700">THORACIC ROTATION</text>
+      <text x="60" y="17" text-anchor="middle" fill="#4a7090" font-size="5" font-family="sans-serif">upper back mobility</text>
+      <circle cx="90" cy="46" r="4" fill="none" stroke="#39ff84" stroke-width="1.8"/><line x1="86" y1="48" x2="40" y2="50" stroke="#8ab" stroke-width="3" stroke-linecap="round"/><line x1="55" y1="50" x2="50" y2="62" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="50" y1="62" x2="65" y2="62" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="72" y1="50" x2="55" y2="44" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="72" y1="50" x2="88" y2="34" stroke="#39ff84" stroke-width="2" stroke-linecap="round"/><path d="M78 50 Q84 42 88 38" fill="none" stroke="#39ff8488" stroke-width="2"/><line x1="15" y1="65" x2="105" y2="65" stroke="#1e3448" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>`,
+  'Hamstring Stretch': `<svg width="100%" viewBox="0 0 120 75" style="background:#0a1420;border-radius:12px;display:block;width:100%;">
+      <text x="60" y="9" text-anchor="middle" fill="#39ff84" font-size="6.5" font-family="sans-serif" font-weight="700">HAMSTRING STRETCH</text>
+      <text x="60" y="17" text-anchor="middle" fill="#4a7090" font-size="5" font-family="sans-serif">flexibility · injury prevention</text>
+      <circle cx="25" cy="32" r="4" fill="none" stroke="#39ff84" stroke-width="1.8"/><line x1="25" y1="36" x2="28" y2="52" stroke="#8ab" stroke-width="3" stroke-linecap="round"/><line x1="28" y1="52" x2="80" y2="52" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="80" y1="50" x2="86" y2="56" stroke="#8ab" stroke-width="2" stroke-linecap="round"/><line x1="28" y1="52" x2="28" y2="65" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="25" y1="40" x2="55" y2="52" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="25" y1="44" x2="60" y2="52" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="15" y1="65" x2="105" y2="65" stroke="#1e3448" stroke-width="1.5" stroke-linecap="round"/><path d="M30 48 Q50 44 58 48" fill="none" stroke="#39ff8488" stroke-width="2"/>
+    </svg>`,
+  'Foam Roll': `<svg width="100%" viewBox="0 0 120 75" style="background:#0a1420;border-radius:12px;display:block;width:100%;">
+      <text x="60" y="9" text-anchor="middle" fill="#39ff84" font-size="6.5" font-family="sans-serif" font-weight="700">FOAM ROLL</text>
+      <text x="60" y="17" text-anchor="middle" fill="#4a7090" font-size="5" font-family="sans-serif">fascia · muscle recovery</text>
+      <ellipse cx="60" cy="58" rx="28" ry="6" fill="#1e3448" stroke="#39ff84" stroke-width="1.5"/><circle cx="95" cy="50" r="4" fill="none" stroke="#39ff84" stroke-width="1.8"/><line x1="91" y1="52" x2="32" y2="52" stroke="#8ab" stroke-width="3" stroke-linecap="round"/><line x1="32" y1="52" x2="28" y2="65" stroke="#8ab" stroke-width="2" stroke-linecap="round"/><line x1="44" y1="52" x2="42" y2="65" stroke="#8ab" stroke-width="2" stroke-linecap="round"/><line x1="80" y1="52" x2="75" y2="64" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="68" y1="52" x2="65" y2="64" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="15" y1="65" x2="105" y2="65" stroke="#1e3448" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>`,
+  'Apple Fitness+ Core': `<svg width="100%" viewBox="0 0 120 75" style="background:#0a1420;border-radius:12px;display:block;width:100%;">
+      <text x="60" y="9" text-anchor="middle" fill="#39ff84" font-size="6.5" font-family="sans-serif" font-weight="700">APPLE FITNESS+ CORE</text>
+      <text x="60" y="17" text-anchor="middle" fill="#4a7090" font-size="5" font-family="sans-serif">10 min guided finisher</text>
+      <circle cx="95" cy="38" r="4" fill="none" stroke="#39ff84" stroke-width="1.8"/><line x1="91" y1="40" x2="30" y2="46" stroke="#8ab" stroke-width="3" stroke-linecap="round"/><line x1="30" y1="46" x2="25" y2="58" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="44" y1="48" x2="42" y2="58" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="78" y1="46" x2="75" y2="58" stroke="#8ab" stroke-width="2" stroke-linecap="round"/><line x1="88" y1="44" x2="88" y2="58" stroke="#8ab" stroke-width="2" stroke-linecap="round"/><circle cx="60" cy="28" r="8" fill="none" stroke="#39ff84" stroke-width="1.5"/><text x="60" y="31" text-anchor="middle" fill="#39ff84" font-size="8" font-family="sans-serif">✓</text><line x1="15" y1="58" x2="105" y2="58" stroke="#1e3448" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>`,
+};
+// 25 exercises defined
+const RESTAURANTS = {
+  'Naya':{emoji:'🫓',color:'#f59e0b',items:[
+    {name:'Chicken Shawarma Salad',cal:380,protein:32,carbs:18,fat:18,emoji:'🥗'},
+    {name:'Beef Shawarma Salad',cal:430,protein:34,carbs:18,fat:22,emoji:'🥗'},
+    {name:'Chicken Shawarma Bowl',cal:480,protein:36,carbs:52,fat:12,emoji:'🫓'},
+    {name:'Beef Shawarma Bowl',cal:530,protein:38,carbs:52,fat:16,emoji:'🫓'},
+    {name:'Falafel Bowl',cal:560,protein:18,carbs:72,fat:22,emoji:'🧆'},
+    {name:'Garlic Whip',cal:60,protein:0,carbs:2,fat:6,emoji:'🧄'},
+    {name:'Hummus',cal:120,protein:6,carbs:10,fat:7,emoji:'🫘'},
+  ]},
+  'Chipotle':{emoji:'🌯',color:'#ef4444',items:[
+    {name:'Chicken Burrito Bowl',cal:650,protein:40,carbs:70,fat:17,emoji:'🌯'},
+    {name:'Steak Burrito Bowl',cal:680,protein:38,carbs:70,fat:20,emoji:'🌯'},
+    {name:'Chicken Burrito',cal:860,protein:42,carbs:96,fat:24,emoji:'🌯'},
+    {name:'Chicken Tacos (3)',cal:525,protein:36,carbs:54,fat:18,emoji:'🌮'},
+    {name:'Chicken Bowl (no rice)',cal:440,protein:40,carbs:22,fat:17,emoji:'🥗'},
+    {name:'Chips + Guac',cal:510,protein:5,carbs:60,fat:28,emoji:'🥑'},
+  ]},
+  'Cava':{emoji:'🥙',color:'#22d3ee',items:[
+    {name:'Chicken Bowl',cal:620,protein:40,carbs:65,fat:18,emoji:'🥙'},
+    {name:'Chicken Salad',cal:480,protein:38,carbs:22,fat:22,emoji:'🥗'},
+    {name:'Lamb Bowl',cal:680,protein:38,carbs:65,fat:24,emoji:'🥙'},
+    {name:'Falafel Bowl',cal:700,protein:22,carbs:78,fat:28,emoji:'🧆'},
+    {name:'Braised Lamb + Greens',cal:420,protein:34,carbs:14,fat:26,emoji:'🥗'},
+    {name:'Crazy Feta',cal:70,protein:2,carbs:2,fat:6,emoji:'🧀'},
+  ]},
+  'Dos Toros':{emoji:'🌮',color:'#a78bfa',items:[
+    {name:'Chicken Burrito',cal:780,protein:42,carbs:84,fat:24,emoji:'🌯'},
+    {name:'Chicken Bowl',cal:620,protein:40,carbs:68,fat:16,emoji:'🥗'},
+    {name:'Steak Bowl',cal:660,protein:37,carbs:68,fat:19,emoji:'🥗'},
+    {name:'Chicken Taco',cal:270,protein:18,carbs:24,fat:9,emoji:'🌮'},
+    {name:'Steak Taco',cal:290,protein:17,carbs:24,fat:11,emoji:'🌮'},
+    {name:'Chips',cal:230,protein:3,carbs:32,fat:10,emoji:'🥨'},
+  ]},
+  'Westville':{emoji:'🥗',color:'#39ff84',items:[
+    {name:'Grilled Chicken Sandwich',cal:620,protein:42,carbs:52,fat:18,emoji:'🥪'},
+    {name:'Turkey Burger',cal:650,protein:44,carbs:48,fat:22,emoji:'🍔'},
+    {name:'Grilled Salmon',cal:540,protein:46,carbs:22,fat:28,emoji:'🐟'},
+    {name:'Market Plate',cal:620,protein:28,carbs:58,fat:24,emoji:'🥗'},
+    {name:'Chicken Avocado Wrap',cal:680,protein:40,carbs:52,fat:26,emoji:'🌯'},
+    {name:'Sweet Potato Fries',cal:320,protein:4,carbs:48,fat:14,emoji:'🍠'},
+  ]},
+  'Chirp':{emoji:'🍗',color:'#f97316',items:[
+    {name:'Classic Chicken Sandwich',cal:680,protein:42,carbs:58,fat:26,emoji:'🍗'},
+    {name:'Spicy Chicken Sandwich',cal:700,protein:42,carbs:60,fat:28,emoji:'🌶️'},
+    {name:'Chicken Tenders (4pc)',cal:520,protein:38,carbs:36,fat:22,emoji:'🍗'},
+    {name:'Chicken & Waffles',cal:890,protein:44,carbs:84,fat:38,emoji:'🧇'},
+    {name:'Side Fries',cal:360,protein:5,carbs:48,fat:17,emoji:'🍟'},
+    {name:'Chicken Wrap',cal:620,protein:38,carbs:54,fat:20,emoji:'🌯'},
+  ]},
+};
+
+const FOODS = {
+  'banana':[105,1,27,0,'🍌'],'apple':[95,0,25,0,'🍎'],'orange':[62,1,15,0,'🍊'],
+  'blueberries':[84,1,21,0,'🫐'],'strawberries':[49,1,12,0,'🍓'],'avocado':[160,2,9,15,'🥑'],
+  'broccoli':[55,4,11,1,'🥦'],'spinach':[23,3,4,0,'🥬'],'sweet potato':[103,2,24,0,'🍠'],
+  'white rice':[206,4,45,0,'🍚'],'brown rice':[216,5,45,2,'🍚'],'rice':[206,4,45,0,'🍚'],
+  'oats':[150,5,27,3,'🌾'],'oatmeal':[150,5,27,3,'🌾'],'pasta':[220,8,43,1,'🍝'],
+  'quinoa':[222,8,39,4,'🌾'],'egg':[78,6,0,5,'🥚'],'eggs':[78,6,0,5,'🥚'],
+  'scrambled eggs':[78,6,0,5,'🍳'],'egg white':[17,4,0,0,'🥚'],
+  'chicken breast':[165,31,0,4,'🍗'],'grilled chicken':[165,31,0,4,'🍗'],'chicken':[165,31,0,4,'🍗'],
+  'salmon':[208,28,0,10,'🐟'],'tuna':[154,34,0,1,'🐟'],'shrimp':[84,18,0,1,'🍤'],
+  'turkey':[135,30,0,1,'🦃'],'ground beef':[250,26,0,17,'🥩'],'steak':[271,26,0,18,'🥩'],
+  'bacon':[135,9,0,11,'🥓'],'tofu':[94,10,2,5,'🫘'],
+  'greek yogurt':[130,17,9,0,'🥛'],'cottage cheese':[110,14,5,2,'🧀'],
+  'cheddar cheese':[113,7,0,9,'🧀'],'milk':[122,8,12,5,'🥛'],
+  'whole wheat toast':[69,4,12,1,'🍞'],'toast':[79,3,15,1,'🍞'],
+  'bagel':[270,10,53,2,'🥯'],'wrap':[210,5,33,5,'🌯'],'pita':[165,5,33,1,'🫓'],
+  'almonds':[164,6,6,14,'🌰'],'peanut butter':[188,8,6,16,'🥜'],'almond butter':[196,7,7,18,'🥜'],
+  'black coffee':[2,0,0,0,'☕'],'coffee':[5,0,1,0,'☕'],'latte':[120,6,12,5,'☕'],
+  'protein shake':[150,25,8,3,'🥤'],'protein powder':[120,25,3,2,'🥤'],
+  'omelette':[200,14,2,15,'🍳'],'pancakes':[350,8,58,10,'🥞'],
+  'granola':[216,5,36,7,'🌾'],'sandwich':[350,20,35,12,'🥪'],
+  'caesar salad':[360,10,20,28,'🥗'],'garden salad':[100,3,15,4,'🥗'],
+  'soup':[150,8,18,5,'🍲'],'pizza':[285,12,36,10,'🍕'],
+  'burger':[540,28,42,28,'🍔'],'fries':[365,4,48,17,'🍟'],
+  'sushi':[300,15,42,6,'🍱'],'burrito':[780,42,84,24,'🌯'],
+  'taco':[210,12,20,9,'🌮'],'cookie':[140,2,20,6,'🍪'],
+  'chocolate':[170,2,20,10,'🍫'],'ice cream':[207,4,24,11,'🍦'],
+  'chips':[152,2,15,10,'🥨'],'hummus':[166,8,14,10,'🫘'],
+  'guacamole':[150,2,9,14,'🥑'],'black beans':[114,8,20,1,'🫘'],
+};
+
+function guessEmoji(t){
+  const map=[['banana','🍌'],['apple','🍎'],['egg','🥚'],['chicken','🍗'],['salmon','🐟'],
+    ['beef','🥩'],['steak','🥩'],['rice','🍚'],['oat','🌾'],['pasta','🍝'],['bread','🍞'],
+    ['salad','🥗'],['soup','🍲'],['burger','🍔'],['pizza','🍕'],['taco','🌮'],
+    ['burrito','🌯'],['coffee','☕'],['shake','🥤'],['protein','🥤'],['yogurt','🥛'],
+    ['cheese','🧀'],['avocado','🥑'],['broccoli','🥦'],['fries','🍟']];
+  for(const [k,e] of map) if(t.toLowerCase().includes(k)) return e;
+  return '🍽️';
+}
+
+function estimateNutrition(raw){
+  const t=raw.toLowerCase();
+  let cal=0,p=0,c=0,f=0,matched=[];
+  const keys=Object.keys(FOODS).sort((a,b)=>b.split(' ').length-a.split(' ').length);
+  for(const key of keys){
+    if(!t.includes(key)) continue;
+    if(matched.some(m=>m.includes(key)||key.includes(m))) continue;
+    let [fc,fp,fcar,ff]=FOODS[key];
+    let qty=1;
+    const before=t.slice(0,t.indexOf(key)).split(/[\s,]+/).slice(-3).join(' ');
+    const nm=before.match(/\b(\d+)\b/);
+    if(nm){const n=parseInt(nm[1]);if(n>=1&&n<=10)qty=n;}
+    if(key==='egg'||key==='eggs'){const nm2=before.match(/\b(\d+)\b/);if(nm2)qty=parseInt(nm2[1]);}
+    cal+=Math.round(fc*qty);p+=Math.round(fp*qty);c+=Math.round(fcar*qty);f+=Math.round(ff*qty);
+    matched.push(key);
+  }
+  if(!matched.length) return null;
+  const name=raw.trim().replace(/\b\w/g,l=>l.toUpperCase()).slice(0,50);
+  return {name,cal,protein:p,carbs:c,fat:f,emoji:FOODS[matched[0]]?.[4]||guessEmoji(raw),note:`Est. from: ${matched.join(', ')}`};
+}
+
+// ── COMPUTED ──────────────────────────────────────────────────────
+function getSettings(){ return settings; }
+function getDayLog(){ return logs[selDate]||{breakfast:[],lunch:[],dinner:[],snacks:[],workouts:[]}; }
+function getAllFoods(){
+  const d=getDayLog();
+  return [...(d.breakfast||[]),...(d.lunch||[]),...(d.dinner||[]),...(d.snacks||[])];
+}
+function getTotals(){
+  return getAllFoods().reduce((a,f)=>({cal:a.cal+f.cal,protein:a.protein+(f.protein||0),carbs:a.carbs+(f.carbs||0),fat:a.fat+(f.fat||0)}),{cal:0,protein:0,carbs:0,fat:0});
+}
+function getCurrentWeight(){
+  const e=Object.entries(weights).sort().reverse()[0];
+  return e?e[1]:(settings.startWeight||180);
+}
+function getAllWeightEntries(){ return Object.entries(weights).sort(); }
+function getProgress(){
+  const sw=settings.startWeight||180,gw=settings.goalWeight||170;
+  const lost=sw-getCurrentWeight();
+  const range=Math.abs(sw-gw)||10;
+  return Math.min(100,Math.max(0,(lost/range)*100));
+}
+function getDaysLeft(){
+  const gd=settings.goalDate||'2026-05-06',sd=settings.startDate||'2026-03-03';
+  const total=Math.round((new Date(gd)-new Date(sd))/864e5);
+  return Math.max(0,total-daysSince(sd));
+}
+
+// ── MUTATIONS ─────────────────────────────────────────────────────
+function addMealItem(sec,item){
+  if(!logs[selDate]) logs[selDate]={breakfast:[],lunch:[],dinner:[],snacks:[],workouts:[]};
+  logs[selDate][sec]=[...(logs[selDate][sec]||[]),item];
+  save('ft_l3',logs); render();
+}
+function removeMealItem(sec,id){
+  if(!logs[selDate]) return;
+  logs[selDate][sec]=(logs[selDate][sec]||[]).filter(f=>f.id!==id);
+  save('ft_l3',logs); render();
+}
+function addWorkout(name){
+  if(!name||!name.trim()) return;
+  if(!logs[selDate]) logs[selDate]={breakfast:[],lunch:[],dinner:[],snacks:[],workouts:[]};
+  logs[selDate].workouts=[...(logs[selDate].workouts||[]),{name,id:Date.now()}];
+  save('ft_l3',logs); render();
+}
+function removeWorkout(id){
+  if(!logs[selDate]) return;
+  logs[selDate].workouts=(logs[selDate].workouts||[]).filter(w=>w.id!==id);
+  save('ft_l3',logs); render();
+}
+function logWeight(val){
+  if(!val) return;
+  weights[selDate]=parseFloat(val);
+  save('ft_w3',weights); render();
+}
+function removeWeight(date){
+  delete weights[date];
+  save('ft_w3',weights); render();
+}
+function saveSettings(s){
+  settings={...settings,...s};
+  save('ft_s3',settings); render();
+}
+function saveSchedule(s){
+  schedule=s; save('ft_sc3',schedule); render();
+}
+
+// ── RENDER HEADER ─────────────────────────────────────────────────
+function renderHeader(){
+  const cw=getCurrentWeight();
+  const sw=settings.startWeight||180;
+  const gw=settings.goalWeight||170;
+  const lost=sw-cw;
+  document.getElementById('hdr-weight').innerHTML=cw+'<span style="font-size:14px;font-weight:500;color:#4a7090;margin-left:4px;">lbs</span>';
+  document.getElementById('hdr-lost').textContent=lost>0?`${lost.toFixed(1)} lbs lost`:`Start: ${sw} lbs`;
+  document.getElementById('hdr-lost').style.color=lost>0?'#39ff84':'#4a7090';
+  document.getElementById('hdr-goal').textContent=gw;
+  document.getElementById('hdr-days').textContent=getDaysLeft()+'d left';
+  document.getElementById('hdr-prog').style.width=getProgress()+'%';
+}
+
+// ── RENDER HOME ───────────────────────────────────────────────────
+function renderHome(){
+  const el=document.getElementById('tab-home');
+  const t=getTotals();
+  const d=getDayLog();
+  const DAILY_CAL=settings.dailyCal||2000;
+  const DAILY_PRO=settings.dailyProtein||170;
+  const todayWk=schedule[todayDOW()];
+  const allFoods=getAllFoods();
+  const cw=getCurrentWeight();
+  const sw=settings.startWeight||180;
+  const lost=sw-cw;
+  const allWkDays=Object.values(logs).filter(dl=>dl.workouts&&dl.workouts.length>0).length;
+
+  let wkBanner='';
+  if(todayWk&&todayWk!=='Rest Day'){
+    const done=(d.workouts||[]).some(w=>w.name===todayWk);
+    wkBanner=`<div onclick="showTab('lift',document.querySelector('.nav button:nth-child(3)'))" style="background:linear-gradient(135deg,#0d2818,#0a1f14);border:2px solid #39ff8444;border-radius:16px;padding:18px;margin-bottom:14px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;">
+      <div>
+        <div style="font-size:10px;color:#39ff84;letter-spacing:3px;font-weight:700;margin-bottom:4px;">TODAY'S WORKOUT</div>
+        <div style="font-size:20px;font-weight:800;">${WORKOUTS[todayWk]?.emoji||'💪'} ${todayWk}</div>
+        <div style="font-size:12px;color:#4a7090;margin-top:4px;">${WORKOUTS[todayWk]?.duration||''}</div>
+      </div>
+      <div style="font-size:28px;">${done?'✅':'▷'}</div>
+    </div>`;
+  } else if(todayWk==='Rest Day'){
+    wkBanner=`<div class="card" style="text-align:center;padding:24px;margin-bottom:14px;">
+      <div style="font-size:28px;margin-bottom:8px;">🧘</div>
+      <div style="font-size:18px;font-weight:800;">Rest Day</div>
+      <div style="font-size:12px;color:#4a7090;margin-top:4px;">Recovery is part of the plan</div>
+    </div>`;
+  }
+
+  let mealSummary='';
+  if(allFoods.length===0){
+    mealSummary='<div style="color:#4a6580;font-size:13px;">Nothing logged yet</div>';
+  } else {
+    mealSummary=MEAL_SECS.map(sec=>{
+      const items=d[sec.key]||[];
+      if(!items.length) return '';
+      return `<div style="margin-bottom:8px;">
+        <span style="font-size:10px;color:${sec.color};letter-spacing:2px;font-weight:800;">${sec.emoji} ${sec.label.toUpperCase()}</span>
+        ${items.map(f=>`<div style="display:flex;justify-content:space-between;font-size:12px;color:#b0c4dc;padding-left:8px;margin-top:2px;"><span>${esc(f.name)}</span><span style="color:#f59e0b;">${f.cal}</span></div>`).join('')}
+      </div>`;
+    }).join('');
+  }
+
+  el.innerHTML=`
+    ${wkBanner}
+    <div class="grid2">
+      <div class="card" style="background:${t.cal>DAILY_CAL?'#200a0a':'#111c27'}">
+        <div class="lbl">Calories</div>
+        <div style="font-size:30px;font-weight:900;color:${t.cal>DAILY_CAL?'#ef4444':'#fff'}">${t.cal}</div>
+        <div style="font-size:11px;color:#4a7090;">of ${DAILY_CAL}</div>
+      </div>
+      <div class="card" style="background:${t.protein>=DAILY_PRO?'#0a2010':'#111c27'}">
+        <div class="lbl">Protein</div>
+        <div style="font-size:30px;font-weight:900;">${t.protein}g</div>
+        <div style="font-size:11px;color:#4a7090;">of ${DAILY_PRO}g</div>
+      </div>
+    </div>
+    <div class="grid2">
+      <div class="card">
+        <div class="lbl">Weight</div>
+        <div style="font-size:26px;font-weight:900;">${cw}</div>
+        <div style="font-size:11px;color:${lost>0?'#39ff84':'#4a7090'}">${lost>0?`-${lost.toFixed(1)} lbs`:'at start'}</div>
+      </div>
+      <div class="card">
+        <div class="lbl">Workouts</div>
+        <div style="font-size:26px;font-weight:900;">${allWkDays}</div>
+        <div style="font-size:11px;color:#4a7090;">sessions done</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="lbl">Today's Meals</div>
+      ${mealSummary}
+    </div>`;
+}
+
+// ── RENDER FOOD ───────────────────────────────────────────────────
+function renderFood(){
+  const el=document.getElementById('tab-food');
+  const d=getDayLog();
+  const t=getTotals();
+  const DAILY_CAL=settings.dailyCal||2000;
+
+  if(menuRest){
+    const r=RESTAURANTS[menuRest];
+    const items=r.items.map((item,i)=>`
+      <div class="card" style="display:flex;justify-content:space-between;align-items:center;">
+        <div style="flex:1;">
+          <div style="font-size:14px;font-weight:700;margin-bottom:2px;">${item.emoji} ${esc(item.name)}</div>
+          <div style="font-size:11px;color:#6b8aaa;">P ${item.protein}g · C ${item.carbs}g · F ${item.fat}g</div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;">
+          <span style="font-size:18px;font-weight:900;color:#f59e0b;">${item.cal}</span>
+          <button class="btn" style="padding:6px 12px;font-size:11px;" onclick="addRestItem(${i})">+ Add</button>
+        </div>
+      </div>`).join('');
+    el.innerHTML=`
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+        <button onclick="menuRest=null;renderFood();" style="background:#1e3448;border:none;border-radius:8px;color:#fff;padding:8px 14px;cursor:pointer;font-weight:700;font-size:13px;">← Back</button>
+        <div style="font-size:18px;font-weight:800;">${r.emoji} ${menuRest}</div>
+      </div>
+      ${items}`;
+    return;
+  }
+
+  const restBtns=Object.entries(RESTAURANTS).map(([name,r])=>`
+    <button class="rest-btn" style="border-color:${r.color}44;" onclick="menuRest='${name}';renderFood();">
+      <span style="font-size:20px;">${r.emoji}</span>
+      <span>${name}</span>
+    </button>`).join('');
+
+  const mealLoggers=MEAL_SECS.map(sec=>{
+    const items=d[sec.key]||[];
+    const secCal=items.reduce((a,f)=>a+f.cal,0);
+    const hints={breakfast:'e.g. 3 eggs, toast, banana',lunch:'e.g. chicken shawarma salad',dinner:'e.g. 8oz salmon, broccoli',snacks:'e.g. banana, greek yogurt'};
+    const itemsHtml=items.map(f=>`
+      <div class="meal-item">
+        <div>
+          <div style="font-size:14px;font-weight:700;">${f.emoji||'🍽️'} ${esc(f.name)}</div>
+          <div style="font-size:11px;color:#6b8aaa;">${f.cal} cal · P ${f.protein}g</div>
+          ${f.note?`<div style="font-size:10px;color:#4a6580;font-style:italic;">${esc(f.note)}</div>`:''}
+        </div>
+        <button class="rm-btn" onclick="removeMealItem('${sec.key}','${f.id}')">×</button>
+      </div>`).join('');
+    return `
+      <div style="margin-bottom:20px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+          <div style="display:flex;align-items:center;gap:7px;">
+            <span style="font-size:15px;">${sec.emoji}</span>
+            <span style="font-size:13px;font-weight:800;color:${sec.color};letter-spacing:2px;">${sec.label.toUpperCase()}</span>
+          </div>
+          ${items.length?`<span style="font-size:11px;color:#6b8aaa;">${secCal} cal</span>`:''}
+        </div>
+        ${itemsHtml}
+        <div style="display:flex;gap:8px;margin-top:4px;">
+          <input class="inp" id="food-inp-${sec.key}" placeholder="${hints[sec.key]||'describe food...'}" onkeydown="if(event.key==='Enter')addFoodFromInput('${sec.key}')">
+          <button class="btn" onclick="addFoodFromInput('${sec.key}')" style="border-radius:10px;padding:10px 16px;">+</button>
+        </div>
+      </div>`;
+  }).join('');
+
+  const allFoods=getAllFoods();
+  const totalBar=allFoods.length?`
+    <div class="card" style="margin-top:8px;">
+      <div style="display:flex;justify-content:space-between;font-size:13px;font-weight:700;">
+        <span>Total</span>
+        <span style="color:${t.cal>DAILY_CAL?'#ef4444':'#f59e0b'}">${t.cal} / ${DAILY_CAL} cal</span>
+      </div>
+    </div>`:'';
+
+  el.innerHTML=`
+    <div style="margin-bottom:20px;">
+      <div class="lbl">NYC Restaurants</div>
+      <div class="rest-grid">${restBtns}</div>
+    </div>
+    <div class="lbl">Food Log — ${selDate}</div>
+    ${mealLoggers}
+    ${totalBar}`;
+}
+
+function addFoodFromInput(sec){
+  const inp=document.getElementById('food-inp-'+sec);
+  if(!inp||!inp.value.trim()) return;
+  const raw=inp.value.trim();
+  const result=estimateNutrition(raw);
+  if(result){
+    addMealItem(sec,{...result,id:Date.now()});
+  } else {
+    const name=raw.replace(/\b\w/g,l=>l.toUpperCase()).slice(0,50);
+    addMealItem(sec,{name,cal:0,protein:0,carbs:0,fat:0,emoji:guessEmoji(raw),note:'Could not estimate',id:Date.now()});
+  }
+  inp.value='';
+}
+
+function addRestItem(idx){
+  const r=RESTAURANTS[menuRest];
+  const item=r.items[idx];
+  const h=new Date().getHours();
+  const sec=h<11?'breakfast':h<15?'lunch':h<21?'dinner':'snacks';
+  addMealItem(sec,{...item,id:Date.now()});
+}
+
+// ── RENDER LIFT ─────────────────────────────────────────────────
+function renderLift(){
+  const el=document.getElementById('tab-lift');
+  const d=getDayLog();
+  const todayWk=schedule[todayDOW()];
+
+  const seg=`<div class="seg">
+    ${[['today','TODAY'],['library','LIBRARY'],['schedule','SCHEDULE']].map(([m,l])=>`
+      <button class="${wkMode===m?'active':''}" onclick="wkMode='${m}';renderLift();">${l}</button>`).join('')}
+  </div>`;
+
+  let content='';
+  if(wkMode==='today'){
+    let wkContent='';
+    if(todayWk&&todayWk!=='Rest Day'&&WORKOUTS[todayWk]){
+      const plan=WORKOUTS[todayWk];
+      const exercises=plan.exercises.map(ex=>{
+        const svgHtml=EXERCISE_SVGS[ex.name]||'';
+        return `<div class="card" style="margin-bottom:12px;">
+          ${svgHtml?`<div style="margin-bottom:10px;">${svgHtml}</div>`:''}
+          <div style="font-weight:800;font-size:15px;margin-bottom:4px;">${ex.name}</div>
+          <div style="font-size:13px;color:#22d3ee;font-weight:700;margin-bottom:6px;">${ex.sets}</div>
+          <div style="font-size:12px;color:#b0c4dc;margin-bottom:8px;line-height:1.5;">${ex.note}</div>
+          <div style="background:#0d1820;border-radius:10px;padding:12px;border-left:3px solid #39ff84;">
+            <div style="font-size:10px;color:#39ff84;font-weight:700;letter-spacing:2px;margin-bottom:4px;">COACHING CUE</div>
+            <div style="font-size:12px;color:#8ab;line-height:1.6;">${ex.coaching}</div>
+          </div>
+        </div>`;
+      }).join('');
+      wkContent=`
+        <div style="background:#0d2010;border-radius:12px;padding:14px;margin-bottom:14px;border:1px solid #39ff8433;">
+          <div style="font-size:10px;color:#39ff84;letter-spacing:2px;font-weight:700;margin-bottom:4px;">TODAY: ${todayWk}</div>
+          <div style="font-size:12px;color:#b0c4dc;margin-bottom:6px;">${plan.focus} · ${plan.duration} · ${plan.calories}</div>
+          <div style="font-size:11px;color:#4a7090;line-height:1.5;margin-bottom:6px;"><span style="color:#f59e0b;font-weight:700;">WARMUP:</span> ${plan.warmup}</div>
+          <div style="font-size:11px;color:#4a7090;"><span style="color:#a78bfa;font-weight:700;">REST:</span> ${plan.rest}</div>
+        </div>
+        ${exercises}
+        <div style="background:#0d1820;border-radius:12px;padding:14px;border:1px solid #1e3448;margin-bottom:14px;">
+          <div style="font-size:10px;color:#f59e0b;font-weight:700;letter-spacing:2px;margin-bottom:6px;">COACH TIPS</div>
+          <div style="font-size:12px;color:#b0c4dc;line-height:1.6;">${plan.tips}</div>
+        </div>`;
+    } else if(todayWk==='Rest Day'){
+      wkContent=`<div class="card" style="text-align:center;padding:28px;"><div style="font-size:28px;margin-bottom:8px;">🧘</div><div style="font-size:18px;font-weight:800;">Rest Day</div><div style="font-size:12px;color:#4a7090;margin-top:6px;">Recovery is when your body actually builds muscle.<br>Sleep 7-8 hours. Hit your protein.</div></div>`;
+    } else {
+      wkContent=`<div class="card" style="text-align:center;padding:24px;"><div style="font-size:13px;color:#4a7090;">No schedule set. Go to SCHEDULE tab to set your week.</div></div>`;
+    }
+    const logged=(d.workouts||[]).map(w=>`
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px;padding:8px 12px;background:#1a2535;border-radius:8px;">
+        <span style="font-size:13px;color:#39ff84;">${esc(w.name)}</span>
+        <button class="rm-btn" onclick="removeWorkout('${w.id}')">×</button>
+      </div>`).join('');
+    content=`${wkContent}
+      <div style="margin-top:14px;">
+        <div class="lbl">Log Workout</div>
+        <div style="display:flex;gap:8px;">
+          <input class="inp" id="wk-inp" placeholder="e.g. Push Day" onkeydown="if(event.key==='Enter'){addWorkout(document.getElementById('wk-inp').value);}">
+          <button class="btn" onclick="addWorkout(document.getElementById('wk-inp').value)">+</button>
+        </div>
+        ${logged}
+      </div>`;
+  } else if(wkMode==='library'){
+    content=Object.entries(WORKOUTS).map(([name,plan])=>`
+      <div class="card" style="margin-bottom:14px;">
+        <div style="display:flex;gap:12px;align-items:center;margin-bottom:10px;">
+          <span style="font-size:28px;">${plan.emoji}</span>
+          <div>
+            <div style="font-weight:800;font-size:16px;">${name}</div>
+            <div style="font-size:11px;color:#39ff84;">${plan.duration} · ${plan.focus}</div>
+            <div style="font-size:11px;color:#f59e0b;">${plan.calories}</div>
+          </div>
+        </div>
+        <div style="font-size:10px;color:#4a7090;margin-bottom:8px;padding:10px;background:#0d1820;border-radius:8px;">
+          <span style="color:#f59e0b;font-weight:700;">WARMUP: </span>${plan.warmup}
+        </div>
+        ${plan.exercises.map((ex,i)=>`
+          <div style="margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid #1e3448;">
+            ${EXERCISE_SVGS[ex.name]?`<div style="margin-bottom:8px;">${EXERCISE_SVGS[ex.name]}</div>`:''}
+            <div style="font-size:13px;font-weight:800;margin-bottom:2px;">${i+1}. ${ex.name}</div>
+            <div style="font-size:12px;color:#22d3ee;font-weight:700;margin-bottom:4px;">${ex.sets}</div>
+            <div style="font-size:11px;color:#b0c4dc;margin-bottom:6px;">${ex.note}</div>
+            <div style="font-size:11px;color:#8ab;line-height:1.5;background:#0a1420;padding:8px;border-radius:8px;border-left:2px solid #39ff84;">${ex.coaching}</div>
+          </div>`).join('')}
+        <div style="background:#0d1820;border-radius:10px;padding:12px;margin-bottom:10px;">
+          <div style="font-size:10px;color:#f59e0b;font-weight:700;letter-spacing:2px;margin-bottom:4px;">COACH TIPS</div>
+          <div style="font-size:12px;color:#b0c4dc;line-height:1.6;">${plan.tips}</div>
+        </div>
+        <div style="font-size:10px;color:#4a7090;margin-bottom:10px;"><span style="color:#a78bfa;font-weight:700;">REST: </span>${plan.rest}</div>
+        <button class="btn" style="width:100%;text-align:center;" onclick="addWorkout('${name}')">✓ Log This Workout</button>
+      </div>`).join('');
+  } else {
+    const days=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+    const opts=['','Push Day','Pull Day','Lower Body','Upper Body','Active Recovery','Rest Day'];
+    const rows=days.map((day,i)=>`
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px;">
+        <div style="width:82px;font-size:12px;color:#b0c4dc;">${day}</div>
+        <select style="flex:1;background:#0d1a27;border:1px solid #2a4060;border-radius:8px;color:#eef4fb;padding:8px 10px;font-size:12px;font-family:inherit;" onchange="schedule[${i}]=this.value;save('ft_sc3',schedule);">
+          ${opts.map(o=>`<option value="${o}" ${(schedule[i]||'')===(o)?'selected':''}>${o||'— off —'}</option>`).join('')}
+        </select>
+      </div>`).join('');
+    content=`
+      <div style="font-size:10px;color:#7a9bbd;letter-spacing:2px;margin-bottom:14px;">SET YOUR WEEKLY SCHEDULE</div>
+      ${rows}
+      <button class="btn" style="width:100%;margin-top:8px;" onclick="alert('Schedule saved!')">✓ Save Schedule</button>`;
+  }
+
+  el.innerHTML=seg+content;
+}
+// ── RENDER WEIGHT ─────────────────────────────────────────────────
+function renderWeight(){
+  const el=document.getElementById('tab-weight');
+  const entries=getAllWeightEntries();
+  const cw=getCurrentWeight();
+  const sw=settings.startWeight||180;
+  const gw=settings.goalWeight||170;
+
+  let chartHtml='';
+  if(entries.length>=2){
+    const vals=entries.map(([,w])=>w);
+    const all=[...vals,gw,sw];
+    const mn=Math.min(...all)-1,mx=Math.max(...all)+1,rng=mx-mn||1;
+    const W=320,H=120,P=20;
+    const toY=v=>P+((mx-v)/rng)*(H-P*2);
+    const toX=i=>P+(i/(entries.length-1))*(W-P*2);
+    const pts=entries.map(([,w],i)=>`${toX(i)},${toY(w)}`).join(' ');
+    const goalY=toY(gw);
+    const dots=entries.map(([date,w],i)=>`
+      <circle cx="${toX(i)}" cy="${toY(w)}" r="4" fill="${w<=gw?'#39ff84':'#f59e0b'}" stroke="#0a1420" stroke-width="1.5"/>
+      ${(i===0||i===entries.length-1||entries.length<=6)?`<text x="${toX(i)}" y="${toY(w)-8}" text-anchor="middle" fill="#fff" font-size="8" font-family="sans-serif" font-weight="700">${w}</text>`:''}`).join('');
+    chartHtml=`<div style="background:#0a1420;border-radius:16px;padding:16px;border:1px solid #1e3448;margin-bottom:14px;">
+      <svg width="100%" viewBox="0 0 ${W} ${H}" style="display:block;">
+        <line x1="${P}" y1="${goalY}" x2="${W-P}" y2="${goalY}" stroke="#39ff84" stroke-width="1.5" stroke-dasharray="6,4" opacity="0.5"/>
+        <polygon points="${toX(0)},${H-P} ${pts} ${toX(entries.length-1)},${H-P}" fill="#39ff8415"/>
+        <polyline points="${pts}" fill="none" stroke="#39ff84" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        ${dots}
+      </svg>
+      <div style="display:flex;justify-content:space-between;margin-top:6px;font-size:10px;color:#4a7090;">
+        <span>${entries[0][0].slice(5)}</span>
+        <span>${entries[entries.length-1][0].slice(5)}</span>
+      </div>
+    </div>`;
+  }
+
+  const history=[...entries].reverse().map(([date,w])=>{
+    const diff=sw-w;
+    return `<div class="card" style="display:flex;justify-content:space-between;align-items:center;">
+      <div>
+        <div style="font-size:12px;color:#4a7090;">${date}</div>
+        <div style="font-size:22px;font-weight:900;">${w} lbs</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <span style="font-size:12px;font-weight:700;color:${diff>0?'#39ff84':diff<0?'#ef4444':'#4a7090'}">${diff>0?'-'+diff.toFixed(1):diff<0?'+'+Math.abs(diff).toFixed(1):'start'}</span>
+        <button class="rm-btn" onclick="removeWeight('${date}')">×</button>
+      </div>
+    </div>`;
+  }).join('');
+
+  el.innerHTML=`
+    <div class="card" style="margin-bottom:14px;border:2px solid #a78bfa44;">
+      <div class="lbl">Log Weight</div>
+      <div style="display:flex;gap:8px;">
+        <input type="number" step="0.1" placeholder="178.5" id="wt-inp" class="inp" style="flex:1;font-size:24px;font-weight:900;text-align:center;" onkeydown="if(event.key==='Enter')logWeight(this.value)">
+        <button class="btn" style="background:#a78bfa;" onclick="logWeight(document.getElementById('wt-inp').value)">LOG</button>
+      </div>
+      ${weights[selDate]?`<div style="margin-top:10px;display:flex;justify-content:space-between;align-items:center;"><span style="font-size:12px;color:#a78bfa;">Logged: ${weights[selDate]} lbs</span><button onclick="removeWeight('${selDate}')" style="background:none;border:none;color:#6b8aaa;cursor:pointer;font-size:13px;">Remove</button></div>`:''}
+    </div>
+    ${chartHtml}
+    ${entries.length===0?'<div class="card" style="text-align:center;padding:24px;color:#4a7090;">No weights logged yet</div>':history}`;
+}
+
+// ── RENDER STATS ──────────────────────────────────────────────────
+function renderStats(){
+  const el=document.getElementById('tab-stats');
+  const sw=settings.startWeight||180;
+  const gw=settings.goalWeight||170;
+  const cw=getCurrentWeight();
+  const lost=Math.max(0,sw-cw);
+  const prog=getProgress();
+  const dl=getDaysLeft();
+  const gd=settings.goalDate||'2026-05-06';
+  const entries=getAllWeightEntries();
+
+  let chartHtml='';
+  if(entries.length>=2){
+    const vals=entries.map(([,w])=>w);
+    const all=[...vals,gw,sw];
+    const mn=Math.min(...all)-1,mx=Math.max(...all)+1,rng=mx-mn||1;
+    const W=320,H=120,P=20;
+    const toY=v=>P+((mx-v)/rng)*(H-P*2);
+    const toX=i=>P+(i/(entries.length-1))*(W-P*2);
+    const pts=entries.map(([,w],i)=>`${toX(i)},${toY(w)}`).join(' ');
+    const goalY=toY(gw);
+    const dots=entries.map(([date,w],i)=>`<circle cx="${toX(i)}" cy="${toY(w)}" r="4" fill="${w<=gw?'#39ff84':'#f59e0b'}" stroke="#0a1420" stroke-width="1.5"/>`).join('');
+    chartHtml=`<div style="background:#0a1420;border-radius:16px;padding:16px;border:1px solid #1e3448;margin-bottom:14px;">
+      <svg width="100%" viewBox="0 0 ${W} ${H}" style="display:block;">
+        <line x1="${P}" y1="${goalY}" x2="${W-P}" y2="${goalY}" stroke="#39ff84" stroke-width="1.5" stroke-dasharray="6,4" opacity="0.5"/>
+        <polygon points="${toX(0)},${H-P} ${pts} ${toX(entries.length-1)},${H-P}" fill="#39ff8415"/>
+        <polyline points="${pts}" fill="none" stroke="#39ff84" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        ${dots}
+      </svg>
+    </div>`;
+  }
+
+  el.innerHTML=`
+    <div class="grid2">
+      ${[['STARTED',sw+' lbs'],['CURRENT',cw+' lbs'],['GOAL',gw+' lbs'],['LOST',lost.toFixed(1)+' lbs']].map(([lbl,val])=>`
+        <div class="card" style="padding:14px;">
+          <div class="lbl">${lbl}</div>
+          <div style="font-size:22px;font-weight:900;">${val}</div>
+        </div>`).join('')}
+    </div>
+    <div class="card" style="margin-bottom:14px;">
+      <div class="lbl">Progress to Goal</div>
+      <div style="display:flex;justify-content:space-between;font-size:12px;font-weight:600;color:#4a7090;margin-bottom:6px;">
+        <span>${sw} lbs</span><span style="color:#39ff84;">${prog.toFixed(0)}% done</span><span>${gw} lbs</span>
+      </div>
+      <div style="height:12px;background:#1e3448;border-radius:999px;overflow:hidden;">
+        <div style="height:100%;border-radius:999px;background:linear-gradient(90deg,#39ff84,#00d4ff);width:${prog}%;transition:width 1s;"></div>
+      </div>
+      <div style="font-size:11px;color:#4a7090;text-align:center;margin-top:8px;">${dl} days until ${gd}</div>
+    </div>
+    ${chartHtml}`;
+}
+
+// ── RENDER GOALS ──────────────────────────────────────────────────
+function renderGoals(){
+  const el=document.getElementById('tab-goals');
+  const s=settings;
+  el.innerHTML=`
+    <div class="card" style="margin-bottom:12px;border:2px solid #39ff8422;">
+      <div class="lbl">Weight Goal</div>
+      <div class="grid2" style="margin-bottom:0;">
+        <div><div class="lbl">Start</div><input type="number" step="0.5" value="${s.startWeight||180}" class="inp" style="font-size:20px;font-weight:900;text-align:center;" id="g-sw"></div>
+        <div><div class="lbl">Goal</div><input type="number" step="0.5" value="${s.goalWeight||170}" class="inp" style="font-size:20px;font-weight:900;text-align:center;border-color:#39ff84;" id="g-gw"></div>
+      </div>
+    </div>
+    <div class="card" style="margin-bottom:12px;border:2px solid #00d4ff22;">
+      <div class="lbl">Timeline</div>
+      <div class="grid2" style="margin-bottom:0;">
+        <div><div class="lbl">Start Date</div><input type="date" value="${s.startDate||'2026-03-03'}" class="inp" style="font-size:13px;" id="g-sd"></div>
+        <div><div class="lbl">Goal Date</div><input type="date" value="${s.goalDate||'2026-05-06'}" class="inp" style="font-size:13px;border-color:#00d4ff;" id="g-gd"></div>
+      </div>
+    </div>
+    <div class="card" style="margin-bottom:16px;border:2px solid #f59e0b22;">
+      <div class="lbl">Daily Targets</div>
+      <div class="grid2" style="margin-bottom:0;">
+        <div><div class="lbl">Calories</div><input type="number" step="50" value="${s.dailyCal||2000}" class="inp" style="font-size:20px;font-weight:900;text-align:center;border-color:#f59e0b;" id="g-cal"></div>
+        <div><div class="lbl">Protein (g)</div><input type="number" step="5" value="${s.dailyProtein||170}" class="inp" style="font-size:20px;font-weight:900;text-align:center;border-color:#39ff84;" id="g-pro"></div>
+      </div>
+    </div>
+    <button class="btn" style="width:100%;font-size:15px;padding:16px;margin-bottom:10px;" onclick="applySettings()">✓ Save Changes</button>
+    <div id="g-saved" style="text-align:center;font-size:12px;color:#4a7090;display:none;">All goals saved ✓</div>`;
+}
+
+function applySettings(){
+  saveSettings({
+    startWeight:parseFloat(document.getElementById('g-sw').value)||180,
+    goalWeight:parseFloat(document.getElementById('g-gw').value)||170,
+    startDate:document.getElementById('g-sd').value||'2026-03-03',
+    goalDate:document.getElementById('g-gd').value||'2026-05-06',
+    dailyCal:parseInt(document.getElementById('g-cal').value)||2000,
+    dailyProtein:parseInt(document.getElementById('g-pro').value)||170,
+  });
+  document.getElementById('g-saved').style.display='block';
+  setTimeout(()=>{const el=document.getElementById('g-saved');if(el)el.style.display='none';},2000);
+}
+
+// ── NAV / ROUTING ─────────────────────────────────────────────────
+function showTab(name, btn){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.nav button').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tab-'+name).classList.add('active');
+  if(btn) btn.classList.add('active');
+  curTab=name;
+  menuRest=null;
+  renderTab(name);
+}
+
+function renderTab(name){
+  if(name==='home') renderHome();
+  else if(name==='food') renderFood();
+  else if(name==='lift') renderLift();
+  else if(name==='weight') renderWeight();
+  else if(name==='stats') renderStats();
+  else if(name==='goals') renderGoals();
+}
+
+function setToday(){
+  selDate=today();
+  document.getElementById('sel-date').value=selDate;
+  render();
+}
+
+function render(){
+  renderHeader();
+  renderTab(curTab);
+}
+
+// ── INIT ──────────────────────────────────────────────────────────
+document.getElementById('sel-date').value=selDate;
+document.getElementById('sel-date').addEventListener('change',function(){
+  selDate=this.value; render();
+});
+render();
+</script>
+
+</body>
+</html>
