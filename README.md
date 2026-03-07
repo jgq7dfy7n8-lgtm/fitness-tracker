@@ -1,4 +1,4 @@
-# fitness-tracker<!DOCTYPE html>
+<!DOCTYPE html>
 
 <html lang="en">
 <head>
@@ -114,54 +114,275 @@ const MEAL_SECS = [
 ];
 
 const WORKOUTS = {
-  'Push Day':{emoji:'💪',duration:'45 min',focus:'Chest · Shoulders · Triceps',
+  'Push Day':{
+    emoji:'💪', duration:'45 min', focus:'Chest · Shoulders · Triceps',
+    calories:'~280-360 cal',
+    warmup:'3 min: 2 sets of 10 pushups + arm circles to prime chest and shoulders before loading the bar.',
+    tips:'Timing: bench ~13 min, incline ~8 min, laterals ~6 min, cable tri extension ~6 min, pushdown ~6 min = 39 min lifting. Straight into the 10 min core class. Done in 45 flat.',
+    rest:'90s after bench · 75s after incline · 60s after all isolation',
     exercises:[
-      {name:'Bench Press',sets:'4×8-10',note:'Bar to mid-chest, elbows 45°. Rest 90s.'},
-      {name:'Dumbbell Incline Press',sets:'3×10-12',note:'30-45° bench. Full stretch at bottom. Rest 75s.'},
-      {name:'Dumbbell Lateral Raise',sets:'3×15',note:'Lead with elbows, raise to shoulder height. Rest 60s.'},
-      {name:'Cable Overhead Tricep Extension',sets:'3×12-15',note:'Rope, high pulley. Elbows forward. Rest 60s.'},
-      {name:'Cable Tricep Pushdown',sets:'3×12-15',note:'Elbows pinned. Full lockout every rep. Rest 60s.'},
-      {name:'Apple Fitness+ Core',sets:'10 min',note:'Core class to finish. Non-negotiable.'},
+      {name:'Bench Press', sets:'4 sets × 8-10 reps',
+       note:'Heaviest lift first. Bar to mid-chest, elbows ~45°. Rest 90s.',
+       coaching:'Squeeze the bar like you\'re bending it — this activates your lats and keeps your shoulders safe. Big breath in, brace hard, lower 2 sec, press explosively. If you can\'t lock out cleanly, drop the weight.'},
+      {name:'Dumbbell Incline Press', sets:'3 sets × 10-12 reps',
+       note:'Bench at 30-45°. Full stretch at the bottom, press to meet at the top. Rest 75s.',
+       coaching:'The incline targets the upper chest (clavicular head) which most people underdev. Don\'t go steeper than 45° or it shifts to front delts. Control the descent — feel the upper chest loading on every rep.'},
+      {name:'Dumbbell Lateral Raise', sets:'3 sets × 15 reps',
+       note:'Slight elbow bend, raise to shoulder height only. Lead with elbows. Slow negative (3s down). Rest 60s.',
+       coaching:'This builds the middle delt — the wide-shoulder look. Almost everyone goes too heavy here and uses momentum. Drop the weight, slow it down, and actually feel the muscle working. Pinky slightly higher than thumb at the top.'},
+      {name:'Cable Overhead Tricep Extension', sets:'3 sets × 12-15 reps',
+       note:'High pulley, rope attachment. Face away from stack, hands behind head, extend to full lockout. Elbows stay pointed forward. Rest 60s.',
+       coaching:'This hits the long head of the tricep — the biggest portion. The overhead position puts it in a fully stretched position before contraction, which is optimal for growth. Keep elbows from flaring — they should point straight ahead throughout.'},
+      {name:'Cable Tricep Pushdown', sets:'3 sets × 12-15 reps',
+       note:'High pulley, rope or bar. Elbows pinned to sides. Full lockout at the bottom every rep. Rest 60s.',
+       coaching:'Two tricep exercises sounds like a lot — it\'s not. The extension hits the long head, the pushdown hits the lateral and medial heads. Together they cover the entire muscle. Full lockout is mandatory — that\'s peak contraction. If you skip it, you\'re leaving gains behind.'},
+      {name:'Apple Fitness+ Core', sets:'10 min',
+       note:'Core class to finish. Non-negotiable.',
+       coaching:'The core class ties everything together. Open Apple Fitness+ right after your last set while you\'re still warm.'},
     ]},
-  'Pull Day':{emoji:'🔗',duration:'45 min',focus:'Back · Biceps · Rear Delts',
+
+  'Pull Day':{
+    emoji:'🔗', duration:'45 min', focus:'Back · Biceps · Rear Delts',
+    calories:'~280-360 cal',
+    warmup:'3 min: shoulder rolls + 15 light-weight lat pulldowns to groove the movement before loading.',
+    tips:'Back training is all about feeling the right muscles work. You can always tell when you\'re pulling with your back vs just yanking with your arms. Chase the feeling of your lats contracting — not the number on the weight stack.',
+    rest:'90s after first pulldown · 75s after compound rows · 60s after curls',
     exercises:[
-      {name:'Wide-Grip Lat Pulldown',sets:'4×8-10',note:'Pull to upper chest. Full dead hang at top. Rest 90s.'},
-      {name:'Close-Grip Lat Pulldown',sets:'3×10-12',note:'Neutral grip, pull to sternum. Rest 75s.'},
-      {name:'Seated Cable Row',sets:'3×10-12',note:'Pull to navel, drive elbows back. Torso upright. Rest 75s.'},
-      {name:'Cable Bicep Curl',sets:'3×12-15',note:'Elbows pinned. Full extension at bottom. Rest 60s.'},
-      {name:'Dumbbell Hammer Curl',sets:'3×12',note:'Neutral grip. Full extension, squeeze at top. Rest 60s.'},
-      {name:'Apple Fitness+ Core',sets:'10 min',note:'Core class to finish.'},
+      {name:'Wide-Grip Lat Pulldown', sets:'4 sets × 8-10 reps',
+       note:'Overhand wide grip, pull bar to upper chest. Lean back 10-15°. Full dead hang at the top every rep. Rest 90s.',
+       coaching:'Before you pull, depress your shoulder blades — actively pull them down and back. This fires the lats instead of just your biceps. Think "elbows to your hip pockets." Squeeze hard for 1 sec at full contraction.'},
+      {name:'Close-Grip Lat Pulldown', sets:'3 sets × 10-12 reps',
+       note:'Narrow neutral grip handle, pull to sternum. Full stretch at the top. Rest 75s.',
+       coaching:'The neutral close grip lets you pull through a longer range and hammers the lower lats and teres major — muscles the wide grip misses. Two pulldown variations gives you complete lat coverage. Keep chest up throughout.'},
+      {name:'Seated Cable Row', sets:'3 sets × 10-12 reps',
+       note:'Neutral grip, pull handle to navel. Drive elbows back hard, squeeze shoulder blades together at the end. Torso stays upright — no rocking. Rest 75s.',
+       coaching:'The row trains horizontal pulling which the pulldowns don\'t. At full contraction your elbows should be behind your torso — that\'s where the rhomboids and mid-traps are maximally activated. Most people rush the return. Control it.'},
+      {name:'Cable Bicep Curl', sets:'3 sets × 12-15 reps',
+       note:'Low pulley, straight bar or EZ-bar. Elbows pinned to sides throughout. Full extension at the bottom. Rest 60s.',
+       coaching:'Cables keep constant tension at the bottom of the movement — where dumbbells go completely slack. That bottom range is critical for building the long head of the bicep. Slow the negative to 3 seconds on every rep. No swinging.'},
+      {name:'Dumbbell Hammer Curl', sets:'3 sets × 12 reps',
+       note:'Neutral grip (thumbs up), curl both or alternating. Full extension at bottom, squeeze at top. Rest 60s.',
+       coaching:'Hammer curls build the brachialis — the muscle under the bicep that pushes it up and gives you arm thickness and peak. Regular curls miss it entirely. Same strict form: elbows pinned, no swinging. You\'ll feel this in a different part of the arm than a regular curl.'},
+      {name:'Apple Fitness+ Core', sets:'10 min',
+       note:'Core class to finish.',
+       coaching:'Open Apple Fitness+ right after your last set. Core class finishes the session strong.'},
     ]},
-  'Lower Body':{emoji:'🦵',duration:'45 min',focus:'Quads · Hamstrings · Glutes · Calves',
+
+  'Lower Body':{
+    emoji:'🦵', duration:'45 min', focus:'Quads · Hamstrings · Glutes · Calves',
+    calories:'~420-540 cal',
+    warmup:'3 min: 15 bodyweight squats, 10 leg swings per side, 15 glute bridges — activate the posterior chain before loading.',
+    tips:'Eat carbs 1 hour before this session — a banana, some rice, or oats gives your legs the glycogen they need. Protein within 30 min after. Your legs will be sore tomorrow. That soreness is adaptation.',
+    rest:'2 min after squats · 90s after RDL · 75s after press/curl · 45s calves',
     exercises:[
-      {name:'Back Squat',sets:'4×6-8',note:'Hit parallel every rep. Rest 2 min.'},
-      {name:'Romanian Deadlift',sets:'3×10',note:'Hinge at hips, feel hamstring stretch. Rest 90s.'},
-      {name:'Walking Lunges',sets:'3×10 each leg',note:'Torso upright, front knee tracks toes. Rest 75s.'},
-      {name:'Leg Press',sets:'3×12-15',note:'90° knee bend, don\'t lock out at top. Rest 75s.'},
-      {name:'Leg Curl',sets:'3×12-15',note:'2s up, 3s down. Full range. Rest 60s.'},
-      {name:'Calf Raises',sets:'3×20',note:'Full stretch at bottom, full contraction at top. Rest 45s.'},
-      {name:'Apple Fitness+ Core',sets:'10 min',note:'Core class to finish.'},
+      {name:'Back Squat', sets:'4 sets × 6-8 reps',
+       note:'Bar on upper or lower traps. Feet shoulder-width, toes out 15-30°. Hit parallel — thighs parallel to floor — every rep. Rest 2 min.',
+       coaching:'Before unracking: big breath into your belly, brace your abs hard, squeeze your lats. Push your knees out over your toes as you descend. Drive through your full foot coming up. If your knees cave in, the weight is too heavy — reduce it and fix the pattern first.'},
+      {name:'Romanian Deadlift', sets:'3 sets × 10 reps',
+       note:'Dumbbells in hand. Hinge at hips — push them back — lower along your thighs until you feel a hard hamstring stretch. Drive hips forward to stand. Rest 90s.',
+       coaching:'This is a hinge, not a squat — your knees stay slightly bent but don\'t bend more. Feel the tension build in your hamstrings as the weights descend. That deep stretch at the bottom is the whole point. Keep the dumbbells close to your legs the entire way down.'},
+      {name:'Walking Lunges', sets:'3 sets × 10 each leg',
+       note:'Dumbbells at sides. Step, lower back knee toward floor, drive off front foot. 20 total steps per set. Rest 75s.',
+       coaching:'Torso stays upright — don\'t lean forward. Front knee tracks over your second toe. Lunges hit each leg independently and expose any imbalances. If balance is an issue, do stationary reverse lunges instead — same muscles, more stable.'},
+      {name:'Leg Press', sets:'3 sets × 12-15 reps',
+       note:'Feet shoulder-width on platform. Lower to 90° knee bend. Press through your full foot. Don\'t lock knees out at top. Rest 75s.',
+       coaching:'You can go heavier here than squats — use it to accumulate quad volume after the heavy squat work. Keep tension on the muscle by not fully extending at the top. High reps here burns extra calories and builds the muscle detail.'},
+      {name:'Leg Curl', sets:'3 sets × 12-15 reps',
+       note:'Lying or seated machine. 2 sec up, 3 sec down. Full range every rep. Rest 60s.',
+       coaching:'Most people have weaker hamstrings than quads from sitting all day. This directly addresses the imbalance. If one leg is noticeably stronger, do single-leg curls to equalize — an uncorrected imbalance will eventually cause a strain.'},
+      {name:'Calf Raises', sets:'3 sets × 20 reps',
+       note:'Edge of a step for full range. Full stretch at bottom, full contraction at top. 1 sec pause at peak. Rest 45s.',
+       coaching:'Calves only respond to full range and slow tempo — bouncing through reps does nothing. 2 sec up, 1 sec hold, 2 sec down. The deep burn means you\'re actually loading the muscle.'},
+      {name:'Apple Fitness+ Core', sets:'10 min',
+       note:'Core class to finish.',
+       coaching:'Your legs are cooked but your core is fresh. Core class after legs — important for protecting your spine under load in future sessions.'},
     ]},
-  'Upper Body':{emoji:'🏋️',duration:'45 min',focus:'Chest · Back · Biceps · Triceps',
+
+  'Upper Body':{
+    emoji:'🏋️', duration:'45 min', focus:'Chest · Back · Biceps · Triceps',
+    calories:'~300-390 cal',
+    warmup:'3 min: arm circles, 10 pushups, 10 light dumbbell rows to prime the whole upper body.',
+    tips:'The superset at the end saves about 6 minutes and creates a massive arm pump. Don\'t skip it. By this point you\'re tired — but the arms are relatively fresh since the earlier exercises didn\'t directly fatigue them much.',
+    rest:'90s after bench · 75s after all compound rows/press · 75s between supersets',
     exercises:[
-      {name:'Bench Press',sets:'4×8-10',note:'Heaviest compound first. Rest 90s.'},
-      {name:'Wide-Grip Lat Pulldown',sets:'3×10-12',note:'Full dead hang at top. Rest 75s.'},
-      {name:'Dumbbell Shoulder Press',sets:'3×10-12',note:'Full lockout overhead. Rest 75s.'},
-      {name:'Seated Cable Row',sets:'3×10-12',note:'Pause at contraction. Rest 75s.'},
-      {name:'Bicep Curl + Tricep Pushdown',sets:'3 supersets × 12',note:'No rest between exercises. Rest 75s between sets.'},
-      {name:'Apple Fitness+ Core',sets:'10 min',note:'Core class to finish.'},
+      {name:'Bench Press', sets:'4 sets × 8-10 reps',
+       note:'Heaviest compound first. Mid-chest contact, elbows 45°. Rest 90s.',
+       coaching:'Squeeze the bar, brace hard, lower slow, press explosive. Your chest should be the thing pushing the bar — not your shoulders or triceps. If it tilts unevenly, one side is stronger. Address it with single-arm dumbbell work.'},
+      {name:'Wide-Grip Lat Pulldown', sets:'3 sets × 10-12 reps',
+       note:'Wide overhand grip, pull to upper chest. Full dead hang at the top. Rest 75s.',
+       coaching:'Depress your shoulder blades before pulling — this is what makes it a lat exercise rather than a bicep exercise. Think "elbows to hip pockets." Squeeze for 1 sec at the bottom.'},
+      {name:'Dumbbell Shoulder Press', sets:'3 sets × 10-12 reps',
+       note:'Seated or standing. Dumbbells at ear height, press straight up, full lockout. Rest 75s.',
+       coaching:'Brace your core and squeeze your glutes to protect your lower back. The dumbbell version forces each side to work independently — critical for fixing imbalances that a barbell hides.'},
+      {name:'Seated Cable Row', sets:'3 sets × 10-12 reps',
+       note:'Neutral grip, pull to navel, drive elbows back, squeeze shoulder blades. Torso upright — no rocking. Rest 75s.',
+       coaching:'Pause at full contraction for 1 sec — your elbows should be behind your torso. That\'s where the mid-back is fully contracted. Rushing the return is the most common way to make this exercise useless.'},
+      {name:'Bicep Curl + Tricep Pushdown', sets:'3 supersets × 12 each',
+       note:'SUPERSET: do bicep curls immediately followed by pushdowns with no rest between. Rest 75s between supersets.',
+       coaching:'Supersetting biceps and triceps is time-efficient and actually works well — while one muscle contracts, the opposite one gets extra blood flow. Full lockout on pushdowns. Elbows pinned on curls. This is your arm finisher — make every rep count.'},
+      {name:'Apple Fitness+ Core', sets:'10 min',
+       note:'Core class to finish.',
+       coaching:'Core last. Spine needs to be stable and fresh for the core work to have maximum effect — don\'t do it first.'},
     ]},
-  'Active Recovery':{emoji:'🧘',duration:'25-35 min',focus:'Mobility · Flexibility',
+
+  'Active Recovery':{
+    emoji:'🧘', duration:'25-35 min', focus:'Mobility · Flexibility · Blood Flow',
+    calories:'~80-140 cal',
+    warmup:'None — start easy.',
+    tips:'Sleep 7-8 hours tonight and hit your protein. Your muscles are rebuilding right now — give them what they need. Recovery is when your body actually builds muscle and burns fat — not during the workout itself.',
+    rest:'Move at your own pace',
     exercises:[
-      {name:'Easy Walk',sets:'15-20 min',note:'Conversational pace. Outdoors preferred.'},
-      {name:'Hip Flexor Stretch',sets:'2×45s each side',note:'Kneeling lunge, shift weight forward.'},
-      {name:'Pigeon Pose',sets:'2×60s each side',note:'Let gravity work over the full minute.'},
-      {name:'Thoracic Rotation',sets:'2×10 each side',note:'Side lying, rotate top arm open behind you.'},
-      {name:'Hamstring Stretch',sets:'2×45s each side',note:'Flat back. Feel it in belly of hamstring.'},
-      {name:'Foam Roll',sets:'5 min',note:'Pause 20-30s on tight spots.'},
+      {name:'Easy Walk', sets:'15-20 min',
+       note:'Easy conversational pace. Outdoors if possible — sunlight and fresh air lower cortisol and help recovery.',
+       coaching:'This isn\'t cardio — it\'s active blood flow. Walking mobilizes your joints, delivers nutrients to sore muscles, and shifts your nervous system out of the stress state. Don\'t add pace or incline. Just walk and let the body do its work.'},
+      {name:'Hip Flexor Stretch', sets:'2 × 45s each side',
+       note:'Kneeling lunge, back knee on floor. Shift weight forward until you feel a stretch deep in the front hip of the back leg. Torso tall.',
+       coaching:'Tight hip flexors from sitting reduce your squat depth and cause lower back pain. This directly addresses both. Breathe into the stretch — don\'t force it. Over weeks you\'ll notice your squat depth improving.'},
+      {name:'Pigeon Pose', sets:'2 × 60s each side',
+       note:'Shin forward, back leg extended, sink hips down. Fold torso forward if comfortable.',
+       coaching:'The most effective hip stretch you can do. Targets the piriformis and external rotators — tight from squatting and daily sitting. Let gravity work over the full 60 seconds. Breathe slowly and consciously release the tension.'},
+      {name:'Thoracic Rotation', sets:'2 × 10 each side',
+       note:'Side lying, knees bent 90°. Hold top knee down. Rotate top arm open behind you, eyes follow. Exhale as you open.',
+       coaching:'Upper back mobility is critical for pressing safely. Desk workers develop stiff thoracic spines which forces the lower back and shoulders to compensate — that\'s how injuries happen. This restores the rotation your spine needs.'},
+      {name:'Hamstring Stretch', sets:'2 × 45s each side',
+       note:'Seated, one leg straight, reach forward with a flat back. Feel the stretch in the belly of the hamstring — not your lower back.',
+       coaching:'After heavy RDLs and leg curls your hamstrings are shortened and tight. This restores their resting length. Back must stay flat — if it rounds, you\'re stretching your spine, not your hamstrings.'},
+      {name:'Foam Roll', sets:'5 min total',
+       note:'Quads, IT band, upper back. 1 inch per second. Pause 20-30s on tight spots.',
+       coaching:'Foam rolling breaks up fascial adhesions and reduces soreness. It\'s not supposed to be comfortable — the sore spots are exactly where you need time. Quads and IT band after leg days. Upper back after push/pull days.'},
     ]},
 };
 
+
+
+const EXERCISE_SVGS = {
+  'Bench Press': `<svg width="100%" viewBox="0 0 120 75" style="background:#0a1420;border-radius:12px;display:block;width:100%;">
+      <text x="60" y="9" text-anchor="middle" fill="#39ff84" font-size="6.5" font-family="sans-serif" font-weight="700">BENCH PRESS</text>
+      <text x="60" y="17" text-anchor="middle" fill="#4a7090" font-size="5" font-family="sans-serif">chest · triceps · shoulders</text>
+      <circle cx="95" cy="54" r="4" fill="none" stroke="#39ff84" stroke-width="1.8"/><line x1="20" y1="58" x2="100" y2="58" stroke="#1e3448" stroke-width="3" stroke-linecap="round"/><line x1="30" y1="58" x2="30" y2="68" stroke="#1e3448" stroke-width="2.5" stroke-linecap="round"/><line x1="90" y1="58" x2="90" y2="68" stroke="#1e3448" stroke-width="2.5" stroke-linecap="round"/><line x1="91" y1="54" x2="30" y2="54" stroke="#8ab" stroke-width="3" stroke-linecap="round"/><line x1="75" y1="54" x2="68" y2="65" stroke="#8ab" stroke-width="2" stroke-linecap="round"/><line x1="50" y1="54" x2="43" y2="65" stroke="#8ab" stroke-width="2" stroke-linecap="round"/><line x1="70" y1="54" x2="68" y2="38" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="55" y1="54" x2="53" y2="38" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="45" y1="38" x2="80" y2="38" stroke="#39ff84" stroke-width="3" stroke-linecap="round"/><line x1="42" y1="34" x2="42" y2="42" stroke="#f59e0b" stroke-width="4" stroke-linecap="round"/><line x1="83" y1="34" x2="83" y2="42" stroke="#f59e0b" stroke-width="4" stroke-linecap="round"/>
+    </svg>`,
+  'Wide-Grip Lat Pulldown': `<svg width="100%" viewBox="0 0 120 75" style="background:#0a1420;border-radius:12px;display:block;width:100%;">
+      <text x="60" y="9" text-anchor="middle" fill="#39ff84" font-size="6.5" font-family="sans-serif" font-weight="700">WIDE PULLDOWN</text>
+      <text x="60" y="17" text-anchor="middle" fill="#4a7090" font-size="5" font-family="sans-serif">outer lats · width</text>
+      <line x1="20" y1="22" x2="100" y2="22" stroke="#39ff84" stroke-width="3" stroke-linecap="round"/><line x1="20" y1="18" x2="20" y2="28" stroke="#1e3448" stroke-width="3" stroke-linecap="round"/><line x1="100" y1="18" x2="100" y2="28" stroke="#1e3448" stroke-width="3" stroke-linecap="round"/><circle cx="60" cy="34" r="4" fill="none" stroke="#39ff84" stroke-width="1.8"/><line x1="60" y1="30" x2="28" y2="23" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="60" y1="30" x2="92" y2="23" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="60" y1="38" x2="60" y2="58" stroke="#8ab" stroke-width="3" stroke-linecap="round"/><line x1="57" y1="58" x2="52" y2="70" stroke="#8ab" stroke-width="2" stroke-linecap="round"/><line x1="63" y1="58" x2="68" y2="70" stroke="#8ab" stroke-width="2" stroke-linecap="round"/><line x1="35" y1="28" x2="40" y2="34" stroke="#39ff8488" stroke-width="1.5" stroke-linecap="round"/><line x1="85" y1="28" x2="80" y2="34" stroke="#39ff8488" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>`,
+  'Close-Grip Lat Pulldown': `<svg width="100%" viewBox="0 0 120 75" style="background:#0a1420;border-radius:12px;display:block;width:100%;">
+      <text x="60" y="9" text-anchor="middle" fill="#39ff84" font-size="6.5" font-family="sans-serif" font-weight="700">CLOSE PULLDOWN</text>
+      <text x="60" y="17" text-anchor="middle" fill="#4a7090" font-size="5" font-family="sans-serif">lower lats · thickness</text>
+      <line x1="20" y1="22" x2="100" y2="22" stroke="#39ff84" stroke-width="3" stroke-linecap="round"/><line x1="20" y1="18" x2="20" y2="28" stroke="#1e3448" stroke-width="3" stroke-linecap="round"/><line x1="100" y1="18" x2="100" y2="28" stroke="#1e3448" stroke-width="3" stroke-linecap="round"/><circle cx="60" cy="34" r="4" fill="none" stroke="#39ff84" stroke-width="1.8"/><line x1="60" y1="30" x2="48" y2="23" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="60" y1="30" x2="72" y2="23" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="60" y1="38" x2="60" y2="58" stroke="#8ab" stroke-width="3" stroke-linecap="round"/><line x1="57" y1="58" x2="52" y2="70" stroke="#8ab" stroke-width="2" stroke-linecap="round"/><line x1="63" y1="58" x2="68" y2="70" stroke="#8ab" stroke-width="2" stroke-linecap="round"/><line x1="45" y1="28" x2="50" y2="34" stroke="#39ff8488" stroke-width="1.5" stroke-linecap="round"/><line x1="75" y1="28" x2="70" y2="34" stroke="#39ff8488" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>`,
+  'Seated Cable Row': `<svg width="100%" viewBox="0 0 120 75" style="background:#0a1420;border-radius:12px;display:block;width:100%;">
+      <text x="60" y="9" text-anchor="middle" fill="#39ff84" font-size="6.5" font-family="sans-serif" font-weight="700">CABLE ROW</text>
+      <text x="60" y="17" text-anchor="middle" fill="#4a7090" font-size="5" font-family="sans-serif">mid-back · rhomboids · lats</text>
+      <line x1="15" y1="25" x2="15" y2="65" stroke="#1e3448" stroke-width="4" stroke-linecap="round"/><line x1="12" y1="48" x2="18" y2="48" stroke="#39ff84" stroke-width="3" stroke-linecap="round"/><circle cx="75" cy="32" r="4" fill="none" stroke="#39ff84" stroke-width="1.8"/><line x1="75" y1="36" x2="75" y2="52" stroke="#8ab" stroke-width="3" stroke-linecap="round"/><line x1="75" y1="52" x2="60" y2="52" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="60" y1="52" x2="60" y2="65" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="75" y1="52" x2="90" y2="52" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="90" y1="52" x2="90" y2="65" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="73" y1="40" x2="50" y2="46" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="50" y1="46" x2="18" y2="48" stroke="#4a7090" stroke-width="1.5" stroke-linecap="round"/><line x1="65" y1="42" x2="75" y2="42" stroke="#39ff8488" stroke-width="1.5" stroke-linecap="round"/><line x1="72" y1="39" x2="75" y2="42" stroke="#39ff8488" stroke-width="1.5" stroke-linecap="round"/><line x1="72" y1="45" x2="75" y2="42" stroke="#39ff8488" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>`,
+  'Cable Bicep Curl': `<svg width="100%" viewBox="0 0 120 75" style="background:#0a1420;border-radius:12px;display:block;width:100%;">
+      <text x="60" y="9" text-anchor="middle" fill="#39ff84" font-size="6.5" font-family="sans-serif" font-weight="700">CABLE CURL</text>
+      <text x="60" y="17" text-anchor="middle" fill="#4a7090" font-size="5" font-family="sans-serif">biceps · constant tension</text>
+      <line x1="15" y1="20" x2="15" y2="70" stroke="#1e3448" stroke-width="4" stroke-linecap="round"/><line x1="12" y1="22" x2="18" y2="22" stroke="#39ff84" stroke-width="3" stroke-linecap="round"/><line x1="15" y1="22" x2="42" y2="42" stroke="#4a7090" stroke-width="1.5" stroke-linecap="round"/><circle cx="60" cy="26" r="4" fill="none" stroke="#39ff84" stroke-width="1.8"/><line x1="60" y1="30" x2="60" y2="52" stroke="#8ab" stroke-width="3" stroke-linecap="round"/><line x1="57" y1="52" x2="52" y2="65" stroke="#8ab" stroke-width="2" stroke-linecap="round"/><line x1="63" y1="52" x2="68" y2="65" stroke="#8ab" stroke-width="2" stroke-linecap="round"/><line x1="58" y1="34" x2="44" y2="40" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="44" y1="40" x2="42" y2="32" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="62" y1="34" x2="76" y2="40" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="76" y1="40" x2="80" y2="48" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="80" y1="48" x2="88" y2="48" stroke="#f59e0b" stroke-width="4" stroke-linecap="round"/>
+    </svg>`,
+  'Dumbbell Hammer Curl': `<svg width="100%" viewBox="0 0 120 75" style="background:#0a1420;border-radius:12px;display:block;width:100%;">
+      <text x="60" y="9" text-anchor="middle" fill="#39ff84" font-size="6.5" font-family="sans-serif" font-weight="700">HAMMER CURL</text>
+      <text x="60" y="17" text-anchor="middle" fill="#4a7090" font-size="5" font-family="sans-serif">brachialis · bicep peak</text>
+      <circle cx="60" cy="26" r="4" fill="none" stroke="#39ff84" stroke-width="1.8"/><line x1="60" y1="30" x2="60" y2="52" stroke="#8ab" stroke-width="3" stroke-linecap="round"/><line x1="57" y1="52" x2="52" y2="65" stroke="#8ab" stroke-width="2" stroke-linecap="round"/><line x1="63" y1="52" x2="68" y2="65" stroke="#8ab" stroke-width="2" stroke-linecap="round"/><line x1="58" y1="34" x2="42" y2="40" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="42" y1="40" x2="40" y2="32" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="62" y1="34" x2="78" y2="40" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="78" y1="40" x2="80" y2="32" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="40" y1="28" x2="40" y2="38" stroke="#f59e0b" stroke-width="4" stroke-linecap="round"/><line x1="80" y1="28" x2="80" y2="38" stroke="#f59e0b" stroke-width="4" stroke-linecap="round"/>
+    </svg>`,
+  'Dumbbell Incline Press': `<svg width="100%" viewBox="0 0 120 75" style="background:#0a1420;border-radius:12px;display:block;width:100%;">
+      <text x="60" y="9" text-anchor="middle" fill="#39ff84" font-size="6.5" font-family="sans-serif" font-weight="700">INCLINE PRESS</text>
+      <text x="60" y="17" text-anchor="middle" fill="#4a7090" font-size="5" font-family="sans-serif">upper chest · front delts</text>
+      <line x1="15" y1="68" x2="85" y2="48" stroke="#1e3448" stroke-width="3" stroke-linecap="round"/><line x1="15" y1="68" x2="15" y2="75" stroke="#1e3448" stroke-width="3" stroke-linecap="round"/><line x1="85" y1="48" x2="95" y2="68" stroke="#1e3448" stroke-width="3" stroke-linecap="round"/><circle cx="88" cy="44" r="4" fill="none" stroke="#39ff84" stroke-width="1.8"/><line x1="84" y1="46" x2="30" y2="62" stroke="#8ab" stroke-width="3" stroke-linecap="round"/><line x1="40" y1="62" x2="32" y2="72" stroke="#8ab" stroke-width="2" stroke-linecap="round"/><line x1="55" y1="60" x2="50" y2="72" stroke="#8ab" stroke-width="2" stroke-linecap="round"/><line x1="72" y1="52" x2="66" y2="38" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="58" y1="56" x2="54" y2="40" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="58" y1="36" x2="72" y2="36" stroke="#39ff84" stroke-width="3" stroke-linecap="round"/><line x1="55" y1="33" x2="55" y2="39" stroke="#f59e0b" stroke-width="4" stroke-linecap="round"/><line x1="75" y1="33" x2="75" y2="39" stroke="#f59e0b" stroke-width="4" stroke-linecap="round"/>
+    </svg>`,
+  'Dumbbell Lateral Raise': `<svg width="100%" viewBox="0 0 120 75" style="background:#0a1420;border-radius:12px;display:block;width:100%;">
+      <text x="60" y="9" text-anchor="middle" fill="#39ff84" font-size="6.5" font-family="sans-serif" font-weight="700">LATERAL RAISE</text>
+      <text x="60" y="17" text-anchor="middle" fill="#4a7090" font-size="5" font-family="sans-serif">medial delt · shoulder width</text>
+      <circle cx="60" cy="26" r="4" fill="none" stroke="#39ff84" stroke-width="1.8"/><line x1="60" y1="30" x2="60" y2="52" stroke="#8ab" stroke-width="3" stroke-linecap="round"/><line x1="57" y1="52" x2="52" y2="65" stroke="#8ab" stroke-width="2" stroke-linecap="round"/><line x1="63" y1="52" x2="68" y2="65" stroke="#8ab" stroke-width="2" stroke-linecap="round"/><line x1="58" y1="34" x2="30" y2="36" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="62" y1="34" x2="90" y2="36" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="24" y1="33" x2="24" y2="39" stroke="#f59e0b" stroke-width="4" stroke-linecap="round"/><line x1="96" y1="33" x2="96" y2="39" stroke="#f59e0b" stroke-width="4" stroke-linecap="round"/><path d="M35 44 Q30 38 34 34" fill="none" stroke="#39ff8488" stroke-width="1.5"/><path d="M85 44 Q90 38 86 34" fill="none" stroke="#39ff8488" stroke-width="1.5"/>
+    </svg>`,
+  'Cable Overhead Tricep Extension': `<svg width="100%" viewBox="0 0 120 75" style="background:#0a1420;border-radius:12px;display:block;width:100%;">
+      <text x="60" y="9" text-anchor="middle" fill="#39ff84" font-size="6.5" font-family="sans-serif" font-weight="700">CABLE TRICEP EXT</text>
+      <text x="60" y="17" text-anchor="middle" fill="#4a7090" font-size="5" font-family="sans-serif">long head tricep</text>
+      <line x1="105" y1="20" x2="105" y2="70" stroke="#1e3448" stroke-width="4" stroke-linecap="round"/><line x1="102" y1="22" x2="108" y2="22" stroke="#39ff84" stroke-width="3" stroke-linecap="round"/><line x1="105" y1="22" x2="72" y2="32" stroke="#4a7090" stroke-width="1.5" stroke-linecap="round"/><circle cx="55" cy="26" r="4" fill="none" stroke="#39ff84" stroke-width="1.8"/><line x1="55" y1="30" x2="55" y2="52" stroke="#8ab" stroke-width="3" stroke-linecap="round"/><line x1="52" y1="52" x2="48" y2="65" stroke="#8ab" stroke-width="2" stroke-linecap="round"/><line x1="58" y1="52" x2="62" y2="65" stroke="#8ab" stroke-width="2" stroke-linecap="round"/><line x1="53" y1="32" x2="44" y2="24" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="44" y1="24" x2="52" y2="34" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="57" y1="32" x2="66" y2="24" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="66" y1="24" x2="72" y2="32" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="48" y1="30" x2="44" y2="22" stroke="#39ff8488" stroke-width="1.5" stroke-linecap="round"/><line x1="70" y1="28" x2="74" y2="20" stroke="#39ff8488" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>`,
+  'Cable Tricep Pushdown': `<svg width="100%" viewBox="0 0 120 75" style="background:#0a1420;border-radius:12px;display:block;width:100%;">
+      <text x="60" y="9" text-anchor="middle" fill="#39ff84" font-size="6.5" font-family="sans-serif" font-weight="700">TRICEP PUSHDOWN</text>
+      <text x="60" y="17" text-anchor="middle" fill="#4a7090" font-size="5" font-family="sans-serif">lateral + medial head</text>
+      <line x1="60" y1="18" x2="60" y2="28" stroke="#4a7090" stroke-width="1.5" stroke-linecap="round"/><line x1="45" y1="18" x2="75" y2="18" stroke="#39ff84" stroke-width="3" stroke-linecap="round"/><line x1="45" y1="15" x2="45" y2="22" stroke="#1e3448" stroke-width="3" stroke-linecap="round"/><line x1="75" y1="15" x2="75" y2="22" stroke="#1e3448" stroke-width="3" stroke-linecap="round"/><circle cx="60" cy="30" r="4" fill="none" stroke="#39ff84" stroke-width="1.8"/><line x1="60" y1="34" x2="60" y2="56" stroke="#8ab" stroke-width="3" stroke-linecap="round"/><line x1="57" y1="56" x2="52" y2="68" stroke="#8ab" stroke-width="2" stroke-linecap="round"/><line x1="63" y1="56" x2="68" y2="68" stroke="#8ab" stroke-width="2" stroke-linecap="round"/><line x1="57" y1="36" x2="52" y2="40" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="52" y1="40" x2="50" y2="56" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="63" y1="36" x2="68" y2="40" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="68" y1="40" x2="70" y2="56" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="44" y1="56" x2="76" y2="56" stroke="#39ff84" stroke-width="3" stroke-linecap="round"/><line x1="53" y1="46" x2="53" y2="54" stroke="#39ff8488" stroke-width="1.5" stroke-linecap="round"/><line x1="67" y1="46" x2="67" y2="54" stroke="#39ff8488" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>`,
+  'Back Squat': `<svg width="100%" viewBox="0 0 120 75" style="background:#0a1420;border-radius:12px;display:block;width:100%;">
+      <text x="60" y="9" text-anchor="middle" fill="#39ff84" font-size="6.5" font-family="sans-serif" font-weight="700">BACK SQUAT</text>
+      <text x="60" y="17" text-anchor="middle" fill="#4a7090" font-size="5" font-family="sans-serif">quads · glutes · hamstrings</text>
+      <line x1="20" y1="20" x2="20" y2="70" stroke="#1e3448" stroke-width="2.5" stroke-linecap="round"/><line x1="100" y1="20" x2="100" y2="70" stroke="#1e3448" stroke-width="2.5" stroke-linecap="round"/><circle cx="60" cy="24" r="4" fill="none" stroke="#39ff84" stroke-width="1.8"/><line x1="60" y1="28" x2="60" y2="44" stroke="#8ab" stroke-width="3" stroke-linecap="round"/><line x1="60" y1="44" x2="46" y2="56" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="46" y1="56" x2="50" y2="68" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="60" y1="44" x2="74" y2="56" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="74" y1="56" x2="70" y2="68" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="30" y1="32" x2="90" y2="32" stroke="#39ff84" stroke-width="3" stroke-linecap="round"/><line x1="27" y1="28" x2="27" y2="36" stroke="#f59e0b" stroke-width="4" stroke-linecap="round"/><line x1="93" y1="28" x2="93" y2="36" stroke="#f59e0b" stroke-width="4" stroke-linecap="round"/><line x1="60" y1="68" x2="60" y2="58" stroke="#39ff8488" stroke-width="1.5" stroke-linecap="round"/><line x1="57" y1="61" x2="60" y2="58" stroke="#39ff8488" stroke-width="1.5" stroke-linecap="round"/><line x1="63" y1="61" x2="60" y2="58" stroke="#39ff8488" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>`,
+  'Romanian Deadlift': `<svg width="100%" viewBox="0 0 120 75" style="background:#0a1420;border-radius:12px;display:block;width:100%;">
+      <text x="60" y="9" text-anchor="middle" fill="#39ff84" font-size="6.5" font-family="sans-serif" font-weight="700">ROMANIAN DL</text>
+      <text x="60" y="17" text-anchor="middle" fill="#4a7090" font-size="5" font-family="sans-serif">hamstrings · glutes · hinge</text>
+      <circle cx="85" cy="28" r="4" fill="none" stroke="#39ff84" stroke-width="1.8"/><line x1="85" y1="32" x2="85" y2="44" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="85" y1="38" x2="40" y2="44" stroke="#8ab" stroke-width="3" stroke-linecap="round"/><line x1="40" y1="44" x2="45" y2="65" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="45" y1="65" x2="55" y2="65" stroke="#8ab" stroke-width="2" stroke-linecap="round"/><line x1="48" y1="44" x2="52" y2="65" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="52" y1="65" x2="62" y2="65" stroke="#8ab" stroke-width="2" stroke-linecap="round"/><line x1="60" y1="44" x2="56" y2="58" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="70" y1="44" x2="68" y2="58" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="50" y1="58" x2="62" y2="58" stroke="#f59e0b" stroke-width="4" stroke-linecap="round"/><line x1="62" y1="58" x2="74" y2="58" stroke="#f59e0b" stroke-width="4" stroke-linecap="round"/><path d="M85 50 Q75 55 68 50" fill="none" stroke="#39ff8488" stroke-width="1.5"/>
+    </svg>`,
+  'Walking Lunges': `<svg width="100%" viewBox="0 0 120 75" style="background:#0a1420;border-radius:12px;display:block;width:100%;">
+      <text x="60" y="9" text-anchor="middle" fill="#39ff84" font-size="6.5" font-family="sans-serif" font-weight="700">WALKING LUNGE</text>
+      <text x="60" y="17" text-anchor="middle" fill="#4a7090" font-size="5" font-family="sans-serif">quads · glutes · balance</text>
+      <circle cx="55" cy="24" r="4" fill="none" stroke="#39ff84" stroke-width="1.8"/><line x1="55" y1="28" x2="55" y2="44" stroke="#8ab" stroke-width="3" stroke-linecap="round"/><line x1="55" y1="44" x2="75" y2="52" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="75" y1="52" x2="78" y2="68" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="55" y1="44" x2="42" y2="52" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="42" y1="52" x2="38" y2="62" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="38" y1="62" x2="48" y2="65" stroke="#8ab" stroke-width="2" stroke-linecap="round"/><line x1="53" y1="34" x2="44" y2="40" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="57" y1="34" x2="66" y2="40" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="38" y1="38" x2="50" y2="40" stroke="#f59e0b" stroke-width="4" stroke-linecap="round"/><line x1="62" y1="38" x2="74" y2="40" stroke="#f59e0b" stroke-width="4" stroke-linecap="round"/>
+    </svg>`,
+  'Leg Press': `<svg width="100%" viewBox="0 0 120 75" style="background:#0a1420;border-radius:12px;display:block;width:100%;">
+      <text x="60" y="9" text-anchor="middle" fill="#39ff84" font-size="6.5" font-family="sans-serif" font-weight="700">LEG PRESS</text>
+      <text x="60" y="17" text-anchor="middle" fill="#4a7090" font-size="5" font-family="sans-serif">quads · glutes</text>
+      <line x1="20" y1="30" x2="20" y2="70" stroke="#1e3448" stroke-width="4" stroke-linecap="round"/><line x1="20" y1="70" x2="60" y2="70" stroke="#1e3448" stroke-width="3" stroke-linecap="round"/><line x1="70" y1="20" x2="95" y2="20" stroke="#39ff84" stroke-width="3" stroke-linecap="round"/><line x1="70" y1="17" x2="70" y2="24" stroke="#f59e0b" stroke-width="3" stroke-linecap="round"/><line x1="95" y1="17" x2="95" y2="24" stroke="#f59e0b" stroke-width="3" stroke-linecap="round"/><circle cx="26" cy="36" r="4" fill="none" stroke="#39ff84" stroke-width="1.8"/><line x1="26" y1="40" x2="30" y2="58" stroke="#8ab" stroke-width="3" stroke-linecap="round"/><line x1="30" y1="58" x2="55" y2="52" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="55" y1="52" x2="72" y2="26" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="82" y1="28" x2="88" y2="22" stroke="#39ff8488" stroke-width="1.5" stroke-linecap="round"/><line x1="84" y1="25" x2="88" y2="22" stroke="#39ff8488" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>`,
+  'Leg Curl': `<svg width="100%" viewBox="0 0 120 75" style="background:#0a1420;border-radius:12px;display:block;width:100%;">
+      <text x="60" y="9" text-anchor="middle" fill="#39ff84" font-size="6.5" font-family="sans-serif" font-weight="700">LEG CURL</text>
+      <text x="60" y="17" text-anchor="middle" fill="#4a7090" font-size="5" font-family="sans-serif">hamstrings · knee flexion</text>
+      <line x1="15" y1="45" x2="95" y2="45" stroke="#1e3448" stroke-width="3" stroke-linecap="round"/><circle cx="95" cy="40" r="4" fill="none" stroke="#39ff84" stroke-width="1.8"/><line x1="91" y1="42" x2="30" y2="44" stroke="#8ab" stroke-width="3" stroke-linecap="round"/><line x1="30" y1="44" x2="28" y2="58" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="40" y1="44" x2="38" y2="56" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="38" y1="56" x2="46" y2="44" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="46" y1="44" x2="52" y2="35" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="48" y1="33" x2="56" y2="37" stroke="#39ff84" stroke-width="4" stroke-linecap="round"/><path d="M35 56 Q30 50 36 44" fill="none" stroke="#39ff8488" stroke-width="1.5"/>
+    </svg>`,
+  'Calf Raises': `<svg width="100%" viewBox="0 0 120 75" style="background:#0a1420;border-radius:12px;display:block;width:100%;">
+      <text x="60" y="9" text-anchor="middle" fill="#39ff84" font-size="6.5" font-family="sans-serif" font-weight="700">CALF RAISES</text>
+      <text x="60" y="17" text-anchor="middle" fill="#4a7090" font-size="5" font-family="sans-serif">gastrocnemius · soleus</text>
+      <line x1="35" y1="60" x2="85" y2="60" stroke="#1e3448" stroke-width="3" stroke-linecap="round"/><line x1="35" y1="58" x2="35" y2="68" stroke="#1e3448" stroke-width="2" stroke-linecap="round"/><circle cx="60" cy="24" r="4" fill="none" stroke="#39ff84" stroke-width="1.8"/><line x1="60" y1="28" x2="60" y2="50" stroke="#8ab" stroke-width="3" stroke-linecap="round"/><line x1="57" y1="50" x2="54" y2="60" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="63" y1="50" x2="66" y2="60" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="54" y1="60" x2="57" y2="65" stroke="#cde" stroke-width="2.5" stroke-linecap="round"/><line x1="66" y1="60" x2="63" y2="65" stroke="#cde" stroke-width="2.5" stroke-linecap="round"/><line x1="55" y1="56" x2="55" y2="50" stroke="#39ff8488" stroke-width="1.5" stroke-linecap="round"/><line x1="65" y1="56" x2="65" y2="50" stroke="#39ff8488" stroke-width="1.5" stroke-linecap="round"/><line x1="60" y1="36" x2="20" y2="36" stroke="#4a7090" stroke-width="1.5" stroke-linecap="round"/><line x1="20" y1="30" x2="20" y2="68" stroke="#1e3448" stroke-width="2" stroke-linecap="round"/>
+    </svg>`,
+  'Dumbbell Shoulder Press': `<svg width="100%" viewBox="0 0 120 75" style="background:#0a1420;border-radius:12px;display:block;width:100%;">
+      <text x="60" y="9" text-anchor="middle" fill="#39ff84" font-size="6.5" font-family="sans-serif" font-weight="700">SHOULDER PRESS</text>
+      <text x="60" y="17" text-anchor="middle" fill="#4a7090" font-size="5" font-family="sans-serif">anterior delt · triceps</text>
+      <circle cx="60" cy="26" r="4" fill="none" stroke="#39ff84" stroke-width="1.8"/><line x1="60" y1="30" x2="60" y2="52" stroke="#8ab" stroke-width="3" stroke-linecap="round"/><line x1="57" y1="52" x2="52" y2="65" stroke="#8ab" stroke-width="2" stroke-linecap="round"/><line x1="63" y1="52" x2="68" y2="65" stroke="#8ab" stroke-width="2" stroke-linecap="round"/><line x1="57" y1="34" x2="38" y2="36" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="38" y1="36" x2="38" y2="26" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="63" y1="34" x2="82" y2="36" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="82" y1="36" x2="82" y2="26" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="32" y1="23" x2="44" y2="23" stroke="#f59e0b" stroke-width="4" stroke-linecap="round"/><line x1="76" y1="23" x2="88" y2="23" stroke="#f59e0b" stroke-width="4" stroke-linecap="round"/><line x1="38" y1="30" x2="38" y2="24" stroke="#39ff8488" stroke-width="1.5" stroke-linecap="round"/><line x1="82" y1="30" x2="82" y2="24" stroke="#39ff8488" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>`,
+  'Bicep Curl + Tricep Pushdown': `<svg width="100%" viewBox="0 0 120 75" style="background:#0a1420;border-radius:12px;display:block;width:100%;">
+      <text x="60" y="9" text-anchor="middle" fill="#39ff84" font-size="6.5" font-family="sans-serif" font-weight="700">BICEP + TRICEP</text>
+      <text x="60" y="17" text-anchor="middle" fill="#4a7090" font-size="5" font-family="sans-serif">superset · full arm</text>
+      <text x="30" y="27" text-anchor="middle" fill="#f59e0b" font-size="5" font-family="sans-serif">CURL</text><circle cx="30" cy="32" r="3" fill="none" stroke="#39ff84" stroke-width="1.8"/><line x1="30" y1="35" x2="30" y2="50" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="28" y1="38" x2="20" y2="42" stroke="#cde" stroke-width="1.8" stroke-linecap="round"/><line x1="20" y1="42" x2="18" y2="35" stroke="#cde" stroke-width="1.8" stroke-linecap="round"/><line x1="32" y1="38" x2="40" y2="42" stroke="#cde" stroke-width="1.8" stroke-linecap="round"/><line x1="40" y1="42" x2="42" y2="35" stroke="#cde" stroke-width="1.8" stroke-linecap="round"/><line x1="14" y1="33" x2="22" y2="33" stroke="#f59e0b" stroke-width="3" stroke-linecap="round"/><line x1="38" y1="33" x2="46" y2="33" stroke="#f59e0b" stroke-width="3" stroke-linecap="round"/><line x1="60" y1="25" x2="60" y2="70" stroke="#1e3448" stroke-width="1" stroke-linecap="round"/><text x="90" y="27" text-anchor="middle" fill="#a78bfa" font-size="5" font-family="sans-serif">PUSH</text><circle cx="90" cy="32" r="3" fill="none" stroke="#39ff84" stroke-width="1.8"/><line x1="90" y1="35" x2="90" y2="52" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="88" y1="37" x2="82" y2="40" stroke="#cde" stroke-width="1.8" stroke-linecap="round"/><line x1="82" y1="40" x2="80" y2="54" stroke="#cde" stroke-width="1.8" stroke-linecap="round"/><line x1="92" y1="37" x2="98" y2="40" stroke="#cde" stroke-width="1.8" stroke-linecap="round"/><line x1="98" y1="40" x2="100" y2="54" stroke="#cde" stroke-width="1.8" stroke-linecap="round"/><line x1="74" y1="54" x2="106" y2="54" stroke="#39ff84" stroke-width="3" stroke-linecap="round"/>
+    </svg>`,
+  'Easy Walk': `<svg width="100%" viewBox="0 0 120 75" style="background:#0a1420;border-radius:12px;display:block;width:100%;">
+      <text x="60" y="9" text-anchor="middle" fill="#39ff84" font-size="6.5" font-family="sans-serif" font-weight="700">EASY WALK</text>
+      <text x="60" y="17" text-anchor="middle" fill="#4a7090" font-size="5" font-family="sans-serif">active recovery · blood flow</text>
+      <circle cx="60" cy="24" r="4" fill="none" stroke="#39ff84" stroke-width="1.8"/><line x1="60" y1="28" x2="58" y2="48" stroke="#8ab" stroke-width="3" stroke-linecap="round"/><line x1="58" y1="34" x2="46" y2="40" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="58" y1="34" x2="70" y2="44" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="58" y1="48" x2="46" y2="60" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="46" y1="60" x2="50" y2="70" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="58" y1="48" x2="68" y2="56" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="68" y1="56" x2="60" y2="64" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="20" y1="70" x2="100" y2="70" stroke="#1e3448" stroke-width="1.5" stroke-linecap="round"/><line x1="25" y1="50" x2="32" y2="50" stroke="#39ff8444" stroke-width="1.5" stroke-linecap="round"/><line x1="20" y1="55" x2="30" y2="55" stroke="#39ff8444" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>`,
+  'Hip Flexor Stretch': `<svg width="100%" viewBox="0 0 120 75" style="background:#0a1420;border-radius:12px;display:block;width:100%;">
+      <text x="60" y="9" text-anchor="middle" fill="#39ff84" font-size="6.5" font-family="sans-serif" font-weight="700">HIP FLEXOR</text>
+      <text x="60" y="17" text-anchor="middle" fill="#4a7090" font-size="5" font-family="sans-serif">mobility · squat depth</text>
+      <circle cx="65" cy="26" r="4" fill="none" stroke="#39ff84" stroke-width="1.8"/><line x1="65" y1="30" x2="63" y2="48" stroke="#8ab" stroke-width="3" stroke-linecap="round"/><line x1="63" y1="48" x2="78" y2="48" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="78" y1="48" x2="80" y2="65" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="78" y1="65" x2="90" y2="65" stroke="#8ab" stroke-width="2" stroke-linecap="round"/><line x1="63" y1="48" x2="50" y2="55" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="50" y1="55" x2="48" y2="68" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="40" y1="68" x2="56" y2="68" stroke="#8ab" stroke-width="2" stroke-linecap="round"/><path d="M62 46 Q56 42 58 36" fill="none" stroke="#39ff8488" stroke-width="2"/><line x1="10" y1="68" x2="110" y2="68" stroke="#1e3448" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>`,
+  'Pigeon Pose': `<svg width="100%" viewBox="0 0 120 75" style="background:#0a1420;border-radius:12px;display:block;width:100%;">
+      <text x="60" y="9" text-anchor="middle" fill="#39ff84" font-size="6.5" font-family="sans-serif" font-weight="700">PIGEON POSE</text>
+      <text x="60" y="17" text-anchor="middle" fill="#4a7090" font-size="5" font-family="sans-serif">hip rotators · piriformis</text>
+      <line x1="30" y1="52" x2="70" y2="48" stroke="#8ab" stroke-width="3" stroke-linecap="round"/><line x1="30" y1="52" x2="25" y2="68" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="70" y1="48" x2="95" y2="60" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="50" y1="50" x2="50" y2="32" stroke="#8ab" stroke-width="3" stroke-linecap="round"/><circle cx="50" cy="28" r="4" fill="none" stroke="#39ff84" stroke-width="1.8"/><line x1="50" y1="32" x2="30" y2="40" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="50" y1="32" x2="70" y2="40" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="15" y1="68" x2="105" y2="68" stroke="#1e3448" stroke-width="1.5" stroke-linecap="round"/><path d="M35 60 Q28 54 32 48" fill="none" stroke="#39ff8488" stroke-width="2"/>
+    </svg>`,
+  'Thoracic Rotation': `<svg width="100%" viewBox="0 0 120 75" style="background:#0a1420;border-radius:12px;display:block;width:100%;">
+      <text x="60" y="9" text-anchor="middle" fill="#39ff84" font-size="6.5" font-family="sans-serif" font-weight="700">THORACIC ROTATION</text>
+      <text x="60" y="17" text-anchor="middle" fill="#4a7090" font-size="5" font-family="sans-serif">upper back mobility</text>
+      <circle cx="90" cy="46" r="4" fill="none" stroke="#39ff84" stroke-width="1.8"/><line x1="86" y1="48" x2="40" y2="50" stroke="#8ab" stroke-width="3" stroke-linecap="round"/><line x1="55" y1="50" x2="50" y2="62" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="50" y1="62" x2="65" y2="62" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="72" y1="50" x2="55" y2="44" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="72" y1="50" x2="88" y2="34" stroke="#39ff84" stroke-width="2" stroke-linecap="round"/><path d="M78 50 Q84 42 88 38" fill="none" stroke="#39ff8488" stroke-width="2"/><line x1="15" y1="65" x2="105" y2="65" stroke="#1e3448" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>`,
+  'Hamstring Stretch': `<svg width="100%" viewBox="0 0 120 75" style="background:#0a1420;border-radius:12px;display:block;width:100%;">
+      <text x="60" y="9" text-anchor="middle" fill="#39ff84" font-size="6.5" font-family="sans-serif" font-weight="700">HAMSTRING STRETCH</text>
+      <text x="60" y="17" text-anchor="middle" fill="#4a7090" font-size="5" font-family="sans-serif">flexibility · injury prevention</text>
+      <circle cx="25" cy="32" r="4" fill="none" stroke="#39ff84" stroke-width="1.8"/><line x1="25" y1="36" x2="28" y2="52" stroke="#8ab" stroke-width="3" stroke-linecap="round"/><line x1="28" y1="52" x2="80" y2="52" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="80" y1="50" x2="86" y2="56" stroke="#8ab" stroke-width="2" stroke-linecap="round"/><line x1="28" y1="52" x2="28" y2="65" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="25" y1="40" x2="55" y2="52" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="25" y1="44" x2="60" y2="52" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="15" y1="65" x2="105" y2="65" stroke="#1e3448" stroke-width="1.5" stroke-linecap="round"/><path d="M30 48 Q50 44 58 48" fill="none" stroke="#39ff8488" stroke-width="2"/>
+    </svg>`,
+  'Foam Roll': `<svg width="100%" viewBox="0 0 120 75" style="background:#0a1420;border-radius:12px;display:block;width:100%;">
+      <text x="60" y="9" text-anchor="middle" fill="#39ff84" font-size="6.5" font-family="sans-serif" font-weight="700">FOAM ROLL</text>
+      <text x="60" y="17" text-anchor="middle" fill="#4a7090" font-size="5" font-family="sans-serif">fascia · muscle recovery</text>
+      <ellipse cx="60" cy="58" rx="28" ry="6" fill="#1e3448" stroke="#39ff84" stroke-width="1.5"/><circle cx="95" cy="50" r="4" fill="none" stroke="#39ff84" stroke-width="1.8"/><line x1="91" y1="52" x2="32" y2="52" stroke="#8ab" stroke-width="3" stroke-linecap="round"/><line x1="32" y1="52" x2="28" y2="65" stroke="#8ab" stroke-width="2" stroke-linecap="round"/><line x1="44" y1="52" x2="42" y2="65" stroke="#8ab" stroke-width="2" stroke-linecap="round"/><line x1="80" y1="52" x2="75" y2="64" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="68" y1="52" x2="65" y2="64" stroke="#cde" stroke-width="2" stroke-linecap="round"/><line x1="15" y1="65" x2="105" y2="65" stroke="#1e3448" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>`,
+  'Apple Fitness+ Core': `<svg width="100%" viewBox="0 0 120 75" style="background:#0a1420;border-radius:12px;display:block;width:100%;">
+      <text x="60" y="9" text-anchor="middle" fill="#39ff84" font-size="6.5" font-family="sans-serif" font-weight="700">APPLE FITNESS+ CORE</text>
+      <text x="60" y="17" text-anchor="middle" fill="#4a7090" font-size="5" font-family="sans-serif">10 min guided finisher</text>
+      <circle cx="95" cy="38" r="4" fill="none" stroke="#39ff84" stroke-width="1.8"/><line x1="91" y1="40" x2="30" y2="46" stroke="#8ab" stroke-width="3" stroke-linecap="round"/><line x1="30" y1="46" x2="25" y2="58" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="44" y1="48" x2="42" y2="58" stroke="#8ab" stroke-width="2.5" stroke-linecap="round"/><line x1="78" y1="46" x2="75" y2="58" stroke="#8ab" stroke-width="2" stroke-linecap="round"/><line x1="88" y1="44" x2="88" y2="58" stroke="#8ab" stroke-width="2" stroke-linecap="round"/><circle cx="60" cy="28" r="8" fill="none" stroke="#39ff84" stroke-width="1.5"/><text x="60" y="31" text-anchor="middle" fill="#39ff84" font-size="8" font-family="sans-serif">✓</text><line x1="15" y1="58" x2="105" y2="58" stroke="#1e3448" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>`,
+};
+// 25 exercises defined
 const RESTAURANTS = {
   'Naya':{emoji:'🫓',color:'#f59e0b',items:[
     {name:'Chicken Shawarma Salad',cal:380,protein:32,carbs:18,fat:18,emoji:'🥗'},
@@ -541,7 +762,7 @@ function addRestItem(idx){
   addMealItem(sec,{...item,id:Date.now()});
 }
 
-// ── RENDER LIFT ───────────────────────────────────────────────────
+// ── RENDER LIFT ─────────────────────────────────────────────────
 function renderLift(){
   const el=document.getElementById('tab-lift');
   const d=getDayLog();
@@ -556,17 +777,36 @@ function renderLift(){
   if(wkMode==='today'){
     let wkContent='';
     if(todayWk&&todayWk!=='Rest Day'&&WORKOUTS[todayWk]){
-      const exercises=WORKOUTS[todayWk].exercises.map(ex=>`
-        <div class="card">
-          <div style="font-weight:700;font-size:13px;">${ex.name}</div>
-          <div style="font-size:12px;color:#22d3ee;margin-top:2px;">${ex.sets}</div>
-          <div style="font-size:11px;color:#7a9bbd;margin-top:2px;">${ex.note}</div>
-        </div>`).join('');
-      wkContent=`<div style="font-size:10px;color:#39ff84;letter-spacing:2px;margin-bottom:10px;">TODAY: ${todayWk}</div>${exercises}`;
+      const plan=WORKOUTS[todayWk];
+      const exercises=plan.exercises.map(ex=>{
+        const svgHtml=EXERCISE_SVGS[ex.name]||'';
+        return `<div class="card" style="margin-bottom:12px;">
+          ${svgHtml?`<div style="margin-bottom:10px;">${svgHtml}</div>`:''}
+          <div style="font-weight:800;font-size:15px;margin-bottom:4px;">${ex.name}</div>
+          <div style="font-size:13px;color:#22d3ee;font-weight:700;margin-bottom:6px;">${ex.sets}</div>
+          <div style="font-size:12px;color:#b0c4dc;margin-bottom:8px;line-height:1.5;">${ex.note}</div>
+          <div style="background:#0d1820;border-radius:10px;padding:12px;border-left:3px solid #39ff84;">
+            <div style="font-size:10px;color:#39ff84;font-weight:700;letter-spacing:2px;margin-bottom:4px;">COACHING CUE</div>
+            <div style="font-size:12px;color:#8ab;line-height:1.6;">${ex.coaching}</div>
+          </div>
+        </div>`;
+      }).join('');
+      wkContent=`
+        <div style="background:#0d2010;border-radius:12px;padding:14px;margin-bottom:14px;border:1px solid #39ff8433;">
+          <div style="font-size:10px;color:#39ff84;letter-spacing:2px;font-weight:700;margin-bottom:4px;">TODAY: ${todayWk}</div>
+          <div style="font-size:12px;color:#b0c4dc;margin-bottom:6px;">${plan.focus} · ${plan.duration} · ${plan.calories}</div>
+          <div style="font-size:11px;color:#4a7090;line-height:1.5;margin-bottom:6px;"><span style="color:#f59e0b;font-weight:700;">WARMUP:</span> ${plan.warmup}</div>
+          <div style="font-size:11px;color:#4a7090;"><span style="color:#a78bfa;font-weight:700;">REST:</span> ${plan.rest}</div>
+        </div>
+        ${exercises}
+        <div style="background:#0d1820;border-radius:12px;padding:14px;border:1px solid #1e3448;margin-bottom:14px;">
+          <div style="font-size:10px;color:#f59e0b;font-weight:700;letter-spacing:2px;margin-bottom:6px;">COACH TIPS</div>
+          <div style="font-size:12px;color:#b0c4dc;line-height:1.6;">${plan.tips}</div>
+        </div>`;
     } else if(todayWk==='Rest Day'){
-      wkContent=`<div class="card" style="text-align:center;padding:28px;"><div style="font-size:28px;margin-bottom:8px;">🧘</div><div style="font-size:18px;font-weight:800;">Rest Day</div></div>`;
+      wkContent=`<div class="card" style="text-align:center;padding:28px;"><div style="font-size:28px;margin-bottom:8px;">🧘</div><div style="font-size:18px;font-weight:800;">Rest Day</div><div style="font-size:12px;color:#4a7090;margin-top:6px;">Recovery is when your body actually builds muscle.<br>Sleep 7-8 hours. Hit your protein.</div></div>`;
     } else {
-      wkContent=`<div class="card" style="text-align:center;padding:24px;"><div style="font-size:13px;color:#4a7090;">No schedule set. Go to SCHEDULE tab.</div></div>`;
+      wkContent=`<div class="card" style="text-align:center;padding:24px;"><div style="font-size:13px;color:#4a7090;">No schedule set. Go to SCHEDULE tab to set your week.</div></div>`;
     }
     const logged=(d.workouts||[]).map(w=>`
       <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px;padding:8px 12px;background:#1a2535;border-radius:8px;">
@@ -584,20 +824,34 @@ function renderLift(){
       </div>`;
   } else if(wkMode==='library'){
     content=Object.entries(WORKOUTS).map(([name,plan])=>`
-      <div class="card">
-        <div style="display:flex;gap:12px;align-items:center;margin-bottom:8px;">
-          <span style="font-size:24px;">${plan.emoji}</span>
+      <div class="card" style="margin-bottom:14px;">
+        <div style="display:flex;gap:12px;align-items:center;margin-bottom:10px;">
+          <span style="font-size:28px;">${plan.emoji}</span>
           <div>
-            <div style="font-weight:800;font-size:15px;">${name}</div>
+            <div style="font-weight:800;font-size:16px;">${name}</div>
             <div style="font-size:11px;color:#39ff84;">${plan.duration} · ${plan.focus}</div>
+            <div style="font-size:11px;color:#f59e0b;">${plan.calories}</div>
           </div>
         </div>
-        ${plan.exercises.slice(0,4).map((ex,i)=>`<div style="font-size:12px;color:#7a9bbd;margin-bottom:2px;">${i+1}. ${ex.name} — ${ex.sets}</div>`).join('')}
-        ${plan.exercises.length>4?`<div style="font-size:11px;color:#4a7090;margin-top:2px;">+${plan.exercises.length-4} more</div>`:''}
-        <button class="btn" style="width:100%;margin-top:10px;text-align:center;" onclick="addWorkout('${name}')">✓ Log This Workout</button>
+        <div style="font-size:10px;color:#4a7090;margin-bottom:8px;padding:10px;background:#0d1820;border-radius:8px;">
+          <span style="color:#f59e0b;font-weight:700;">WARMUP: </span>${plan.warmup}
+        </div>
+        ${plan.exercises.map((ex,i)=>`
+          <div style="margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid #1e3448;">
+            ${EXERCISE_SVGS[ex.name]?`<div style="margin-bottom:8px;">${EXERCISE_SVGS[ex.name]}</div>`:''}
+            <div style="font-size:13px;font-weight:800;margin-bottom:2px;">${i+1}. ${ex.name}</div>
+            <div style="font-size:12px;color:#22d3ee;font-weight:700;margin-bottom:4px;">${ex.sets}</div>
+            <div style="font-size:11px;color:#b0c4dc;margin-bottom:6px;">${ex.note}</div>
+            <div style="font-size:11px;color:#8ab;line-height:1.5;background:#0a1420;padding:8px;border-radius:8px;border-left:2px solid #39ff84;">${ex.coaching}</div>
+          </div>`).join('')}
+        <div style="background:#0d1820;border-radius:10px;padding:12px;margin-bottom:10px;">
+          <div style="font-size:10px;color:#f59e0b;font-weight:700;letter-spacing:2px;margin-bottom:4px;">COACH TIPS</div>
+          <div style="font-size:12px;color:#b0c4dc;line-height:1.6;">${plan.tips}</div>
+        </div>
+        <div style="font-size:10px;color:#4a7090;margin-bottom:10px;"><span style="color:#a78bfa;font-weight:700;">REST: </span>${plan.rest}</div>
+        <button class="btn" style="width:100%;text-align:center;" onclick="addWorkout('${name}')">✓ Log This Workout</button>
       </div>`).join('');
   } else {
-    // Schedule
     const days=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
     const opts=['','Push Day','Pull Day','Lower Body','Upper Body','Active Recovery','Rest Day'];
     const rows=days.map((day,i)=>`
@@ -615,7 +869,6 @@ function renderLift(){
 
   el.innerHTML=seg+content;
 }
-
 // ── RENDER WEIGHT ─────────────────────────────────────────────────
 function renderWeight(){
   const el=document.getElementById('tab-weight');
