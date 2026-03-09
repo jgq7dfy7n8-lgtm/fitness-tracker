@@ -171,28 +171,30 @@ body{padding-left:240px;}
 
 <!-- AUTH SCREEN -->
 
-<div id="auth">
-  <div class="ac">
-    <div class="alogo">Fit<span>Track</span></div>
-    <div class="asub">Your personal fitness & nutrition companion</div>
-    <div class="atabs">
-      <div class="atab active" id="tab-login" ontouchend="switchTab('login')" onclick="switchTab('login')" style="cursor:pointer;">Sign In</div>
-      <div class="atab" id="tab-signup" ontouchend="switchTab('signup')" onclick="switchTab('signup')" style="cursor:pointer;">Create Account</div>
+<div id="auth" style="min-height:100vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(145deg,#0f2018,#1a3a2a 40%,#2d5a3d);padding:24px;">
+  <div style="background:#fff;border-radius:28px;padding:36px 28px;width:100%;max-width:400px;box-shadow:0 24px 80px rgba(0,0,0,0.3);">
+    <div style="font-family:'Playfair Display',serif;font-size:38px;font-weight:900;color:#1a3a2a;letter-spacing:-2px;margin-bottom:4px;">FitTrack</div>
+    <div style="font-size:13px;color:#7a6a55;margin-bottom:24px;">Your personal fitness and nutrition companion</div>
+    <div style="display:flex;background:#f0ede6;border-radius:12px;padding:4px;margin-bottom:22px;">
+      <div id="btn-login" style="flex:1;padding:11px;border-radius:9px;text-align:center;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:700;background:#fff;color:#1a3a2a;box-shadow:0 2px 8px rgba(0,0,0,.1);cursor:pointer;" onclick="setMode('login')">Sign In</div>
+      <div id="btn-signup" style="flex:1;padding:11px;border-radius:9px;text-align:center;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:700;color:#a89880;cursor:pointer;" onclick="setMode('signup')">Create Account</div>
     </div>
-    <div class="aerr" id="aerr"></div>
-    <div class="amsg" id="amsg"></div>
-    <div id="lform">
-      <div class="afield"><label class="albl">Email</label><input class="ainp" type="email" id="lem" placeholder="you@email.com" autocomplete="email"></div>
-      <div class="afield"><label class="albl">Password</label><input class="ainp" type="password" id="lpw" placeholder="••••••••" autocomplete="current-password" onkeydown="if(event.key==='Enter')doSignIn()"></div>
-      <div id="signin-btn" style="width:100%;padding:16px;background:linear-gradient(135deg,#2d5a3d,#1a3a2a);border-radius:14px;font-family:'DM Sans',sans-serif;font-size:16px;font-weight:700;color:#fff;text-align:center;margin-top:10px;cursor:pointer;box-shadow:0 6px 24px rgba(26,58,42,.35);user-select:none;-webkit-user-select:none;" ontouchend="doSignIn()" onclick="doSignIn()">Sign In →</div>
+    <div id="aerr" style="display:none;background:#fdf0ec;border:1px solid rgba(212,90,58,.3);border-radius:10px;padding:11px 13px;font-size:13px;color:#d45a3a;margin-bottom:12px;"></div>
+    <div id="amsg" style="display:none;background:#e8f4ec;border:1px solid rgba(74,138,93,.3);border-radius:10px;padding:11px 13px;font-size:13px;color:#4a8a5d;margin-bottom:12px;"></div>
+    <div id="name-row" style="display:none;margin-bottom:14px;">
+      <div style="font-size:11px;font-weight:700;color:#7a6a55;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:5px;">YOUR NAME</div>
+      <input id="f-name" type="text" placeholder="Matthew" style="width:100%;padding:13px 15px;background:#f8f7f4;border:1.5px solid #e2ddd4;border-radius:12px;font-size:15px;color:#1a1510;-webkit-appearance:none;font-family:'DM Sans',sans-serif;">
     </div>
-    <div id="sform" style="display:none;">
-      <div class="afield"><label class="albl">Your Name</label><input class="ainp" type="text" id="snm" placeholder="Matthew" autocomplete="name"></div>
-      <div class="afield"><label class="albl">Email</label><input class="ainp" type="email" id="sem" placeholder="you@email.com" autocomplete="off"></div>
-      <div class="afield"><label class="albl">Password</label><input class="ainp" type="password" id="spw" placeholder="Min 6 characters" autocomplete="off"></div>
-      <div id="signup-btn" style="width:100%;padding:16px;background:linear-gradient(135deg,#2d5a3d,#1a3a2a);border-radius:14px;font-family:'DM Sans',sans-serif;font-size:16px;font-weight:700;color:#fff;text-align:center;margin-top:10px;cursor:pointer;box-shadow:0 6px 24px rgba(26,58,42,.35);user-select:none;-webkit-user-select:none;" ontouchend="doSignUp()" onclick="doSignUp()">Create Account →</div>
-      <div style="text-align:center;font-size:12px;color:var(--faint);margin-top:14px;">Private · syncs across all your devices</div>
+    <div style="margin-bottom:14px;">
+      <div style="font-size:11px;font-weight:700;color:#7a6a55;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:5px;">EMAIL</div>
+      <input id="f-email" type="email" placeholder="you@email.com" style="width:100%;padding:13px 15px;background:#f8f7f4;border:1.5px solid #e2ddd4;border-radius:12px;font-size:15px;color:#1a1510;-webkit-appearance:none;font-family:'DM Sans',sans-serif;">
     </div>
+    <div style="margin-bottom:20px;">
+      <div style="font-size:11px;font-weight:700;color:#7a6a55;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:5px;">PASSWORD</div>
+      <input id="f-pw" type="password" placeholder="Min 6 characters" style="width:100%;padding:13px 15px;background:#f8f7f4;border:1.5px solid #e2ddd4;border-radius:12px;font-size:15px;color:#1a1510;-webkit-appearance:none;font-family:'DM Sans',sans-serif;">
+    </div>
+    <div id="auth-submit" style="width:100%;padding:16px;background:linear-gradient(135deg,#2d5a3d,#1a3a2a);border-radius:14px;font-family:'DM Sans',sans-serif;font-size:16px;font-weight:700;color:#fff;text-align:center;cursor:pointer;box-shadow:0 6px 24px rgba(26,58,42,.35);" onclick="doAuth()">Sign In</div>
+    <div style="text-align:center;font-size:12px;color:#a89880;margin-top:14px;">Your data is private and syncs across all devices</div>
   </div>
 </div>
 
@@ -248,51 +250,77 @@ const sb=supabase.createClient(SB_URL,SB_KEY);
 let USER=null;
 
 // ── AUTH ──────────────────────────────────────────────────────
-function switchTab(t){
-  document.getElementById('tab-login').classList.toggle('active',t==='login');
-  document.getElementById('tab-signup').classList.toggle('active',t==='signup');
-  document.getElementById('lform').style.display=t==='login'?'block':'none';
-  document.getElementById('sform').style.display=t==='signup'?'block':'none';
+let authMode = 'login';
+
+function setMode(m) {
+  authMode = m;
+  var isSignup = m === 'signup';
+  document.getElementById('name-row').style.display = isSignup ? 'block' : 'none';
+  document.getElementById('auth-submit').textContent = isSignup ? 'Create Account' : 'Sign In';
+  document.getElementById('btn-login').style.background = isSignup ? 'none' : '#fff';
+  document.getElementById('btn-login').style.color = isSignup ? '#a89880' : '#1a3a2a';
+  document.getElementById('btn-login').style.boxShadow = isSignup ? 'none' : '0 2px 8px rgba(0,0,0,.1)';
+  document.getElementById('btn-signup').style.background = isSignup ? '#fff' : 'none';
+  document.getElementById('btn-signup').style.color = isSignup ? '#1a3a2a' : '#a89880';
+  document.getElementById('btn-signup').style.boxShadow = isSignup ? '0 2px 8px rgba(0,0,0,.1)' : 'none';
   hideMsg();
 }
-function showErr(m){const e=document.getElementById('aerr');e.textContent=m;e.style.display='block';document.getElementById('amsg').style.display='none';}
-function showMsg(m){const e=document.getElementById('amsg');e.textContent=m;e.style.display='block';document.getElementById('aerr').style.display='none';}
-function hideMsg(){document.getElementById('aerr').style.display='none';document.getElementById('amsg').style.display='none';}
 
-async function doSignIn(){
-  const email=document.getElementById('lem').value.trim();
-  const pw=document.getElementById('lpw').value;
-  if(!email||!pw){showErr('Please fill in all fields.');return;}
-  const{data,error}=await sb.auth.signInWithPassword({email,password:pw});
-  if(error){showErr(error.message);return;}
-  USER=data.user;await loadAll();launch();
+function showErr(m) { var e=document.getElementById('aerr'); e.textContent=m; e.style.display='block'; document.getElementById('amsg').style.display='none'; }
+function showMsg(m) { var e=document.getElementById('amsg'); e.textContent=m; e.style.display='block'; document.getElementById('aerr').style.display='none'; }
+function hideMsg() { document.getElementById('aerr').style.display='none'; document.getElementById('amsg').style.display='none'; }
+
+function doAuth() {
+  if (authMode === 'signup') { doSignUp(); } else { doSignIn(); }
 }
-async function doSignUp(){
-  const btn=document.getElementById('signup-btn');
-  const name=document.getElementById('snm').value.trim();
-  const email=document.getElementById('sem').value.trim();
-  const pw=document.getElementById('spw').value;
-  if(!name){showErr('Please enter your name.');return;}
-  if(!email){showErr('Please enter your email.');return;}
-  if(!pw||pw.length<6){showErr('Password needs at least 6 characters.');return;}
-  btn.textContent='Creating account...';btn.style.opacity='0.7';
-  try{
-    const{data,error}=await sb.auth.signUp({email,password:pw,options:{data:{name}}});
-    if(error){showErr(error.message);btn.textContent='Create Account →';btn.style.opacity='1';return;}
-    if(data&&data.user){
-      USER=data.user;S={...DS,name};
-      await saveAll();launch();
-    }else{
-      showMsg('Almost there! Check your email to confirm, then sign in.');
-      btn.textContent='Create Account →';btn.style.opacity='1';
-    }
-  }catch(e){
-    showErr('Error: '+e.message);
-    btn.textContent='Create Account →';btn.style.opacity='1';
+
+async function doSignIn() {
+  var email = document.getElementById('f-email').value.trim();
+  var pw = document.getElementById('f-pw').value;
+  if (!email) { showErr('Please enter your email.'); return; }
+  if (!pw) { showErr('Please enter your password.'); return; }
+  var btn = document.getElementById('auth-submit');
+  btn.textContent = 'Signing in...'; btn.style.opacity = '0.7';
+  try {
+    var result = await sb.auth.signInWithPassword({email: email, password: pw});
+    if (result.error) { showErr(result.error.message); btn.textContent='Sign In'; btn.style.opacity='1'; return; }
+    USER = result.data.user;
+    await loadAll();
+    launch();
+  } catch(e) {
+    showErr('Error: ' + e.message);
+    btn.textContent = 'Sign In'; btn.style.opacity = '1';
   }
 }
-async function doSignOut(){await sb.auth.signOut();USER=null;document.getElementById('app').style.display='none';document.getElementById('auth').style.display='flex';}
-sb.auth.getSession().then(({data:{session}})=>{if(session){USER=session.user;loadAll().then(launch);}});
+
+async function doSignUp() {
+  var name = document.getElementById('f-name').value.trim();
+  var email = document.getElementById('f-email').value.trim();
+  var pw = document.getElementById('f-pw').value;
+  if (!name) { showErr('Please enter your name.'); return; }
+  if (!email) { showErr('Please enter your email.'); return; }
+  if (!pw || pw.length < 6) { showErr('Password needs at least 6 characters.'); return; }
+  var btn = document.getElementById('auth-submit');
+  btn.textContent = 'Creating account...'; btn.style.opacity = '0.7';
+  try {
+    var result = await sb.auth.signUp({email: email, password: pw, options: {data: {name: name}}});
+    if (result.error) { showErr(result.error.message); btn.textContent='Create Account'; btn.style.opacity='1'; return; }
+    if (result.data && result.data.user) {
+      USER = result.data.user;
+      S = {...DS, name: name};
+      await saveAll();
+      launch();
+    } else {
+      showMsg('Check your email to confirm your account, then sign in.');
+      btn.textContent = 'Create Account'; btn.style.opacity = '1';
+    }
+  } catch(e) {
+    showErr('Error: ' + e.message);
+    btn.textContent = 'Create Account'; btn.style.opacity = '1';
+  }
+}
+
+async function doSignOut() { await sb.auth.signOut(); USER=null; document.getElementById('app').style.display='none'; document.getElementById('auth').style.display='flex'; }
 
 // ── CLOUD ─────────────────────────────────────────────────────
 async function cSave(k,v){if(!USER)return;try{await sb.from('user_data').upsert({user_id:USER.id,key:k,value:JSON.stringify(v)},{onConflict:'user_id,key'});}catch(e){console.warn(e);}}
