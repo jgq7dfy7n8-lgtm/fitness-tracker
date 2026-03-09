@@ -176,15 +176,15 @@ body{padding-left:240px;}
     <div class="alogo">Fit<span>Track</span></div>
     <div class="asub">Your personal fitness & nutrition companion</div>
     <div class="atabs">
-      <button class="atab active" onclick="switchTab('login')">Sign In</button>
-      <button class="atab" onclick="switchTab('signup')">Create Account</button>
+      <div class="atab active" id="tab-login" ontouchend="switchTab('login')" onclick="switchTab('login')" style="cursor:pointer;">Sign In</div>
+      <div class="atab" id="tab-signup" ontouchend="switchTab('signup')" onclick="switchTab('signup')" style="cursor:pointer;">Create Account</div>
     </div>
     <div class="aerr" id="aerr"></div>
     <div class="amsg" id="amsg"></div>
     <div id="lform">
       <div class="afield"><label class="albl">Email</label><input class="ainp" type="email" id="lem" placeholder="you@email.com" autocomplete="email"></div>
       <div class="afield"><label class="albl">Password</label><input class="ainp" type="password" id="lpw" placeholder="••••••••" autocomplete="current-password" onkeydown="if(event.key==='Enter')doSignIn()"></div>
-      <button class="abtn" onclick="doSignIn()">Sign In →</button>
+      <div id="signin-btn" style="width:100%;padding:16px;background:linear-gradient(135deg,#2d5a3d,#1a3a2a);border-radius:14px;font-family:'DM Sans',sans-serif;font-size:16px;font-weight:700;color:#fff;text-align:center;margin-top:10px;cursor:pointer;box-shadow:0 6px 24px rgba(26,58,42,.35);user-select:none;-webkit-user-select:none;" ontouchend="doSignIn()" onclick="doSignIn()">Sign In →</div>
     </div>
     <div id="sform" style="display:none;">
       <div class="afield"><label class="albl">Your Name</label><input class="ainp" type="text" id="snm" placeholder="Matthew" autocomplete="name"></div>
@@ -249,7 +249,8 @@ let USER=null;
 
 // ── AUTH ──────────────────────────────────────────────────────
 function switchTab(t){
-  document.querySelectorAll('.atab').forEach((b,i)=>b.classList.toggle('active',i===(t==='login'?0:1)));
+  document.getElementById('tab-login').classList.toggle('active',t==='login');
+  document.getElementById('tab-signup').classList.toggle('active',t==='signup');
   document.getElementById('lform').style.display=t==='login'?'block':'none';
   document.getElementById('sform').style.display=t==='signup'?'block':'none';
   hideMsg();
