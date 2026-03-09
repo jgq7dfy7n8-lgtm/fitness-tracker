@@ -187,10 +187,10 @@ body{padding-left:240px;}
       <button class="abtn" onclick="doSignIn()">Sign In →</button>
     </div>
     <div id="sform" style="display:none;">
-      <div class="afield"><label class="albl">Your Name</label><input class="ainp" type="text" id="snm" placeholder="Matthew"></div>
-      <div class="afield"><label class="albl">Email</label><input class="ainp" type="email" id="sem" placeholder="you@email.com" autocomplete="email"></div>
-      <div class="afield"><label class="albl">Password</label><input class="ainp" type="password" id="spw" placeholder="Min 6 characters" autocomplete="new-password" onkeydown="if(event.key==='Enter')doSignUp()"></div>
-      <button class="abtn" onclick="doSignUp()">Create Account →</button>
+      <div class="afield"><label class="albl">Your Name</label><input class="ainp" type="text" id="snm" placeholder="Matthew" autocomplete="name"></div>
+      <div class="afield"><label class="albl">Email</label><input class="ainp" type="email" id="sem" placeholder="you@email.com" autocomplete="off"></div>
+      <div class="afield"><label class="albl">Password</label><input class="ainp" type="password" id="spw" placeholder="Min 6 characters" autocomplete="off"></div>
+      <div id="signup-btn" style="width:100%;padding:16px;background:linear-gradient(135deg,#2d5a3d,#1a3a2a);border-radius:14px;font-family:'DM Sans',sans-serif;font-size:16px;font-weight:700;color:#fff;text-align:center;margin-top:10px;cursor:pointer;box-shadow:0 6px 24px rgba(26,58,42,.35);user-select:none;-webkit-user-select:none;" ontouchend="doSignUp()" onclick="doSignUp()">Create Account →</div>
       <div style="text-align:center;font-size:12px;color:var(--faint);margin-top:14px;">Private · syncs across all your devices</div>
     </div>
   </div>
@@ -267,30 +267,27 @@ async function doSignIn(){
   USER=data.user;await loadAll();launch();
 }
 async function doSignUp(){
+  const btn=document.getElementById('signup-btn');
   const name=document.getElementById('snm').value.trim();
   const email=document.getElementById('sem').value.trim();
   const pw=document.getElementById('spw').value;
   if(!name){showErr('Please enter your name.');return;}
   if(!email){showErr('Please enter your email.');return;}
-  if(!pw){showErr('Please enter a password.');return;}
-  if(pw.length<6){showErr('Password needs at least 6 characters.');return;}
-  const btn=document.querySelector('#sform .abtn');
-  btn.textContent='Creating account...';btn.disabled=true;
+  if(!pw||pw.length<6){showErr('Password needs at least 6 characters.');return;}
+  btn.textContent='Creating account...';btn.style.opacity='0.7';
   try{
     const{data,error}=await sb.auth.signUp({email,password:pw,options:{data:{name}}});
-    if(error){showErr(error.message);btn.textContent='Create Account →';btn.disabled=false;return;}
+    if(error){showErr(error.message);btn.textContent='Create Account →';btn.style.opacity='1';return;}
     if(data&&data.user){
-      USER=data.user;
-      S={...DS,name};
-      await saveAll();
-      launch();
-    } else {
-      showMsg('Account created! Check your email to confirm, then sign in.');
-      btn.textContent='Create Account →';btn.disabled=false;
+      USER=data.user;S={...DS,name};
+      await saveAll();launch();
+    }else{
+      showMsg('Almost there! Check your email to confirm, then sign in.');
+      btn.textContent='Create Account →';btn.style.opacity='1';
     }
   }catch(e){
-    showErr('Something went wrong: '+e.message);
-    btn.textContent='Create Account →';btn.disabled=false;
+    showErr('Error: '+e.message);
+    btn.textContent='Create Account →';btn.style.opacity='1';
   }
 }
 async function doSignOut(){await sb.auth.signOut();USER=null;document.getElementById('app').style.display='none';document.getElementById('auth').style.display='flex';}
