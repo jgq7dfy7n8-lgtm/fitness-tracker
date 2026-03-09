@@ -270,12 +270,28 @@ async function doSignUp(){
   const name=document.getElementById('snm').value.trim();
   const email=document.getElementById('sem').value.trim();
   const pw=document.getElementById('spw').value;
-  if(!name||!email||!pw){showErr('Please fill in all fields.');return;}
+  if(!name){showErr('Please enter your name.');return;}
+  if(!email){showErr('Please enter your email.');return;}
+  if(!pw){showErr('Please enter a password.');return;}
   if(pw.length<6){showErr('Password needs at least 6 characters.');return;}
-  const{data,error}=await sb.auth.signUp({email,password:pw,options:{data:{name}}});
-  if(error){showErr(error.message);return;}
-  if(data.user){USER=data.user;settings={...DS,name};await saveAll();launch();}
-  else showMsg('Check your email to confirm, then sign in.');
+  const btn=document.querySelector('#sform .abtn');
+  btn.textContent='Creating account...';btn.disabled=true;
+  try{
+    const{data,error}=await sb.auth.signUp({email,password:pw,options:{data:{name}}});
+    if(error){showErr(error.message);btn.textContent='Create Account →';btn.disabled=false;return;}
+    if(data&&data.user){
+      USER=data.user;
+      S={...DS,name};
+      await saveAll();
+      launch();
+    } else {
+      showMsg('Account created! Check your email to confirm, then sign in.');
+      btn.textContent='Create Account →';btn.disabled=false;
+    }
+  }catch(e){
+    showErr('Something went wrong: '+e.message);
+    btn.textContent='Create Account →';btn.disabled=false;
+  }
 }
 async function doSignOut(){await sb.auth.signOut();USER=null;document.getElementById('app').style.display='none';document.getElementById('auth').style.display='flex';}
 sb.auth.getSession().then(({data:{session}})=>{if(session){USER=session.user;loadAll().then(launch);}});
@@ -283,7 +299,10 @@ sb.auth.getSession().then(({data:{session}})=>{if(session){USER=session.user;loa
 // ── CLOUD ─────────────────────────────────────────────────────
 async function cSave(k,v){if(!USER)return;try{await sb.from('user_data').upsert({user_id:USER.id,key:k,value:JSON.stringify(v)},{onConflict:'user_id,key'});}catch(e){console.warn(e);}}
 async function cLoad(k,d){if(!USER)return d;try{const{data}=await sb.from('user_data').select('value').eq('user_id',USER.id).eq('key',k).single();return data?JSON.parse(data.value):d;}catch{return d;}}
-async function saveAll(){await Promise.all([cSave('s',S),cSave('l',L),cSave('w',W),cSave('sc',SC),cSave('pr',PR),cSave('bm',BM),cSave('rx',RX)]);}
+async function saveAll(){
+  try{await Promise.all([cSave('s',S),cSave('l',L),cSave('w',W),cSave('sc',SC),cSave('pr',PR),cSave('bm',BM),cSave('rx',RX)]);}
+  catch(e){console.warn('saveAll error:',e);}
+}
 async function loadAll(){[S,L,W,SC,PR,BM,RX]=await Promise.all([cLoad('s',{...DS}),cLoad('l',{}),cLoad('w',{}),cLoad('sc',{}),cLoad('pr',{}),cLoad('bm',{h:70,a:30,sx:'male'}),cLoad('rx',{...DRX})]);}
 async function sv(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch{}await cSave(k,v);}
 
