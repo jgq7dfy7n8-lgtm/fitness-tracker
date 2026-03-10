@@ -1060,6 +1060,10 @@ if (typing) { typing.textContent = ‘Connection error — try again.’; }
 
 // INIT
 document.getElementById(‘sd’).value=selD;
+window.onerror=function(msg,src,line){
+document.getElementById(‘t-home’).innerHTML=’<div style="padding:20px;color:red;font-size:14px;background:#fff;margin:10px;border-radius:10px;"><strong>Error:</strong> ‘+msg+’ (line ‘+line+’)</div>’;
+return true;
+};
 document.getElementById(‘sd’).addEventListener(‘change’,function(){selD=this.value;render();});
 document.addEventListener(‘click’,function(e){
 if(!e.target.closest(’.sr’)&&!e.target.classList.contains(‘inp’)){
