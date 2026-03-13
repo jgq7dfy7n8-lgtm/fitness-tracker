@@ -8,12 +8,6 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@700;900&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
-:root{
-  --cr:#faf8f3;--s1:#f0ede6;--s2:#e2ddd4;
-  --fo:#1a3a2a;--fm:#2d5a3d;--fl:#4a8a5d;--sa:#7aaa8a;--sl:#b8d4c0;--sp:#e8f4ec;
-  --go:#c8882a;--gp:#fdf5e4;--co:#d45a3a;--sk:#2a7aaa;--skp:#e4f2fb;
-  --tx:#1a1510;--t2:#3d3020;--mu:#7a6a55;--fa:#a89880;
-}
 html,body{background:#faf8f3;color:#1a1510;font-family:'DM Sans',sans-serif;}
 body{padding-bottom:80px;}
 .hdr{background:linear-gradient(135deg,#1a3a2a,#2d5a3d);padding:24px 18px 0;position:relative;}
@@ -111,13 +105,13 @@ body{padding-bottom:80px;}
 <div class="tab" id="t-diet"></div>
 <div class="tab" id="t-goals"></div>
 <nav class="nav">
-  <div class="nb on" id="nb-home" onclick="go('home')"><span class="ic">⚡</span><span>Home</span></div>
-  <div class="nb" id="nb-food" onclick="go('food')"><span class="ic">🍽️</span><span>Food</span></div>
-  <div class="nb" id="nb-lift" onclick="go('lift')"><span class="ic">💪</span><span>Lift</span></div>
-  <div class="nb" id="nb-weight" onclick="go('weight')"><span class="ic">⚖️</span><span>Weight</span></div>
-  <div class="nb" id="nb-stats" onclick="go('stats')"><span class="ic">📈</span><span>Stats</span></div>
-  <div class="nb" id="nb-diet" onclick="go('diet')"><span class="ic">🌿</span><span>Diet</span></div>
-  <div class="nb" id="nb-goals" onclick="go('goals')"><span class="ic">⚙️</span><span>Goals</span></div>
+  <div class="nb on" id="nb-home" onclick="go('home')"><span class="ic">&#9889;</span><span>Home</span></div>
+  <div class="nb" id="nb-food" onclick="go('food')"><span class="ic">&#127869;</span><span>Food</span></div>
+  <div class="nb" id="nb-lift" onclick="go('lift')"><span class="ic">&#128170;</span><span>Lift</span></div>
+  <div class="nb" id="nb-weight" onclick="go('weight')"><span class="ic">&#9878;</span><span>Weight</span></div>
+  <div class="nb" id="nb-stats" onclick="go('stats')"><span class="ic">&#128200;</span><span>Stats</span></div>
+  <div class="nb" id="nb-diet" onclick="go('diet')"><span class="ic">&#127807;</span><span>Diet</span></div>
+  <div class="nb" id="nb-goals" onclick="go('goals')"><span class="ic">&#9881;</span><span>Goals</span></div>
 </nav>
 <script>
 // STORAGE
@@ -482,6 +476,7 @@ return ‘<div style="display:flex;flex-direction:column;align-items:center;gap:
 function rHome(){
 var el=document.getElementById(‘t-home’);
 if(!el){return;}
+el.innerHTML=’<p style="padding:10px">Loading home…</p>’;
 var t=tots();
 var d=dlog();
 var CAL=S.cal||2000;
