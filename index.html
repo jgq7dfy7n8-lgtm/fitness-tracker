@@ -476,7 +476,6 @@ return ‘<div style="display:flex;flex-direction:column;align-items:center;gap:
 function rHome(){
 var el=document.getElementById(‘t-home’);
 if(!el){return;}
-el.innerHTML=’<p style="padding:10px">Loading home…</p>’;
 var t=tots();
 var d=dlog();
 var CAL=S.cal||2000;
@@ -1157,8 +1156,19 @@ if(typing){typing.textContent=‘Connection error. Try again.’;}
 // INIT
 document.getElementById(‘sd’).value=selD;
 document.getElementById(‘sd’).addEventListener(‘change’,function(){selD=this.value;render();});
+function hasParentClass(el,cls){
+var node=el;
+while(node){
+if(node.classList&&node.classList.contains(cls)){return true;}
+node=node.parentNode;
+}
+return false;
+}
 document.addEventListener(‘click’,function(e){
-if(!e.target.closest(’.sr’)&&e.target.className!==‘inp’){
+var t=e.target;
+var cn=t.className||’’;
+if(typeof cn!==‘string’){cn=’’;}
+if(!hasParentClass(t,‘sr’)&&cn!==‘inp’){
 var srs=document.querySelectorAll(’.sr’);
 for(var i=0;i<srs.length;i++){srs[i].style.display=‘none’;}
 }
