@@ -3,1177 +3,939 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 <title>FitTrack</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@700;900&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
-html,body{background:#faf8f3;color:#1a1510;font-family:'DM Sans',sans-serif;}
-body{padding-bottom:80px;}
-.hdr{background:linear-gradient(135deg,#1a3a2a,#2d5a3d);padding:24px 18px 0;position:relative;}
-.hdr::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#7aaa8a,#c8882a,#7aaa8a);}
-.htop{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;}
-.hlb{font-size:10px;font-weight:700;color:rgba(255,255,255,.4);letter-spacing:4px;font-family:'Space Grotesk',sans-serif;margin-bottom:4px;}
-.hwt{font-family:'Playfair Display',serif;font-size:42px;font-weight:900;color:#fff;line-height:1;}
-.hwts{font-size:14px;font-weight:400;color:rgba(255,255,255,.5);margin-left:2px;font-family:'DM Sans',sans-serif;}
-.hsb{font-size:11px;color:rgba(255,255,255,.5);margin-top:3px;}
-.hpill{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:14px;padding:10px 14px;text-align:right;}
-.hpl{font-size:8px;font-weight:700;letter-spacing:2px;color:#b8d4c0;font-family:'Space Grotesk',sans-serif;}
-.hpv{font-family:'Playfair Display',serif;font-size:24px;font-weight:900;color:#fff;}
-.hpd{font-size:10px;color:rgba(255,255,255,.4);margin-top:1px;}
-.pbar{height:5px;background:rgba(255,255,255,.15);border-radius:999px;overflow:hidden;margin-bottom:13px;}
-.pfil{height:100%;border-radius:999px;background:linear-gradient(90deg,#7aaa8a,#c8882a);}
-.hrow{display:flex;gap:8px;align-items:center;padding-bottom:14px;}
-.dpil{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:9px;color:#fff;padding:7px 11px;font-size:12px;font-family:'DM Sans',sans-serif;}
-.tbtn{background:rgba(122,170,138,.3);border:1px solid rgba(122,170,138,.5);border-radius:9px;color:#b8d4c0;padding:7px 12px;font-size:11px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;}
-.nav{position:fixed;bottom:0;left:0;width:100%;background:rgba(255,255,255,.97);border-top:1px solid #e2ddd4;padding:6px 2px 18px;display:flex;z-index:100;}
-.nb{flex:1;padding:6px 2px;background:none;border:none;color:#a89880;font-size:6px;letter-spacing:.8px;cursor:pointer;font-family:'Space Grotesk',sans-serif;font-weight:700;display:flex;flex-direction:column;align-items:center;gap:2px;text-transform:uppercase;border-radius:10px;}
-.nb.on{color:#4a8a5d;}
-.nb .ic{font-size:18px;}
-.tab{display:none;padding:18px 16px 20px;}
-.tab.on{display:block;}
-.card{background:#fff;border-radius:16px;padding:16px;border:1px solid #e2ddd4;margin-bottom:11px;box-shadow:0 2px 12px rgba(26,20,10,.08);}
-.cg{border-left:4px solid #4a8a5d;background:linear-gradient(135deg,#e8f4ec,#fff);}
-.cgd{border-left:4px solid #c8882a;background:linear-gradient(135deg,#fdf5e4,#fff);}
-.csk{border-left:4px solid #2a7aaa;background:linear-gradient(135deg,#e4f2fb,#fff);}
-.lbl{font-family:'Space Grotesk',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#7a6a55;display:block;margin-bottom:8px;}
-.lbl.g{color:#4a8a5d;}.lbl.gd{color:#c8882a;}.lbl.sk{color:#2a7aaa;}
-.bnum{font-family:'Playfair Display',serif;font-size:32px;font-weight:900;color:#1a1510;}
-.inp{background:#f0ede6;border:1.5px solid #e2ddd4;border-radius:11px;padding:11px 13px;color:#1a1510;font-size:14px;width:100%;font-family:'DM Sans',sans-serif;-webkit-appearance:none;}
-.inp:focus{outline:none;border-color:#4a8a5d;}
-.btn{background:linear-gradient(135deg,#2d5a3d,#1a3a2a);border:none;border-radius:11px;color:#fff;padding:11px 16px;font-weight:700;font-size:13px;cursor:pointer;font-family:'DM Sans',sans-serif;}
-.btn.gd{background:linear-gradient(135deg,#e0a040,#c8882a);}
-.btn.sk{background:linear-gradient(135deg,#3a9acc,#2a7aaa);}
-.btn.gh{background:#f0ede6;color:#3d3020;border:1.5px solid #e2ddd4;}
-.btn.sm{padding:8px 12px;font-size:12px;border-radius:9px;}
-.g2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:11px;}
-.seg{display:flex;background:#f0ede6;border-radius:12px;padding:3px;margin-bottom:14px;border:1px solid #e2ddd4;}
-.sb{flex:1;padding:9px 3px;background:none;border:none;border-radius:9px;color:#7a6a55;font-size:9px;letter-spacing:1.5px;cursor:pointer;font-family:'Space Grotesk',sans-serif;font-weight:700;text-transform:uppercase;}
-.sb.on{background:#fff;color:#1a3a2a;box-shadow:0 2px 6px rgba(0,0,0,.08);}
-.frow{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid #f0ede6;}
-.frow:last-child{border-bottom:none;}
-.mitem{background:#f0ede6;border-radius:10px;padding:9px 12px;margin-bottom:4px;display:flex;justify-content:space-between;align-items:center;}
-.sr{background:#fff;border:1.5px solid #e2ddd4;border-radius:12px;margin-top:5px;max-height:260px;overflow-y:auto;box-shadow:0 8px 32px rgba(26,20,10,.14);display:none;position:relative;z-index:50;}
-.sri{padding:11px 14px;cursor:pointer;border-bottom:1px solid #f0ede6;display:flex;justify-content:space-between;align-items:center;}
-.sri:last-child{border-bottom:none;}
-.chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px;}
-.chip{padding:7px 12px;border-radius:999px;border:1.5px solid #e2ddd4;background:#fff;font-size:12px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;color:#3d3020;}
-.ri{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid #f0ede6;}
-.tgl{width:44px;height:24px;background:#e2ddd4;border-radius:999px;position:relative;cursor:pointer;border:none;flex-shrink:0;}
-.tgl.on{background:#4a8a5d;}
-.tgl::after{content:'';position:absolute;top:3px;left:3px;width:18px;height:18px;background:#fff;border-radius:50%;transition:transform .2s;box-shadow:0 1px 3px rgba(0,0,0,.2);}
-.tgl.on::after{transform:translateX(20px);}
-.rings{display:flex;justify-content:space-around;padding:6px 0 2px;}
-.aitip{background:linear-gradient(135deg,#f5f2ff,#f0f8ff);border:1.5px solid rgba(122,100,200,.2);border-radius:16px;padding:14px;margin-bottom:11px;}
-.rmb{background:none;border:none;color:#a89880;cursor:pointer;font-size:20px;padding:0 4px;}
-.prb{background:linear-gradient(135deg,#c8882a,#a06820);color:#fff;font-size:8px;font-weight:800;padding:3px 7px;border-radius:5px;letter-spacing:1px;font-family:'Space Grotesk',sans-serif;}
-.cbox{background:#e8f4ec;border-radius:11px;padding:11px;border-left:3px solid #4a8a5d;margin-top:8px;}
-@media(min-width:768px){
-  body{padding-left:220px;padding-bottom:0;}
-  .nav{left:0;top:0;bottom:0;width:220px;height:100vh;flex-direction:column;justify-content:flex-start;padding:24px 10px;border-top:none;border-right:1px solid #e2ddd4;gap:4px;overflow-y:auto;}
-  .nb{flex:none;flex-direction:row;justify-content:flex-start;padding:11px 14px;font-size:10px;gap:10px;border-radius:11px;width:100%;}
-  .tab{padding:22px 40px 20px;}
-  .hdr{padding:28px 40px 0;}
+
+:root{
+–bg:#060608;
+–bg2:#0d0d12;
+–bg3:#12121a;
+–border:#1e1e2e;
+–border2:#2a2a3e;
+–text:#f0f0ff;
+–muted:#4a4a6a;
+–muted2:#6a6a8a;
+–cyan:#00e5ff;
+–lime:#b6ff00;
+–mag:#ff2d78;
+–gold:#ffb700;
+–purple:#9d00ff;
 }
+
+html,body{
+height:100%;
+background:var(–bg);
+color:var(–text);
+font-family:‘Rajdhani’,sans-serif;
+overflow:hidden;
+}
+
+/* scanline overlay */
+body::before{
+content:’’;
+position:fixed;inset:0;
+background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,229,255,.015) 2px,rgba(0,229,255,.015) 4px);
+pointer-events:none;z-index:999;
+}
+
+.screen{display:none;position:fixed;inset:0;overflow-y:auto;-webkit-overflow-scrolling:touch;}
+.screen.active{display:block;}
+
+/* ── HOME ── */
+.home-wrap{padding:60px 18px 48px;min-height:100%;}
+
+.home-eyebrow{font-size:10px;letter-spacing:6px;color:var(–cyan);text-transform:uppercase;margin-bottom:6px;font-weight:600;}
+.home-title{font-family:‘Black Ops One’,sans-serif;font-size:62px;letter-spacing:3px;color:#fff;line-height:.95;margin-bottom:4px;}
+.home-title span{color:var(–cyan);text-shadow:0 0 20px var(–cyan),0 0 60px rgba(0,229,255,.3);}
+.home-sub{font-size:12px;color:var(–muted2);letter-spacing:3px;text-transform:uppercase;margin-bottom:32px;}
+
+.wcard{
+position:relative;overflow:hidden;cursor:pointer;
+margin-bottom:10px;border-radius:16px;
+padding:18px 18px 18px 22px;
+background:var(–bg3);
+border:1px solid var(–border2);
+display:flex;align-items:center;gap:14px;
+transition:transform .12s;
+}
+.wcard::before{
+content:’’;position:absolute;left:0;top:0;bottom:0;width:3px;
+background:var(–c);
+box-shadow:0 0 12px var(–c),0 0 24px var(–c);
+}
+.wcard::after{
+content:’’;position:absolute;inset:0;
+background:linear-gradient(100deg,var(–c) 0%,transparent 40%);
+opacity:.04;pointer-events:none;
+}
+.wcard:active{transform:scale(.97);}
+.wcard-emoji{font-size:30px;flex-shrink:0;filter:drop-shadow(0 0 8px var(–c));}
+.wcard-name{font-family:‘Black Ops One’,sans-serif;font-size:18px;letter-spacing:1px;color:#fff;line-height:1.2;}
+.wcard-tag{font-size:11px;color:var(–muted2);margin-top:3px;letter-spacing:.5px;}
+.wcard-arrow{margin-left:auto;font-size:18px;color:var(–c);opacity:.7;flex-shrink:0;text-shadow:0 0 8px var(–c);}
+
+/* ── OVERVIEW ── */
+.ov-wrap{padding-bottom:130px;}
+.ov-hero{
+padding:52px 20px 20px;
+background:var(–bg);
+position:sticky;top:0;z-index:5;
+border-bottom:1px solid var(–border);
+}
+.ov-back{font-size:12px;color:var(–muted2);cursor:pointer;margin-bottom:14px;letter-spacing:2px;text-transform:uppercase;display:inline-block;}
+.ov-back:active{color:var(–cyan);}
+.ov-title{font-family:‘Black Ops One’,sans-serif;font-size:36px;letter-spacing:2px;line-height:1;}
+.ov-tag{font-size:11px;color:var(–muted2);margin-top:5px;letter-spacing:2px;text-transform:uppercase;}
+.ov-list{padding:16px 18px;}
+
+.ov-phase-lbl{font-size:9px;font-weight:700;letter-spacing:4px;color:var(–muted);text-transform:uppercase;padding:16px 0 8px;}
+.ov-group{
+border-radius:14px;background:var(–bg3);
+border:1px solid var(–border2);
+margin-bottom:10px;overflow:hidden;
+}
+.ov-pair-header{
+padding:8px 14px;
+font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;
+border-bottom:1px solid var(–border);
+}
+.ov-item{display:flex;align-items:center;gap:12px;padding:12px 14px;border-bottom:1px solid var(–border);}
+.ov-item:last-child{border-bottom:none;}
+.ov-ltr{
+width:22px;height:22px;border-radius:6px;
+display:flex;align-items:center;justify-content:center;
+font-size:10px;font-weight:700;flex-shrink:0;
+font-family:‘Black Ops One’,sans-serif;
+}
+.ov-iname{font-size:14px;font-weight:600;color:var(–text);}
+.ov-imeta{font-size:11px;color:var(–muted2);margin-top:2px;}
+
+.ov-start-wrap{
+position:fixed;bottom:0;left:0;right:0;
+padding:16px 18px 40px;
+background:linear-gradient(0deg,var(–bg) 60%,transparent);
+}
+.ov-start{
+width:100%;padding:17px;border:none;border-radius:14px;
+font-family:‘Black Ops One’,sans-serif;font-size:20px;letter-spacing:4px;
+color:#000;cursor:pointer;position:relative;overflow:hidden;
+}
+.ov-start::after{
+content:’’;position:absolute;inset:0;
+background:linear-gradient(90deg,transparent 30%,rgba(255,255,255,.2) 50%,transparent 70%);
+transform:translateX(-100%);
+animation:shimmer 2.5s infinite;
+}
+@keyframes shimmer{to{transform:translateX(200%);}}
+
+/* ── STORY ── */
+.story-wrap{min-height:100vh;display:flex;flex-direction:column;position:relative;}
+
+/* HUD bars */
+.story-bars{
+display:flex;gap:4px;padding:16px 16px 0;
+position:absolute;top:0;left:0;right:0;z-index:10;pointer-events:none;
+}
+.sbar{flex:1;height:2px;background:rgba(255,255,255,.1);border-radius:999px;overflow:hidden;}
+.sbar-fill{height:100%;border-radius:999px;}
+
+.story-tap-prev{position:absolute;left:0;top:0;bottom:0;width:28%;z-index:8;}
+.story-tap-next{position:absolute;right:0;top:0;bottom:0;width:28%;z-index:8;}
+
+.story-content{
+flex:1;display:flex;flex-direction:column;justify-content:flex-end;
+padding:52px 18px 20px;position:relative;z-index:9;
+}
+
+.story-hud{
+display:flex;align-items:center;gap:8px;margin-bottom:14px;
+}
+.story-phase-badge{
+font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;
+padding:3px 8px;border-radius:4px;
+border:1px solid currentColor;
+}
+.story-step{font-size:11px;color:var(–muted2);letter-spacing:1px;}
+
+/* exercise block */
+.ex-block{
+border-radius:14px;padding:14px 14px 12px;margin-bottom:10px;
+background:rgba(255,255,255,.04);
+border:1px solid var(–border2);
+position:relative;overflow:hidden;
+}
+.ex-block::before{
+content:’’;position:absolute;left:0;top:0;bottom:0;width:2px;
+}
+.ex-block-glow{
+position:absolute;top:-40px;right:-40px;
+width:120px;height:120px;border-radius:50%;
+opacity:.06;pointer-events:none;
+}
+
+.ex-ltr-badge{
+display:inline-flex;align-items:center;justify-content:center;
+width:20px;height:20px;border-radius:5px;
+font-size:9px;font-weight:700;font-family:‘Black Ops One’,sans-serif;
+margin-right:8px;vertical-align:middle;flex-shrink:0;
+}
+.ex-name-big{
+font-family:‘Black Ops One’,sans-serif;
+font-size:24px;letter-spacing:1px;line-height:1.1;
+margin-bottom:3px;display:inline;
+}
+.ex-meta-sm{font-size:12px;color:var(–muted2);margin-bottom:8px;letter-spacing:.5px;}
+.ex-cue-sm{
+font-size:12px;line-height:1.6;color:rgba(255,255,255,.5);
+background:rgba(0,0,0,.35);
+border-radius:10px;padding:10px 12px;margin-bottom:10px;
+border-left:2px solid var(–border2);
+}
+.pr-badge{
+font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;
+display:inline-block;margin-bottom:8px;letter-spacing:1px;
+}
+
+/* set dots */
+.set-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:2px;}
+.s-dot{
+width:44px;height:44px;border-radius:10px;
+border:1.5px solid rgba(255,255,255,.12);
+display:flex;align-items:center;justify-content:center;
+font-size:14px;font-weight:700;color:rgba(255,255,255,.25);
+cursor:pointer;position:relative;z-index:15;
+font-family:‘Rajdhani’,sans-serif;
+transition:border-color .15s,color .15s,background .15s;
+}
+.s-dot:active{transform:scale(.88);}
+.s-dot.hit{color:#000 !important;}
+
+/* plank */
+.plank-block{
+border-radius:14px;padding:20px;margin-bottom:10px;
+text-align:center;
+background:rgba(0,0,0,.4);
+border:1px solid var(–border2);
+}
+.plank-time{
+font-family:‘Black Ops One’,sans-serif;
+font-size:68px;line-height:1;margin-bottom:4px;
+}
+.plank-lbl{font-size:9px;letter-spacing:4px;color:var(–muted);text-transform:uppercase;margin-bottom:14px;}
+.plank-btn{
+display:inline-block;padding:11px 28px;border-radius:10px;
+font-family:‘Black Ops One’,sans-serif;font-size:15px;letter-spacing:2px;
+cursor:pointer;border:1.5px solid;position:relative;z-index:15;
+}
+.plank-btn:active{opacity:.7;}
+
+/* PR inputs */
+.pr-row{display:flex;gap:7px;margin-top:8px;position:relative;z-index:15;}
+.pr-inp{
+flex:1;padding:9px 10px;border-radius:10px;
+background:rgba(0,0,0,.5);
+border:1.5px solid var(–border2);
+color:var(–text);font-size:13px;
+font-family:‘Rajdhani’,sans-serif;font-weight:600;
+-webkit-appearance:none;
+}
+.pr-inp::placeholder{color:var(–muted);}
+.pr-inp:focus{outline:none;border-color:var(–cyan);}
+.pr-save{
+background:rgba(0,229,255,.08);
+border:1.5px solid rgba(0,229,255,.25);
+border-radius:10px;padding:9px 12px;
+color:var(–cyan);font-size:11px;font-weight:700;
+cursor:pointer;font-family:‘Rajdhani’,sans-serif;
+white-space:nowrap;letter-spacing:1px;position:relative;z-index:15;
+}
+.pr-save:active{background:rgba(0,229,255,.15);}
+
+/* NEXT button */
+.story-next{
+width:100%;padding:15px;border:none;border-radius:13px;
+font-family:‘Black Ops One’,sans-serif;font-size:18px;letter-spacing:4px;
+color:#000;cursor:pointer;margin-top:8px;
+position:relative;z-index:15;overflow:hidden;
+}
+.story-next::after{
+content:’’;position:absolute;inset:0;
+background:linear-gradient(90deg,transparent 30%,rgba(255,255,255,.25) 50%,transparent 70%);
+transform:translateX(-100%);
+animation:shimmer 2s infinite;
+}
+.story-next:active{opacity:.8;}
+
+/* DIVIDER */
+.pair-divider{
+text-align:center;font-size:9px;letter-spacing:4px;
+color:var(–muted);text-transform:uppercase;
+margin:4px 0;padding:4px 0;
+display:flex;align-items:center;gap:8px;
+}
+.pair-divider::before,.pair-divider::after{content:’’;flex:1;height:1px;background:var(–border);}
+
+/* REST */
+.rest-over{
+display:none;position:fixed;inset:0;
+background:rgba(0,0,0,.96);
+z-index:200;flex-direction:column;align-items:center;justify-content:center;gap:4px;
+}
+.rest-over.on{display:flex;}
+.rest-lbl{font-size:10px;letter-spacing:5px;text-transform:uppercase;color:var(–muted2);}
+.rest-num{
+font-family:‘Black Ops One’,sans-serif;font-size:120px;line-height:1;
+color:var(–cyan);text-shadow:0 0 40px var(–cyan),0 0 80px rgba(0,229,255,.4);
+}
+.rest-ring{
+width:160px;height:160px;position:relative;margin:-20px;
+}
+.rest-skip{
+margin-top:28px;padding:13px 40px;
+background:rgba(255,255,255,.05);
+border:1px solid var(–border2);
+border-radius:12px;
+color:var(–muted2);font-size:13px;font-weight:700;
+cursor:pointer;font-family:‘Rajdhani’,sans-serif;letter-spacing:2px;text-transform:uppercase;
+}
+.rest-skip:active{color:var(–text);}
+
+/* DONE */
+.done-wrap{
+min-height:100%;display:flex;flex-direction:column;
+align-items:center;justify-content:center;
+padding:40px 24px;text-align:center;
+}
+.done-emoji{font-size:64px;margin-bottom:12px;}
+.done-title{
+font-family:‘Black Ops One’,sans-serif;font-size:52px;letter-spacing:5px;margin-bottom:6px;
+}
+.done-sub{font-size:14px;color:var(–muted2);margin-bottom:40px;line-height:1.7;letter-spacing:.5px;}
+.done-stat{
+font-family:‘Black Ops One’,sans-serif;font-size:36px;
+margin-bottom:4px;
+}
+.done-stat-lbl{font-size:10px;letter-spacing:3px;color:var(–muted);text-transform:uppercase;margin-bottom:32px;}
+.done-home{
+padding:15px 44px;border:none;border-radius:13px;
+font-family:‘Black Ops One’,sans-serif;font-size:18px;letter-spacing:3px;
+color:#000;cursor:pointer;
+background:var(–cyan);
+box-shadow:0 0 24px rgba(0,229,255,.4);
+}
+.done-home:active{opacity:.8;}
+
+/* entry anim */
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+.fadein{animation:fadeUp .35s ease both;}
+
 </style>
 </head>
 <body>
-<div class="hdr">
-  <div class="htop">
-    <div>
-      <div class="hlb">FITTRACK</div>
-      <div class="hwt" id="hw">180<span class="hwts">lbs</span></div>
-      <div class="hsb" id="hs">Start: 180 lbs</div>
-    </div>
-    <div class="hpill">
-      <div class="hpl">GOAL</div>
-      <div class="hpv" id="hg">170</div>
-      <div class="hpd" id="hd">-- days</div>
-    </div>
-  </div>
-  <div class="pbar"><div class="pfil" id="hp" style="width:0%"></div></div>
-  <div class="hrow">
-    <input type="date" id="sd" class="dpil">
-    <div class="tbtn" onclick="goToday()">TODAY</div>
-  </div>
+<div id="s-home" class="screen active"></div>
+<div id="s-overview" class="screen"></div>
+<div id="s-story" class="screen"></div>
+<div id="s-done" class="screen"></div>
+<div class="rest-over" id="rest-over">
+  <div class="rest-lbl">Rest</div>
+  <div class="rest-num" id="rest-num">90</div>
+  <div class="rest-lbl">seconds</div>
+  <button class="rest-skip" onclick="skipRest()">SKIP REST</button>
 </div>
-<div class="tab on" id="t-home"></div>
-<div class="tab" id="t-food"></div>
-<div class="tab" id="t-lift"></div>
-<div class="tab" id="t-weight"></div>
-<div class="tab" id="t-stats"></div>
-<div class="tab" id="t-diet"></div>
-<div class="tab" id="t-goals"></div>
-<nav class="nav">
-  <div class="nb on" id="nb-home" onclick="go('home')"><span class="ic">&#9889;</span><span>Home</span></div>
-  <div class="nb" id="nb-food" onclick="go('food')"><span class="ic">&#127869;</span><span>Food</span></div>
-  <div class="nb" id="nb-lift" onclick="go('lift')"><span class="ic">&#128170;</span><span>Lift</span></div>
-  <div class="nb" id="nb-weight" onclick="go('weight')"><span class="ic">&#9878;</span><span>Weight</span></div>
-  <div class="nb" id="nb-stats" onclick="go('stats')"><span class="ic">&#128200;</span><span>Stats</span></div>
-  <div class="nb" id="nb-diet" onclick="go('diet')"><span class="ic">&#127807;</span><span>Diet</span></div>
-  <div class="nb" id="nb-goals" onclick="go('goals')"><span class="ic">&#9881;</span><span>Goals</span></div>
-</nav>
 <script>
-// STORAGE
-function sGet(k,d){try{var v=localStorage.getItem(k);return v?JSON.parse(v):d;}catch(e){return d;}}
-function sSet(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}}
 
-// DEFAULTS
-var DEF_S={goalW:170,startW:180,goalD:‘2026-05-06’,startD:‘2026-03-03’,cal:2000,pro:170,wkGoal:4,name:‘Matthew’};
-var DEF_RX={gluten:false,dairy:false,nuts:false,shellfish:false,eggs:false,soy:false,nightshades:false,vegetarian:false,vegan:false,custom:’’};
-
-// STATE
-var S=sGet(‘ft_s’,DEF_S);
-var L=sGet(‘ft_l’,{});
-var W=sGet(‘ft_w’,{});
-var SC=sGet(‘ft_sc’,{});
-var PR=sGet(‘ft_pr’,{});
-var BM=sGet(‘ft_bm’,{h:70,a:30,sx:‘male’});
-var RX=sGet(‘ft_rx’,DEF_RX);
-var selD=new Date().toISOString().split(‘T’)[0];
-var curTab=‘home’;
-var foodMode=‘log’;
-var wkMode=‘today’;
-var MB={base:null,protein:null,veggie:null,fruit:null,extras:[]};
-var chatHistory=[];
-
-// HELPERS
-function esc(s){return String(s).replace(/&/g,’&’).replace(/</g,’<’).replace(/>/g,’>’);}
-function td(){return new Date().toISOString().split(‘T’)[0];}
-function dow(){return new Date().getDay();}
-function dlog(){return L[selD]||{breakfast:[],lunch:[],dinner:[],snacks:[],workouts:[]};}
-function allF(){var d=dlog();return [].concat(d.breakfast||[],d.lunch||[],d.dinner||[],d.snacks||[]);}
-function tots(){
-var f=allF();
-var r={cal:0,p:0,c:0,fat:0};
-for(var i=0;i<f.length;i++){r.cal+=f[i].cal||0;r.p+=f[i].p||0;r.c+=f[i].c||0;r.fat+=f[i].f||0;}
-return r;
-}
-function curW(){
-var keys=Object.keys(W).sort();
-return keys.length ? W[keys[keys.length-1]] : (S.startW||180);
-}
-function prog(){
-var sw=S.startW||180,gw=S.goalW||170,lost=sw-curW(),rng=Math.abs(sw-gw)||10;
-return Math.min(100,Math.max(0,(lost/rng)*100));
-}
-function dLeft(){
-var gd=new Date(S.goalD||‘2026-05-06’);
-return Math.max(0,Math.round((gd-new Date())/864e5));
-}
-function goToday(){selD=td();document.getElementById(‘sd’).value=selD;render();}
-
-// MUTATIONS
-function addItem(sec,item){
-if(!L[selD])L[selD]={breakfast:[],lunch:[],dinner:[],snacks:[],workouts:[]};
-if(!L[selD][sec])L[selD][sec]=[];
-L[selD][sec].push(item);
-sSet(‘ft_l’,L);render();
-}
-function rmItem(sec,id){
-if(!L[selD]||!L[selD][sec])return;
-var arr=L[selD][sec];
-var out=[];
-for(var i=0;i<arr.length;i++){if(arr[i].id!==id)out.push(arr[i]);}
-L[selD][sec]=out;
-sSet(‘ft_l’,L);render();
-}
-function addWk(n){
-if(!n||!String(n).trim())return;
-if(!L[selD])L[selD]={breakfast:[],lunch:[],dinner:[],snacks:[],workouts:[]};
-if(!L[selD].workouts)L[selD].workouts=[];
-L[selD].workouts.push({name:String(n).trim(),id:Date.now()});
-sSet(‘ft_l’,L);render();
-}
-function rmWk(id){
-if(!L[selD]||!L[selD].workouts)return;
-var arr=L[selD].workouts,out=[];
-for(var i=0;i<arr.length;i++){if(arr[i].id!==id)out.push(arr[i]);}
-L[selD].workouts=out;
-sSet(‘ft_l’,L);render();
-}
-function logW(v){if(!v)return;W[selD]=parseFloat(v);sSet(‘ft_w’,W);render();}
-function rmW(d){delete W[d];sSet(‘ft_w’,W);render();}
-function savePR(ex,wt,rp){if(!ex||!wt||!rp)return;PR[ex]={weight:parseFloat(wt),reps:parseInt(rp),date:selD};sSet(‘ft_pr’,PR);render();}
-function saveBM(h,a,sx){BM={h:parseFloat(h)||70,a:parseInt(a)||30,sx:sx||‘male’};sSet(‘ft_bm’,BM);render();}
-function saveRX(k,v){RX[k]=v;sSet(‘ft_rx’,RX);render();}
-function saveS(obj){for(var k in obj){S[k]=obj[k];}sSet(‘ft_s’,S);render();}
-
-// NAV
-function go(name){
-var tabs=[‘home’,‘food’,‘lift’,‘weight’,‘stats’,‘diet’,‘goals’];
-for(var i=0;i<tabs.length;i++){
-var t=document.getElementById(‘t-’+tabs[i]);
-var b=document.getElementById(‘nb-’+tabs[i]);
-if(t)t.className=‘tab’;
-if(b)b.className=‘nb’;
-}
-var at=document.getElementById(‘t-’+name);
-var ab=document.getElementById(‘nb-’+name);
-if(at)at.className=‘tab on’;
-if(ab)ab.className=‘nb on’;
-curTab=name;
-renderTab(name);
-}
-function renderTab(n){
-if(n===‘home’){rHome();}
-else if(n===‘food’){rFood();}
-else if(n===‘lift’){rLift();}
-else if(n===‘weight’){rWeight();}
-else if(n===‘stats’){rStats();}
-else if(n===‘diet’){rDiet();}
-else if(n===‘goals’){rGoals();}
-}
-function render(){rHdr();renderTab(curTab);}
-
-// HEADER
-function rHdr(){
-var cw=curW(),sw=S.startW||180,lost=sw-cw;
-var hel=document.getElementById(‘hw’);
-if(hel)hel.innerHTML=cw+’<span class="hwts">lbs</span>’;
-var sel=document.getElementById(‘hs’);
-if(sel)sel.textContent=lost>0?‘Down ‘+lost.toFixed(1)+’ lbs’:‘Start: ‘+sw+’ lbs’;
-var gel=document.getElementById(‘hg’);
-if(gel)gel.textContent=S.goalW||170;
-var del=document.getElementById(‘hd’);
-if(del)del.textContent=dLeft()+‘d left’;
-var pel=document.getElementById(‘hp’);
-if(pel)pel.style.width=prog()+’%’;
-}
-
-// FOOD DB
-var FDB=[
-{n:‘Chicken Breast’,e:‘🍗’,cal:165,p:31,c:0,f:4},
-{n:‘Ground Beef’,e:‘🥩’,cal:218,p:26,c:0,f:13},
-{n:‘Ground Turkey’,e:‘🦃’,cal:170,p:22,c:0,f:9},
-{n:‘Salmon’,e:‘🐟’,cal:208,p:28,c:0,f:10},
-{n:‘Tuna canned’,e:‘🐟’,cal:109,p:24,c:0,f:1},
-{n:‘Tilapia’,e:‘🐟’,cal:111,p:23,c:0,f:2},
-{n:‘Shrimp’,e:‘🍤’,cal:84,p:18,c:0,f:1},
-{n:‘Egg’,e:‘🥚’,cal:78,p:6,c:0,f:5},
-{n:‘Egg Whites’,e:‘🥚’,cal:17,p:4,c:0,f:0},
-{n:‘Greek Yogurt’,e:‘🥛’,cal:130,p:17,c:9,f:0},
-{n:‘Cottage Cheese’,e:‘🧀’,cal:110,p:14,c:5,f:2},
-{n:‘Whey Protein’,e:‘🥤’,cal:120,p:25,c:3,f:2},
-{n:‘Tofu’,e:‘🫘’,cal:94,p:10,c:2,f:5},
-{n:‘Lentils’,e:‘🫘’,cal:230,p:18,c:40,f:1},
-{n:‘Black Beans’,e:‘🫘’,cal:227,p:15,c:41,f:1},
-{n:‘Chickpeas’,e:‘🫘’,cal:269,p:15,c:45,f:4},
-{n:‘Turkey Breast’,e:‘🦃’,cal:135,p:30,c:0,f:1},
-{n:‘Steak Sirloin’,e:‘🥩’,cal:207,p:26,c:0,f:11},
-{n:‘White Rice’,e:‘🍚’,cal:206,p:4,c:45,f:0},
-{n:‘Brown Rice’,e:‘🍚’,cal:216,p:5,c:45,f:2},
-{n:‘Oatmeal’,e:‘🌾’,cal:150,p:5,c:27,f:3},
-{n:‘Pasta’,e:‘🍝’,cal:220,p:8,c:43,f:1},
-{n:‘Quinoa’,e:‘🌾’,cal:222,p:8,c:39,f:4},
-{n:‘Sweet Potato’,e:‘🍠’,cal:103,p:2,c:24,f:0},
-{n:‘White Potato’,e:‘🥔’,cal:130,p:3,c:30,f:0},
-{n:‘Whole Wheat Bread’,e:‘🍞’,cal:69,p:4,c:12,f:1},
-{n:‘Bagel’,e:‘🥯’,cal:270,p:10,c:53,f:2},
-{n:‘Broccoli’,e:‘🥦’,cal:55,p:4,c:11,f:1},
-{n:‘Spinach’,e:‘🥬’,cal:23,p:3,c:4,f:0},
-{n:‘Asparagus’,e:‘🥦’,cal:27,p:3,c:5,f:0},
-{n:‘Zucchini’,e:‘🥒’,cal:21,p:2,c:4,f:0},
-{n:‘Bell Pepper’,e:‘🫑’,cal:37,p:1,c:9,f:0},
-{n:‘Cucumber’,e:‘🥒’,cal:16,p:1,c:4,f:0},
-{n:‘Carrots’,e:‘🥕’,cal:52,p:1,c:12,f:0},
-{n:‘Mushrooms’,e:‘🍄’,cal:22,p:3,c:3,f:0},
-{n:‘Tomato’,e:‘🍅’,cal:35,p:2,c:8,f:0},
-{n:‘Avocado half’,e:‘🥑’,cal:160,p:2,c:9,f:15},
-{n:‘Banana’,e:‘🍌’,cal:105,p:1,c:27,f:0},
-{n:‘Apple’,e:‘🍎’,cal:95,p:0,c:25,f:0},
-{n:‘Orange’,e:‘🍊’,cal:62,p:1,c:15,f:0},
-{n:‘Strawberries’,e:‘🍓’,cal:49,p:1,c:12,f:0},
-{n:‘Blueberries’,e:‘🫐’,cal:84,p:1,c:21,f:0},
-{n:‘Mango’,e:‘🥭’,cal:99,p:1,c:25,f:1},
-{n:‘Whole Milk’,e:‘🥛’,cal:149,p:8,c:12,f:8},
-{n:‘Cheddar Cheese’,e:‘🧀’,cal:113,p:7,c:0,f:9},
-{n:‘Mozzarella’,e:‘🧀’,cal:85,p:6,c:1,f:6},
-{n:‘Olive Oil tbsp’,e:‘🫙’,cal:119,p:0,c:0,f:14},
-{n:‘Almonds oz’,e:‘🌰’,cal:164,p:6,c:6,f:14},
-{n:‘Peanut Butter’,e:‘🥜’,cal:188,p:8,c:6,f:16},
-{n:‘Hummus’,e:‘🫘’,cal:50,p:2,c:4,f:3},
-{n:‘Black Coffee’,e:‘☕’,cal:2,p:0,c:0,f:0},
-{n:‘Protein Bar’,e:‘🍫’,cal:200,p:20,c:22,f:7},
-{n:‘Scrambled Eggs’,e:‘🍳’,cal:182,p:13,c:2,f:14},
-{n:‘Burrito Bowl’,e:‘🌯’,cal:620,p:40,c:68,f:16},
-{n:‘Chicken Salad’,e:‘🥗’,cal:350,p:32,c:12,f:18},
-{n:‘Tuna Salad’,e:‘🐟’,cal:290,p:28,c:8,f:14},
-{n:‘Turkey Sandwich’,e:‘🥪’,cal:380,p:26,c:42,f:10},
-{n:‘Grain Bowl’,e:‘🥣’,cal:550,p:38,c:62,f:12},
-{n:‘Protein Smoothie’,e:‘🥤’,cal:300,p:30,c:35,f:5},
-{n:‘Avocado Toast’,e:‘🥑’,cal:290,p:8,c:30,f:16},
-{n:‘Poke Bowl’,e:‘🍱’,cal:520,p:32,c:62,f:14},
-{n:‘Chili’,e:‘🫘’,cal:340,p:24,c:28,f:12},
-{n:‘Lentil Soup’,e:‘🫘’,cal:230,p:18,c:40,f:1},
-{n:‘Stir Fry Chicken’,e:‘🍳’,cal:350,p:28,c:28,f:12},
-{n:‘Yogurt Parfait’,e:‘🥛’,cal:280,p:14,c:42,f:6}
-];
-
-function searchFood(q,max){
-if(!max){max=12;}
-if(!q||q.length<2){return [];}
-var ql=q.toLowerCase();
-var res=[];
-for(var i=0;i<FDB.length;i++){
-var f=FDB[i];
-var nl=f.n.toLowerCase();
-var s=0;
-if(nl===ql){s=100;}
-else if(nl.indexOf(ql)===0){s=80;}
-else if(nl.indexOf(ql)>=0){s=60;}
-if(s>0){res.push({f:f,s:s});}
-}
-res.sort(function(a,b){return b.s-a.s;});
-var out=[];
-for(var j=0;j<Math.min(max,res.length);j++){out.push(res[j].f);}
-return out;
-}
-
-// WORKOUTS
-var WKS={
-‘Push Day’:{
-e:‘💪’,dur:‘45 min’,focus:‘Chest, Shoulders, Triceps’,cal:‘~300 cal’,
-warmup:‘2 sets of 10 pushups plus arm circles. Gets blood into the shoulders and chest before loading them.’,
-ex:[
-{name:‘Bench Press’,sets:‘4x8-10’,
-note:‘Bar to mid-chest, elbows at 45 degrees from your body, not flared out wide.’,
-tip:‘The bench press is the foundation of chest training. Lie flat, plant your feet firmly on the floor, and create a slight arch in your lower back. Grip the bar just outside shoulder width and squeeze it hard throughout the movement. Lower the bar slowly over 2 seconds to your mid-chest, then press explosively. If your elbows flare out to 90 degrees you are putting your shoulder joints at serious risk. Keep them at 45 degrees. This is your heaviest lift so always do it first when you are fresh.’},
-{name:‘Incline Dumbbell Press’,sets:‘3x10-12’,
-note:‘Set the bench to 30 to 45 degrees. Dumbbells start at chest level, press up and slightly inward.’,
-tip:‘The incline press targets your upper chest, the part that makes your chest look full at the top. Do not go steeper than 45 degrees or the movement shifts mostly to your front delts. Dumbbells are better than a barbell here because each side works independently, which fixes left-right imbalances over time. Feel a stretch at the bottom of each rep before pressing back up.’},
-{name:‘Lateral Raise’,sets:‘3x15’,
-note:‘Stand tall with a slight bend in your elbow. Raise arms out to the side to shoulder height, leading with your elbows not your hands.’,
-tip:‘Lateral raises build the side head of the deltoid, the muscle that makes your shoulders look wide. Almost everyone goes too heavy on this exercise. Drop the weight significantly, slow the movement down, and actually feel the shoulder working. At the top your thumbs should be slightly lower than your pinkies, like you are pouring a pitcher of water. No swinging, no shrugging the traps.’},
-{name:‘Tricep Pushdown’,sets:‘3x12-15’,
-note:‘Cable machine, rope or bar at the top. Pin your elbows to your sides and press down until your arms are fully straight.’,
-tip:‘The tricep makes up two thirds of your upper arm size, bigger than the bicep. Pushdowns isolate it perfectly. The most important cue is keeping your elbows completely still throughout the movement. They act as a fixed hinge. If your elbows drift forward as you press down the weight is too heavy. Squeeze hard at the full lockout position at the bottom of every single rep.’},
-{name:‘Overhead Tricep Extension’,sets:‘3x12’,
-note:‘Rope attachment at the top pulley, face away from the machine. Elbows stay forward, extend arms fully overhead.’,
-tip:‘This exercise hits the long head of the tricep, the largest of the three heads and the one most people never fully develop because pushdowns alone cannot reach it. The long head only gets fully stretched when your arm is positioned overhead, which is why this exercise is essential. Keep your elbows pointing straight forward and do not let them flare outward. You will feel a deep stretch at the top position that you never get from pushdowns.’},
-{name:‘Core’,sets:‘10 min’,
-note:‘Plank, dead bugs, hollow body holds, or a fitness app core class. Do not skip this.’,
-tip:‘Your core transfers power between your upper and lower body in every other exercise you do. A weak core means weaker bench press, weaker squats, and higher injury risk across the board. Ten minutes of focused core work at the end of every session adds up to real results fast. Dead bugs are the best all around core exercise: lie on your back, extend the opposite arm and leg simultaneously, and keep your lower back pressed flat to the floor the entire time.’}
-]
-},
-‘Pull Day’:{
-e:‘🔗’,dur:‘45 min’,focus:‘Back, Biceps’,cal:‘~300 cal’,
-warmup:‘15 reps of light lat pulldowns plus shoulder rolls. Activates the lats and warms up the shoulder joint.’,
-ex:[
-{name:‘Wide Grip Pulldown’,sets:‘4x8-10’,
-note:‘Grip just outside shoulder width. Pull the bar to your upper chest, not behind your neck. Full dead hang at the top between every rep.’,
-tip:‘The lat pulldown is your primary back builder. Before you even pull the bar, push your shoulder blades down and away from your ears, like you are putting them into your back pockets. Then drive your elbows down toward your hips. Think elbows to hip pockets, not hands to shoulders. Lean back slightly about 15 degrees. A full dead hang at the top stretches the lats completely and makes the next rep harder in the best possible way.’},
-{name:‘Seated Cable Row’,sets:‘3x10-12’,
-note:‘Sit tall, pull the handle to your navel, drive your elbows behind your torso. One second pause at full contraction.’,
-tip:‘Rows build the thickness of your back, the muscles that make you look powerful from the side. Pull the handle all the way to your navel and hold for one full second at contraction. Your elbows must travel behind your torso or you are not completing the movement. Do not let your shoulders roll forward at the end of each rep. Control the return slowly. The one second pause is what separates people who actually build their back from people who just move the weight back and forth.’},
-{name:‘Close Grip Pulldown’,sets:‘3x10-12’,
-note:‘Use a neutral close grip handle. Pull to your sternum and squeeze the lats hard at the bottom.’,
-tip:‘This variation hits the lower lats and teres major, muscles the wide grip version largely misses. The narrower grip allows you to pull your elbows further behind your body at the bottom, which increases the range of motion and the quality of the contraction. Focus on pulling your elbows down to your sides rather than thinking about pulling the bar down. Your chest should stay tall and upright throughout.’},
-{name:‘Cable Bicep Curl’,sets:‘3x12-15’,
-note:‘Low pulley, EZ bar or straight bar. Pin elbows to your sides. Full extension at the bottom between every rep.’,
-tip:‘Cables keep constant tension on the bicep through the entire range of motion, unlike dumbbells which go completely slack at the bottom. This makes cables more effective for muscle growth. Pin your elbows to your sides throughout and do not let them drift forward as you curl up. Full extension at the bottom is mandatory. Cutting the range of motion is shortchanging the exercise. Squeeze hard at the top.’},
-{name:‘Hammer Curl’,sets:‘3x12’,
-note:‘Dumbbells with a neutral grip, palms facing each other. Curl up, full extension down.’,
-tip:‘Hammer curls build the brachialis, a muscle that sits underneath the bicep and pushes it up from below, making the bicep appear larger and higher. They also hit the brachioradialis in the forearm heavily. You can usually move more weight on hammer curls than regular curls. Apply the same rules: elbows stay pinned, full extension at the bottom, hard squeeze at the top.’},
-{name:‘Core’,sets:‘10 min’,
-note:‘Plank holds, dead bugs, or a fitness app core class.’,
-tip:‘After heavy back work your spinal erector muscles are already under significant fatigue from bracing during all those rows. Dedicated core work after back day specifically strengthens the muscles that protect your spine under load, which makes every future pulling session safer and progressively stronger.’}
-]
-},
-‘Lower Body’:{
-e:‘🦵’,dur:‘45 min’,focus:‘Quads, Hamstrings, Glutes’,cal:‘~480 cal’,
-warmup:‘15 bodyweight squats, 10 leg swings each side, 15 glute bridges. Gets the hips and knees tracking properly before adding any load.’,
-ex:[
-{name:‘Back Squat’,sets:‘4x6-8’,
-note:‘Bar on upper traps, feet shoulder-width apart, toes slightly turned out. Squat until thighs are parallel to the floor.’,
-tip:‘The squat is the most effective exercise for building total body strength and burning calories. Take a big breath into your belly before each rep and brace your core hard like you are about to get punched. Keep your chest tall throughout and push your knees out over your toes actively, never let them cave inward. Drive through your entire foot evenly. Hit parallel every single rep without exception. A quarter squat does almost nothing for muscle development. If your knees are caving inward the weight is too heavy.’},
-{name:‘Romanian Deadlift’,sets:‘3x10’,
-note:‘Hold the barbell or dumbbells at hip height. Hinge forward at the hips pushing them back, feel the hamstrings load. Lower to mid-shin level.’,
-tip:‘The Romanian deadlift is a hip hinge movement, not a squat, and that distinction is critical. Push your hips backward as you lower the weight, not your knees forward. You should feel a deep and significant stretch in your hamstrings at the bottom of every rep. Keep your back perfectly flat throughout the entire movement as any rounding is dangerous to your spine. The bar or dumbbells should stay very close to your legs throughout. This exercise builds the hamstrings like almost nothing else can.’},
-{name:‘Walking Lunges’,sets:‘3x10 each leg’,
-note:‘Step forward into a lunge, lower your back knee toward the floor, push through the front heel to step into the next rep.’,
-tip:‘Lunges work each leg independently which exposes and corrects left-right strength imbalances that both-legged exercises like squats can mask. Keep your torso fully upright throughout. Your front knee should track directly over your toes and never cave inward. The back knee comes close to but does not touch the floor. Step forward continuously into the next rep rather than stepping back, this keeps tension on the muscles throughout the set.’},
-{name:‘Leg Press’,sets:‘3x12-15’,
-note:‘Feet shoulder-width on the platform. Lower until knees reach 90 degrees. Press back up but stop just short of lockout.’,
-tip:‘The leg press allows you to load the quads very heavily without the spinal compression that comes with squats. Never lock your knees out completely at the top of the movement as this shifts all the load from the muscle onto the joint. Keep constant tension by stopping just short of full extension. Foot position changes the emphasis: a higher foot placement targets more glutes and hamstrings while a lower placement hits more quadriceps.’},
-{name:‘Leg Curl’,sets:‘3x12-15’,
-note:‘Lying or seated machine. 2 seconds to curl up, 3 seconds to lower. Full range of motion every rep.’,
-tip:‘Most people have dramatically weaker hamstrings compared to their quadriceps from years of sitting, and this imbalance is a primary cause of knee injuries. Leg curls directly address this problem. The slow lowering phase taking 3 seconds is where the majority of the muscle growth stimulus occurs, so do not rush it. Full range means starting with legs nearly straight and curling until your heels approach your glutes. Do not just work through the middle third of the movement.’},
-{name:‘Calf Raises’,sets:‘3x20’,
-note:‘Stand on the edge of a step with heels hanging off. Full stretch at bottom, squeeze and hold at top.’,
-tip:‘Calves are active all day during walking and standing which is why they need high volume and full range of motion to grow and respond to training. The deep stretch at the bottom of every rep is absolutely critical. A flat-footed calf raise accomplishes very little. Lower your heel as far below the step level as possible for a complete stretch, then rise up on your toes and hold for one second at the top. If you are not feeling significant soreness in your calves the next day you did not lower deeply enough.’}
-]
-},
-‘Upper Body’:{
-e:‘🏋️’,dur:‘45 min’,focus:‘Chest, Back, Arms’,cal:‘~340 cal’,
-warmup:‘Arm circles, 10 pushups, 10 light rows. Gets the shoulder joint warm before any pressing or pulling.’,
-ex:[
-{name:‘Bench Press’,sets:‘4x8-10’,
-note:‘Bar to mid-chest, elbows at 45 degrees. Plant feet, slight arch, full range of motion.’,
-tip:‘Always perform your heaviest compound movement first when your muscles and nervous system are fully fresh. Your chest should be the primary muscle driving the bar upward. If you feel the movement mostly in your shoulders or triceps your setup is off. Retract your shoulder blades into the bench pad before unracking the bar and maintain that retraction throughout every single rep. Lower the bar until it touches your chest, do not bounce it off.’},
-{name:‘Wide Grip Pulldown’,sets:‘3x10-12’,
-note:‘Depress shoulder blades before pulling. Pull bar to upper chest. Full dead hang at the top.’,
-tip:‘Pairing a pressing movement with a pulling movement on upper body days is efficient and keeps the shoulder joint properly balanced. After bench pressing, the pulldown stretches your chest and activates the opposing back muscles. The most impactful cue: before each and every rep, push your shoulder blades down and away from your ears, then initiate the pull. This activates the lats correctly and prevents your arms from doing all the work.’},
-{name:‘Dumbbell Shoulder Press’,sets:‘3x10-12’,
-note:‘Seated or standing, dumbbells at ear level, press overhead to full lockout.’,
-tip:‘Overhead pressing builds the anterior and medial deltoid and adds significant size to the top of your arm. Dumbbells are better than a barbell here because they allow a natural arc of movement and each shoulder works independently. Brace your core firmly before every rep because pressing overhead without a properly braced core compresses your lower spine. Reach full lockout at the top of every rep to load the muscle through its complete range.’},
-{name:‘Seated Cable Row’,sets:‘3x10-12’,
-note:‘Pull to navel, elbows behind torso, one second pause at full contraction.’,
-tip:‘After a vertical pull with the pulldown, this horizontal pull hits different portions of the back, particularly the mid-back rhomboids and rear delts. The one second pause at full contraction is what separates people who build impressive backs from those who simply move weight. Hold the contraction, feel the muscles working, then release under complete control.’},
-{name:‘Bicep and Tricep Superset’,sets:‘3x12 each, no rest between’,
-note:‘A superset means doing two exercises back to back with zero rest between them. Do 12 bicep curls, then immediately do 12 tricep pushdowns without putting anything down. That counts as one set. Then rest 60 to 90 seconds and repeat.’,
-tip:‘This is one of the most efficient techniques in all of weight training. While your biceps are working your triceps are resting, and vice versa, so you lose almost no performance by eliminating the rest between them. It saves about 6 minutes compared to doing them separately and creates a much more intense pump in the arms from the increased blood flow. Practically speaking: grab a dumbbell or cable handle for 12 bicep curls, immediately move to the cable pushdown station for 12 tricep reps, then rest 60 to 90 seconds. Repeat twice more.’},
-{name:‘Core’,sets:‘10 min’,
-note:‘Plank, dead bugs, hollow body hold, or a fitness app class.’,
-tip:‘Finishing with core work after your spine has been fresh and properly braced throughout all the heavy pressing and rowing means you get maximum quality from the core session. Ten minutes of real core work, not crunches, but planks, dead bugs, and hollow holds, builds the deep stabilizer muscles that protect your spine and make you measurably stronger in every other exercise you perform.’}
-]
-},
-‘Active Recovery’:{
-e:‘🧘’,dur:‘25-35 min’,focus:‘Mobility, Flexibility’,cal:‘~100 cal’,
-warmup:‘None. The entire session is your warmup. Start moving very gently.’,
-ex:[
-{name:‘Easy Walk’,sets:‘15-20 min’,
-note:‘Comfortable conversational pace. Outdoors preferred.’,
-tip:‘Active recovery means moving your body without stressing your muscles further. Easy walking at a comfortable pace significantly increases blood flow to sore muscles, which delivers nutrients they need to repair and removes the waste products that cause soreness. This is not a cardio session, keep the pace easy enough that you could hold a full conversation. Research consistently shows that active recovery on rest days reduces next-day soreness more effectively than complete rest.’},
-{name:‘Hip Flexor Stretch’,sets:‘2x45 sec each side’,
-note:‘Kneel on one knee in a lunge position. Shift your hips forward until you feel a stretch at the front of the back hip. Hold and breathe.’,
-tip:‘The hip flexor is one of the most chronically tight muscles in anyone who spends significant time sitting. Tight hip flexors tilt your pelvis forward, cause lower back pain, and directly reduce your squat depth. This stretch addresses all of that. The key is to actually shift your hips forward into the stretch position, most people just kneel without moving their hips and get almost nothing from the exercise. You should feel a significant stretch at the front of the back hip, strong but not painful.’},
-{name:‘Pigeon Pose’,sets:‘2x60 sec each side’,
-note:‘From a lunge, bring your front shin across parallel to the front. Slide the back leg straight behind you. Let gravity lower your hips.’,
-tip:‘Pigeon pose is the single most effective hip stretch available and directly improves squat mechanics and lower back comfort over time. Most people feel this intensely in the outer glute and hip area of the front leg. Do not fight the sensation. Breathe deeply and consciously let your body relax further into the position with each exhale. The longer you hold it the more benefit you receive. Place a folded towel under the front hip if the position is too intense initially. Consistent practice over weeks will noticeably improve your squat depth.’},
-{name:‘Hamstring Stretch’,sets:‘2x45 sec each side’,
-note:‘Sit on the floor, one leg straight out, one bent. Keep your back completely flat and hinge forward from the hips over the straight leg.’,
-tip:‘The flat back requirement is not optional. If your back rounds during this stretch you are stretching your spine and not your hamstrings at all. Try sitting on the edge of a folded towel to help tilt your pelvis forward if needed. Hinge from the hips exactly like a Romanian deadlift, not by rounding your spine forward. You should feel the stretch deep in the back of the thigh. Chronically tight hamstrings are one of the primary causes of lower back pain and limited squat depth.’},
-{name:‘Foam Roll’,sets:‘5 min total’,
-note:‘Spend 20 to 30 seconds on any spot that feels tight or tender. Common areas: quads, glutes, upper back, calves.’,
-tip:‘Foam rolling works by applying sustained pressure to tight muscle tissue, which signals the nervous system to reduce the tension in that area. The tender spots are precisely where you need to spend the most time, not where it feels comfortable. When you find a tender spot, stop rolling, breathe, and hold pressure on it for 20 to 30 seconds until the sensation begins to ease. Rolling your upper back over the foam roller is particularly valuable if you sit at a desk regularly and will directly improve your posture during pressing exercises.’}
-]
-}
-};
-
-// RING HELPER
-function ring(pct,color,label,val,unit,r){
-if(!r){r=30;}
-var circ=2*3.14159*r;
-var off=circ-(pct/100)*circ;
-var cx=r+7;
-var cy=r+7;
-var sz=(r*2+14);
-return ‘<div style="display:flex;flex-direction:column;align-items:center;gap:4px;">’
-+’<svg width="'+sz+'" height="'+sz+'" viewBox="0 0 '+sz+' '+sz+'">’
-+’<circle cx="'+cx+'" cy="'+cy+'" r="'+r+'" fill="none" stroke="#e8edf2" stroke-width="5"/>’
-+’<circle cx=”’+cx+’” cy=”’+cy+’” r=”’+r+’” fill=“none” stroke=”’+color+’” stroke-width=“5” stroke-linecap=“round”’
-+’ stroke-dasharray=”’+circ.toFixed(1)+’” stroke-dashoffset=”’+off.toFixed(1)+’”’
-+’ transform=“rotate(-90 ‘+cx+’ ‘+cy+’)”/>’
-+’<text x="'+cx+'" y="'+(cy-2)+'" text-anchor="middle" fill="#1a1510" font-size="10" font-family="Playfair Display,serif" font-weight="900">’+val+’</text>’
-+’<text x="'+cx+'" y="'+(cy+8)+'" text-anchor="middle" fill="#7a6a55" font-size="6">’+unit+’</text>’
-+’</svg>’
-+’<div style="font-size:8px;font-family:Space Grotesk,sans-serif;font-weight:700;letter-spacing:2px;color:#7a6a55;text-transform:uppercase;">’+label+’</div>’
-+’</div>’;
-}
-
-// HOME
-function rHome(){
-var el=document.getElementById(‘t-home’);
-if(!el){return;}
-var t=tots();
-var d=dlog();
-var CAL=S.cal||2000;
-var PRO=S.pro||170;
-var todayWk=SC[dow()]||’’;
-var wkCount=0;
-var lkeys=Object.keys(L);
-for(var i=0;i<lkeys.length;i++){
-var dl=L[lkeys[i]];
-if(dl&&dl.workouts&&dl.workouts.length>0){wkCount++;}
-}
-var cw=curW();
-var sw=S.startW||180;
-var lost=sw-cw;
-var calP=Math.min(100,Math.round(t.cal/CAL*100));
-var proP=Math.min(100,Math.round(t.p/PRO*100));
-
-var tip=’’;
-var icon=‘🎯’;
-var hr=new Date().getHours();
-if(t.cal>CAL){tip=(t.cal-CAL)+’ cal over today. Keep dinner lean.’;icon=‘📊’;}
-else if(t.p>=PRO){tip=’Protein goal hit at ’+t.p+‘g. Great work.’;icon=‘✅’;}
-else if(t.p<PRO*0.5&&hr>16){tip=’Only ’+t.p+’g protein so far. Need ’+(PRO-t.p)+‘g more.’;icon=‘💪’;}
-else if(lost>=1){tip=‘Down ‘+lost.toFixed(1)+’ lbs. Keep stacking consistent days.’;icon=‘📉’;}
-else{tip=’Hit ’+PRO+‘g protein, stay under ‘+CAL+’ cal. Two numbers. Everything else follows.’;}
-
-var wkBanner=’’;
-if(todayWk&&WKS[todayWk]){
-var wk=WKS[todayWk];
-var done=false;
-var dw=d.workouts||[];
-for(var wi=0;wi<dw.length;wi++){if(dw[wi].name===todayWk){done=true;break;}}
-wkBanner=’<div onclick="go(\'lift\')" style="background:linear-gradient(135deg,#e8fff2,#f0fdf6);border:1.5px solid rgba(74,138,93,.3);border-radius:18px;padding:14px;margin-bottom:11px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;">’
-+’<div><div style="font-family:Space Grotesk,sans-serif;font-size:9px;color:#4a8a5d;letter-spacing:3px;font-weight:700;margin-bottom:3px;">TODAY'S WORKOUT</div>’
-+’<div style="font-family:Playfair Display,serif;font-size:20px;font-weight:900;">’+wk.e+’ ‘+todayWk+’</div>’
-+’<div style="font-size:11px;color:#7a6a55;margin-top:2px;">’+wk.dur+’ · ‘+wk.cal+’</div></div>’
-+’<div style="font-size:'+(done?'26':'20')+'px;background:rgba(74,138,93,.1);width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;">’+(done?‘✅’:‘▶’)+’</div>’
-+’</div>’;
-}
-
-var af=allF();
-var foodRows=’’;
-if(af.length){
-var show=af.length>3?3:af.length;
-for(var fi=0;fi<show;fi++){
-foodRows+=’<div class="frow"><span style="font-size:13px;">’+(af[fi].e||‘🍽️’)+’ ‘+esc(af[fi].n||af[fi].name||’’)+’</span><span style="font-size:12px;color:#c8882a;font-weight:700;">’+af[fi].cal+’ cal</span></div>’;
-}
-if(af.length>3){foodRows+=’<div style="font-size:11px;color:#a89880;text-align:center;padding-top:4px;">+’+(af.length-3)+’ more</div>’;}
-}else{
-foodRows=’<div style="color:#a89880;font-size:13px;text-align:center;padding:8px;">Nothing logged yet</div>’;
-}
-
-var html=’’;
-html+=wkBanner;
-html+=’<div class="aitip"><div style="font-family:Space Grotesk,sans-serif;font-size:9px;color:#7a64c8;letter-spacing:3px;font-weight:700;margin-bottom:6px;">COACHING</div>’;
-html+=’<div style="font-size:13px;line-height:1.6;">’+icon+’ ‘+tip+’</div></div>’;
-html+=’<div class="card cg"><span class="lbl g">TODAY'S MACROS</span>’;
-html+=’<div class="rings">’;
-html+=ring(calP,’#c8882a’,‘Calories’,t.cal,’/ ‘+CAL);
-html+=ring(proP,’#4a8a5d’,‘Protein’,t.p+‘g’,’/ ‘+PRO+‘g’);
-html+=ring(Math.min(100,Math.round(t.c/250*100)),’#2a7aaa’,‘Carbs’,t.c+‘g’,‘g’,22);
-html+=ring(Math.min(100,Math.round(t.fat/65*100)),’#9b59f5’,‘Fat’,t.fat+‘g’,‘g’,22);
-html+=’</div>’;
-html+=’<div style="margin-top:8px;"><div style="display:flex;justify-content:space-between;font-size:11px;color:#7a6a55;margin-bottom:3px;"><span>Calories</span><span style="color:'+(t.cal>CAL?'#d45a3a':'#c8882a')+';font-weight:700;">’+t.cal+’ / ‘+CAL+’</span></div>’;
-html+=’<div style="height:4px;background:#e2ddd4;border-radius:999px;overflow:hidden;"><div style="height:100%;width:'+calP+'%;background:linear-gradient(90deg,#c8882a,#d45a3a);border-radius:999px;"></div></div></div></div>’;
-html+=’<div class="card" style="margin-bottom:11px;"><span class="lbl sk">QUICK LOG</span>’;
-html+=’<div style="display:flex;gap:8px;"><input class="inp" id="ql" placeholder="Type any food..." style="flex:1;"><div class="btn sm" onclick="quickLog()" style="white-space:nowrap;">+ Log</div></div>’;
-html+=’<div style="font-size:10px;color:#a89880;margin-top:4px;">Logs to current meal time automatically</div></div>’;
-html+=’<div class="card" style="margin-bottom:11px;"><span class="lbl">TODAY'S FOOD</span>’+foodRows+’</div>’;
-html+=’<div class="g2">’;
-html+=’<div class="card cgd" style="padding:13px;"><span class="lbl gd">WEIGHT</span><div class="bnum">’+cw+’</div><div style="font-size:11px;color:'+(lost>0?'#4a8a5d':'#7a6a55')+';">’+(lost>0?‘Down ‘+lost.toFixed(1)+’ lbs’:’—’)+’</div></div>’;
-html+=’<div class="card csk" style="padding:13px;"><span class="lbl sk">SESSIONS</span><div class="bnum">’+wkCount+’</div><div style="font-size:11px;color:#7a6a55;">workouts done</div></div>’;
-html+=’</div>’;
-el.innerHTML=html;
-}
-
-function quickLog(){
-var inp=document.getElementById(‘ql’);
-if(!inp||!inp.value.trim()){return;}
-var raw=inp.value.trim();
-var res=searchFood(raw,1);
-var hr=new Date().getHours();
-var sec=‘snacks’;
-if(hr<11){sec=‘breakfast’;}
-else if(hr<15){sec=‘lunch’;}
-else if(hr<21){sec=‘dinner’;}
-var item;
-if(res.length){
-var f=res[0];
-item={n:f.n,name:f.n,cal:f.cal,p:f.p,c:f.c,f:f.f,e:f.e,id:Date.now()};
-}else{
-item={n:raw.slice(0,50),name:raw.slice(0,50),cal:0,p:0,c:0,f:0,e:‘🍽️’,id:Date.now()};
-}
-addItem(sec,item);
-inp.value=’’;
-}
-
-// FOOD TAB
-function rFood(){
-var el=document.getElementById(‘t-food’);
-if(!el){return;}
-if(foodMode===‘builder’){rBuilder(el);return;}
-var d=dlog();
-var t=tots();
-var CAL=S.cal||2000;
-var secs=[
-{k:‘breakfast’,l:‘Breakfast’,i:‘🌅’,c:’#c8882a’},
-{k:‘lunch’,l:‘Lunch’,i:‘☀️’,c:’#2a7aaa’},
-{k:‘dinner’,l:‘Dinner’,i:‘🌙’,c:’#4a8a5d’},
-{k:‘snacks’,l:‘Snacks’,i:‘🍎’,c:’#d45a3a’}
-];
-var modeBar=’<div style="display:flex;gap:8px;margin-bottom:14px;">’
-+’<div onclick="foodMode=\'log\';rFood();" style="flex:1;padding:10px;background:linear-gradient(135deg,#2d5a3d,#1a3a2a);border-radius:11px;color:#fff;font-size:12px;font-weight:700;cursor:pointer;text-align:center;">📋 Food Log</div>’
-+’<div onclick="foodMode=\'builder\';rFood();" style="flex:1;padding:10px;background:#f0ede6;border:1.5px solid #e2ddd4;border-radius:11px;color:#3d3020;font-size:12px;font-weight:700;cursor:pointer;text-align:center;">🧩 Meal Builder</div>’
-+’</div>’;
-var secHtml=’’;
-for(var si=0;si<secs.length;si++){
-var s=secs[si];
-var items=d[s.k]||[];
-var secCal=0;
-for(var ci=0;ci<items.length;ci++){secCal+=items[ci].cal||0;}
-var rows=’’;
-for(var ri=0;ri<items.length;ri++){
-var f=items[ri];
-rows+=’<div class="mitem"><div><div style="font-size:13px;font-weight:600;">’+(f.e||‘🍽️’)+’ ‘+esc(f.n||f.name||’’)+’</div>’
-+’<div style="font-size:11px;color:#7a6a55;">’+f.cal+’ cal · P’+(f.p||0)+‘g · C’+(f.c||0)+‘g · F’+(f.f||0)+‘g</div></div>’
-+’<div class="rmb" onclick="rmItem(\''+s.k+'\','+f.id+')">×</div></div>’;
-}
-secHtml+=’<div style="margin-bottom:16px;">’
-+’<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:7px;">’
-+’<div style="display:flex;align-items:center;gap:6px;"><span>’+s.i+’</span><span style="font-family:Space Grotesk,sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;color:'+s.c+';">’+s.l.toUpperCase()+’</span></div>’
-+(items.length?’<span style="font-size:11px;color:#7a6a55;">’+secCal+’ cal</span>’:’’)
-+’</div>’+rows
-+’<div style="position:relative;margin-top:4px;">’
-+’<input class="inp" id="fi-'+s.k+'" placeholder="Search food..." oninput="showSR(\''+s.k+'\')">’
-+’<div class="sr" id="sr-'+s.k+'"></div>’
-+’</div></div>’;
-}
-el.innerHTML=modeBar+secHtml
-+’<div class="card cgd"><div style="display:flex;justify-content:space-between;font-size:14px;font-weight:700;">’
-+’<span>Total</span><span style="color:'+(t.cal>CAL?'#d45a3a':'#c8882a')+';">’+t.cal+’ / ‘+CAL+’ cal</span></div></div>’;
-}
-
-function showSR(sec){
-var inp=document.getElementById(‘fi-’+sec);
-var res=document.getElementById(‘sr-’+sec);
-if(!inp||!res){return;}
-var q=inp.value.trim();
-if(q.length<2){res.style.display=‘none’;return;}
-var found=searchFood(q);
-if(!found.length){res.style.display=‘none’;return;}
-var html=’’;
-for(var i=0;i<found.length;i++){
-var f=found[i];
-html+=’<div class=“sri” onclick=“doAddFood('’+sec+’','’+f.n.replace(/’/g,’\'’).replace(/”/g,’"’)+’',’+f.cal+’,’+f.p+’,’+f.c+’,’+f.f+’,'’+f.e+’')”>’
-+’<div><div style="font-size:13px;font-weight:600;">’+f.e+’ ‘+f.n+’</div>’
-+’<div style="font-size:11px;color:#7a6a55;">P’+f.p+‘g C’+f.c+‘g F’+f.f+‘g</div></div>’
-+’<div style="font-size:15px;font-weight:800;color:#c8882a;">’+f.cal+’</div></div>’;
-}
-res.innerHTML=html;
-res.style.display=‘block’;
-}
-function doAddFood(sec,name,cal,p,c,f,e){
-addItem(sec,{n:name,name:name,cal:+cal,p:+p,c:+c,f:+f,e:e,id:Date.now()});
-var inp=document.getElementById(‘fi-’+sec);
-var res=document.getElementById(‘sr-’+sec);
-if(inp){inp.value=’’;}
-if(res){res.style.display=‘none’;}
-}
-
-// MEAL BUILDER
-var MCAT={
-base:{l:‘Base’,i:‘🌾’,col:’#1a3a2a’,items:[
-{n:‘Brown Rice’,e:‘🍚’,cal:216,p:5,c:45,f:2},{n:‘White Rice’,e:‘🍚’,cal:206,p:4,c:45,f:0},
-{n:‘Sweet Potato’,e:‘🍠’,cal:103,p:2,c:24,f:0},{n:‘Quinoa’,e:‘🌾’,cal:222,p:8,c:39,f:4},
-{n:‘Oatmeal’,e:‘🌾’,cal:150,p:5,c:27,f:3},{n:‘Lentils’,e:‘🫘’,cal:230,p:18,c:40,f:1},
-{n:‘Mixed Greens’,e:‘🥬’,cal:20,p:2,c:3,f:0},{n:‘Cauliflower Rice’,e:‘🥦’,cal:25,p:2,c:5,f:0}
+// ─────────────────────────────────────────────
+// WORKOUT DATA
+// Each workout is a list of SLIDES.
+// A slide has 1 or 2 exercises.
+// ─────────────────────────────────────────────
+var WK = {
+push:{
+name:‘Push Day’, emoji:‘💪’, tag:‘Chest · Shoulders · Triceps’, color:’#e8533a’,
+slides:[
+// WARMUP slides
+{phase:‘WARMUP’, exs:[
+{name:‘Arm Circles + Band Pull-Aparts’, meta:‘2 x 10 each’, rest:0, type:‘reps’, sets:2,
+cue:‘Roll shoulders forward 10 times then backward. Then pull a band or towel apart at shoulder width 10 times. Opens the rotator cuff.’}
 ]},
-protein:{l:‘Protein’,i:‘💪’,col:’#c8882a’,items:[
-{n:‘Chicken Breast’,e:‘🍗’,cal:165,p:31,c:0,f:4},{n:‘Ground Turkey’,e:‘🦃’,cal:170,p:22,c:0,f:9},
-{n:‘Salmon’,e:‘🐟’,cal:208,p:28,c:0,f:10},{n:‘Tuna’,e:‘🐟’,cal:109,p:24,c:0,f:1},
-{n:‘Lean Beef’,e:‘🥩’,cal:218,p:26,c:0,f:13},{n:‘Shrimp’,e:‘🍤’,cal:84,p:18,c:0,f:1},
-{n:‘Tofu’,e:‘🫘’,cal:94,p:10,c:2,f:5},{n:‘Eggs 2’,e:‘🥚’,cal:156,p:12,c:0,f:10},
-{n:‘Greek Yogurt’,e:‘🥛’,cal:130,p:17,c:9,f:0},{n:‘Cottage Cheese’,e:‘🧀’,cal:110,p:14,c:5,f:2}
+{phase:‘WARMUP’, exs:[
+{name:‘Plank’, meta:‘3 minutes’, rest:0, type:‘plank’, sets:1,
+cue:‘Elbows under shoulders. Squeeze glutes and abs. Do not let hips sag. 3 full minutes — no breaks.’}
 ]},
-veggie:{l:‘Vegetable’,i:‘🥦’,col:’#4a8a5d’,items:[
-{n:‘Broccoli’,e:‘🥦’,cal:55,p:4,c:11,f:1},{n:‘Spinach’,e:‘🥬’,cal:23,p:3,c:4,f:0},
-{n:‘Asparagus’,e:‘🥦’,cal:27,p:3,c:5,f:0},{n:‘Bell Pepper’,e:‘🫑’,cal:37,p:1,c:9,f:0},
-{n:‘Zucchini’,e:‘🥒’,cal:21,p:2,c:4,f:0},{n:‘Green Beans’,e:‘🥦’,cal:44,p:2,c:10,f:0},
-{n:‘Mixed Salad’,e:‘🥗’,cal:25,p:2,c:4,f:0},{n:‘Avocado’,e:‘🥑’,cal:160,p:2,c:9,f:15}
+{phase:‘WARMUP’, exs:[
+{name:‘Pushup Warm-Up’, meta:‘2 x 10 reps’, rest:30, type:‘reps’, sets:2,
+cue:‘Controlled tempo, chest to floor. Gets blood into chest, shoulders, and triceps before loading them.’}
 ]},
-fruit:{l:‘Fruit’,i:‘🍎’,col:’#d45a3a’,items:[
-{n:‘Banana’,e:‘🍌’,cal:105,p:1,c:27,f:0},{n:‘Apple’,e:‘🍎’,cal:95,p:0,c:25,f:0},
-{n:‘Blueberries’,e:‘🫐’,cal:84,p:1,c:21,f:0},{n:‘Strawberries’,e:‘🍓’,cal:49,p:1,c:12,f:0},
-{n:‘Orange’,e:‘🍊’,cal:62,p:1,c:15,f:0},{n:‘Mango’,e:‘🥭’,cal:99,p:1,c:25,f:1}
+// WORKOUT slides — 2 exercises per slide
+{phase:‘WORKOUT’, exs:[
+{name:‘Bench Press’, meta:‘4 sets x 8-10 reps’, rest:90, type:‘weighted’, sets:4,
+cue:‘Bar to mid-chest, elbows 45 degrees. Lower 2 seconds, press explosively. Squeeze the bar like bending it.’},
+{name:‘Incline DB Press’, meta:‘3 sets x 10-12 reps’, rest:75, type:‘weighted’, sets:3,
+cue:‘30-45 degree bench. Feel the stretch at the bottom. Each side works independently.’}
 ]},
-extras:{l:‘Extras’,i:‘✨’,col:’#2a7aaa’,items:[
-{n:‘Olive Oil’,e:‘🫙’,cal:119,p:0,c:0,f:14},{n:‘Almonds’,e:‘🌰’,cal:82,p:3,c:3,f:7},
-{n:‘Hummus’,e:‘🫘’,cal:50,p:2,c:4,f:3},{n:‘Hot Sauce’,e:‘🌶️’,cal:6,p:0,c:1,f:0},
-{n:‘Salsa’,e:‘🍅’,cal:20,p:1,c:4,f:0},{n:‘Feta’,e:‘🧀’,cal:75,p:4,c:1,f:6},
-{n:‘Tahini’,e:‘🫙’,cal:89,p:3,c:3,f:8},{n:‘Chia Seeds’,e:‘🌱’,cal:58,p:2,c:5,f:4}
+{phase:‘WORKOUT’, exs:[
+{name:‘Lateral Raise’, meta:‘3 sets x 15 reps’, rest:60, type:‘weighted’, sets:3,
+cue:‘Lead with elbows not hands. Lighter than you think. Slow it down and feel the shoulder burn.’},
+{name:‘Tricep Pushdown’, meta:‘3 sets x 12-15 reps’, rest:60, type:‘weighted’, sets:3,
+cue:‘Elbows pinned to sides. Full lockout every rep. Squeeze hard at the bottom.’}
+]},
+{phase:‘WORKOUT’, exs:[
+{name:‘Overhead Tricep Ext’, meta:‘3 sets x 12 reps’, rest:60, type:‘weighted’, sets:3,
+cue:‘Elbows forward, do not flare. Deep stretch at the top hits the long head of the tricep.’},
+{name:‘Core’, meta:‘10 minutes’, rest:0, type:‘timed’, sets:1,
+cue:‘Plank, dead bugs, hollow holds. Non-negotiable. Finish every push day with core work.’}
 ]}
+]
+},
+pull:{
+name:‘Pull Day’, emoji:‘🔗’, tag:‘Back · Biceps’, color:’#2a7aaa’,
+slides:[
+{phase:‘WARMUP’, exs:[
+{name:‘Shoulder Rolls + Cat-Cow’, meta:‘10 rolls, 10 cat-cows’, rest:0, type:‘reps’, sets:1,
+cue:‘Big slow shoulder circles forward then back. Then on all fours, arch your spine up then sink it down. Mobilizes the whole upper body.’}
+]},
+{phase:‘WARMUP’, exs:[
+{name:‘Plank’, meta:‘3 minutes’, rest:0, type:‘plank’, sets:1,
+cue:‘Elbows under shoulders. Core braced. 3 full minutes. Core stability is essential before heavy rows.’}
+]},
+{phase:‘WARMUP’, exs:[
+{name:‘Light Pulldowns’, meta:‘2 x 15 reps’, rest:30, type:‘reps’, sets:2,
+cue:‘Light weight, full range. Depress shoulder blades before each pull. Activates the lats before loading them.’}
+]},
+{phase:‘WORKOUT’, exs:[
+{name:‘Wide Grip Pulldown’, meta:‘4 sets x 8-10 reps’, rest:90, type:‘weighted’, sets:4,
+cue:‘Depress shoulder blades before pulling. Drive elbows to hip pockets. Dead hang between every rep.’},
+{name:‘Seated Cable Row’, meta:‘3 sets x 10-12 reps’, rest:75, type:‘weighted’, sets:3,
+cue:‘Pull to navel. Elbows must travel behind your torso. 1 second pause at full contraction.’}
+]},
+{phase:‘WORKOUT’, exs:[
+{name:‘Close Grip Pulldown’, meta:‘3 sets x 10-12 reps’, rest:75, type:‘weighted’, sets:3,
+cue:‘Chest tall, pull to sternum. Hits lower lats that wide grip misses.’},
+{name:‘Cable Bicep Curl’, meta:‘3 sets x 12-15 reps’, rest:60, type:‘weighted’, sets:3,
+cue:‘Elbows pinned. Full extension at the bottom. Cables keep tension where dumbbells go slack.’}
+]},
+{phase:‘WORKOUT’, exs:[
+{name:‘Hammer Curl’, meta:‘3 sets x 12 reps’, rest:60, type:‘weighted’, sets:3,
+cue:‘Neutral grip, palms facing each other. Builds the brachialis which pushes the bicep up.’},
+{name:‘Core’, meta:‘10 minutes’, rest:0, type:‘timed’, sets:1,
+cue:‘Core after back protects your spine. Plank, dead bugs, hollow holds.’}
+]}
+]
+},
+lower:{
+name:‘Lower Body’, emoji:‘🦵’, tag:‘Quads · Hamstrings · Glutes’, color:’#5a8a3a’,
+slides:[
+{phase:‘WARMUP’, exs:[
+{name:‘Leg Swings + Glute Bridges’, meta:‘10 swings each, 15 bridges’, rest:0, type:‘reps’, sets:1,
+cue:‘Hold something for balance, swing each leg forward-back then side-to-side. Then lie on back and drive hips up, squeeze glutes at top. Opens hips, activates glutes.’}
+]},
+{phase:‘WARMUP’, exs:[
+{name:‘Plank’, meta:‘3 minutes’, rest:0, type:‘plank’, sets:1,
+cue:‘Elbows under shoulders, brace hard. 3 full minutes. Core must be strong and stable for heavy squats.’}
+]},
+{phase:‘WARMUP’, exs:[
+{name:‘Bodyweight Squat’, meta:‘2 x 15 reps’, rest:30, type:‘reps’, sets:2,
+cue:‘Full depth, slow and controlled. Warms up knees, hips, and ankles before adding any load.’}
+]},
+{phase:‘WORKOUT’, exs:[
+{name:‘Back Squat’, meta:‘4 sets x 6-8 reps’, rest:120, type:‘weighted’, sets:4,
+cue:‘Big breath into belly, brace hard. Knees out over toes always. Hit parallel every single rep.’},
+{name:‘Romanian Deadlift’, meta:‘3 sets x 10 reps’, rest:90, type:‘weighted’, sets:3,
+cue:‘This is a hinge, not a squat. Push hips back. Feel hamstrings fully load at the bottom.’}
+]},
+{phase:‘WORKOUT’, exs:[
+{name:‘Walking Lunges’, meta:‘3 sets x 10 each leg’, rest:75, type:‘weighted’, sets:3,
+cue:‘Torso upright throughout. Front knee tracks over toes. Step forward into the next rep.’},
+{name:‘Leg Press’, meta:‘3 sets x 12-15 reps’, rest:75, type:‘weighted’, sets:3,
+cue:‘Do not lock out at the top. Keep tension on muscle by stopping just short of full extension.’}
+]},
+{phase:‘WORKOUT’, exs:[
+{name:‘Leg Curl’, meta:‘3 sets x 12-15 reps’, rest:60, type:‘weighted’, sets:3,
+cue:‘2 seconds up, 3 seconds down. Full range of motion. Most people have weak hamstrings from sitting.’},
+{name:‘Calf Raises’, meta:‘3 sets x 20 reps’, rest:45, type:‘weighted’, sets:3,
+cue:‘Full stretch at the bottom is critical. 2s up, 1s hold at top, 2s down. Feel the full range.’}
+]}
+]
+},
+upper:{
+name:‘Upper Body’, emoji:‘🏋️’, tag:‘Chest · Back · Arms’, color:’#8a5ac8’,
+slides:[
+{phase:‘WARMUP’, exs:[
+{name:‘Arm Circles + Band Rows’, meta:‘10 circles, 2 x 12 rows’, rest:0, type:‘reps’, sets:1,
+cue:‘Arm circles forward and back. Then light resistance rows squeezing shoulder blades together. Warms up the whole upper body.’}
+]},
+{phase:‘WARMUP’, exs:[
+{name:‘Plank’, meta:‘3 minutes’, rest:0, type:‘plank’, sets:1,
+cue:‘Elbows under shoulders. Squeeze glutes and abs hard. 3 full minutes. Spine must be stable for pressing and pulling.’}
+]},
+{phase:‘WARMUP’, exs:[
+{name:‘Pushups’, meta:‘2 x 10 reps’, rest:30, type:‘reps’, sets:2,
+cue:‘Controlled tempo, full range. Warms up chest, shoulders, and triceps together before loading.’}
+]},
+{phase:‘WORKOUT’, exs:[
+{name:‘Bench Press’, meta:‘4 sets x 8-10 reps’, rest:90, type:‘weighted’, sets:4,
+cue:‘Chest drives the bar, not shoulders or triceps. Retract shoulder blades before every rep.’},
+{name:‘Wide Grip Pulldown’, meta:‘3 sets x 10-12 reps’, rest:75, type:‘weighted’, sets:3,
+cue:‘Shoulder blades down before pulling. Full dead hang between reps.’}
+]},
+{phase:‘WORKOUT’, exs:[
+{name:‘DB Shoulder Press’, meta:‘3 sets x 10-12 reps’, rest:75, type:‘weighted’, sets:3,
+cue:‘Brace core before every rep. Full lockout overhead. Each shoulder works independently.’},
+{name:‘Seated Cable Row’, meta:‘3 sets x 10-12 reps’, rest:75, type:‘weighted’, sets:3,
+cue:‘1 second pause at contraction. Elbows must get behind your torso at full contraction.’}
+]},
+{phase:‘WORKOUT’, exs:[
+{name:‘Bicep + Tricep Superset’, meta:‘3 sets x 12 each’, rest:75, type:‘weighted’, sets:3,
+cue:‘12 curls then immediately 12 pushdowns, zero rest between. Then rest 75 seconds. That is one set.’},
+{name:‘Core’, meta:‘10 minutes’, rest:0, type:‘timed’, sets:1,
+cue:‘Plank, dead bugs, hollow holds. Spine needs to be fresh for max effect.’}
+]}
+]
+},
+recovery:{
+name:‘Active Recovery’, emoji:‘🧘’, tag:‘Mobility · Flexibility’, color:’#c8882a’,
+slides:[
+{phase:‘WARMUP’, exs:[
+{name:‘Easy Walk’, meta:‘5 minutes easy’, rest:0, type:‘timed’, sets:1,
+cue:‘Slow and easy. Gets blood moving before stretching. Cold muscles do not stretch well.’}
+]},
+{phase:‘WARMUP’, exs:[
+{name:‘Plank’, meta:‘3 minutes’, rest:0, type:‘plank’, sets:1,
+cue:‘Even on recovery days. 3 full minutes. Core work every day builds the foundation.’}
+]},
+{phase:‘WORKOUT’, exs:[
+{name:‘Hip Flexor Stretch’, meta:‘2 x 45s each side’, rest:30, type:‘timed’, sets:2,
+cue:‘Kneeling lunge, shift hips forward until you feel the stretch at front of back hip. Hold and breathe.’},
+{name:‘Pigeon Pose’, meta:‘2 x 60s each side’, rest:30, type:‘timed’, sets:2,
+cue:‘Breathe deeply and let gravity pull you down. The single most effective hip stretch you can do.’}
+]},
+{phase:‘WORKOUT’, exs:[
+{name:‘Hamstring Stretch’, meta:‘2 x 45s each side’, rest:30, type:‘timed’, sets:2,
+cue:‘Flat back is mandatory. Hinge from hips not your spine. Feel it deep in the back of the thigh.’},
+{name:‘Foam Roll’, meta:‘5 minutes’, rest:0, type:‘timed’, sets:1,
+cue:‘Hold 20-30 seconds on tender spots. Quads, glutes, upper back, calves. That discomfort is the point.’}
+]}
+]
+}
 };
 
-function rBuilder(el){
-var tcal=0,tp=0,tc=0,tf=0;
-var singleKeys=[‘base’,‘protein’,‘veggie’,‘fruit’];
-for(var i=0;i<singleKeys.length;i++){
-var k=singleKeys[i];
-if(MB[k]){tcal+=MB[k].cal;tp+=MB[k].p;tc+=MB[k].c;tf+=MB[k].f;}
+// ─────────────────────────────────────────────
+// STATE
+// ─────────────────────────────────────────────
+var curKey = null;
+var slideIdx = 0;
+var setsDoneA = 0;
+var setsDoneB = 0;
+var prs = {};
+var restTimer = null;
+var restLeft = 0;
+var plankTimer = null;
+var plankLeft = 180;
+var plankRunning = false;
+
+function sg(k,d){try{var v=localStorage.getItem(k);return v?JSON.parse(v):d;}catch(e){return d;}}
+function ss(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}}
+
+// ─────────────────────────────────────────────
+// SCREENS
+// ─────────────────────────────────────────────
+function show(id){
+var ids=[‘s-home’,‘s-overview’,‘s-story’,‘s-done’];
+for(var i=0;i<ids.length;i++){
+var el=document.getElementById(ids[i]);
+if(el){el.className=‘screen’+(ids[i]===id?’ active’:’’);}
 }
-var ex=MB.extras||[];
-for(var j=0;j<ex.length;j++){tcal+=ex[j].cal;tp+=ex[j].p;tc+=ex[j].c;tf+=ex[j].f;}
+window.scrollTo(0,0);
+}
 
-var modeBar=’<div style="display:flex;gap:8px;margin-bottom:14px;">’
-+’<div onclick="foodMode=\'log\';rFood();" style="flex:1;padding:10px;background:#f0ede6;border:1.5px solid #e2ddd4;border-radius:11px;color:#3d3020;font-size:12px;font-weight:700;cursor:pointer;text-align:center;">📋 Food Log</div>’
-+’<div style="flex:1;padding:10px;background:linear-gradient(135deg,#2d5a3d,#1a3a2a);border-radius:11px;color:#fff;font-size:12px;font-weight:700;text-align:center;">🧩 Meal Builder</div>’
+// ─────────────────────────────────────────────
+// HOME
+// ─────────────────────────────────────────────
+function renderHome(){
+prs=sg(‘wt_prs’,{});
+stopAllTimers();
+var el=document.getElementById(‘s-home’);
+if(!el){return;}
+var keys=[‘push’,‘pull’,‘lower’,‘upper’,‘recovery’];
+var html=’<div class="home-wrap fadein">’+’<div class="home-eyebrow">Training System</div>’+’<div class="home-title">FIT<span>TRACK</span></div>’+’<div class="home-sub">Select your program</div>’;
+for(var i=0;i<keys.length;i++){
+var k=keys[i];
+var w=WK[k];
+html+=’<div class="wcard" onclick="openOverview(\''+k+'\')" style="--c:'+w.color+';">’
++’<span class="wcard-emoji">’+w.emoji+’</span>’
++’<div><div class="wcard-name">’+w.name+’</div><div class="wcard-tag">’+w.tag+’</div></div>’
++’<div class="wcard-arrow">›</div>’
 +’</div>’;
+}
+html+=’</div>’;
+el.innerHTML=html;
+show(‘s-home’);
+}
 
-var hasSel=MB.base||MB.protein||MB.veggie||MB.fruit||(MB.extras&&MB.extras.length);
-var summary=’’;
-if(hasSel){
-summary=’<div class="card cg" style="margin-bottom:11px;"><span class="lbl g">MEAL TOTAL</span>’
-+’<div style="display:flex;justify-content:space-between;align-items:center;">’
-+’<div><div style="font-family:Playfair Display,serif;font-size:28px;font-weight:900;">’+tcal+’</div><div style="font-size:10px;color:#7a6a55;">calories</div></div>’
-+’<div style="display:flex;gap:12px;">’
-+’<div style="text-align:center;"><div style="font-size:17px;font-weight:800;color:#4a8a5d;">’+tp+‘g</div><div style="font-size:9px;color:#7a6a55;">PROTEIN</div></div>’
-+’<div style="text-align:center;"><div style="font-size:17px;font-weight:800;color:#2a7aaa;">’+tc+‘g</div><div style="font-size:9px;color:#7a6a55;">CARBS</div></div>’
-+’<div style="text-align:center;"><div style="font-size:17px;font-weight:800;color:#9b59f5;">’+tf+‘g</div><div style="font-size:9px;color:#7a6a55;">FAT</div></div>’
-+’</div></div>’
-+’<div style="margin-top:12px;display:flex;gap:8px;">’
-+’<div class="btn sm" style="flex:1;text-align:center;" onclick="logMeal()">+ Log This Meal</div>’
-+’<div class="btn sm gh" onclick="clearMB()">Clear</div>’
+// ─────────────────────────────────────────────
+// OVERVIEW
+// ─────────────────────────────────────────────
+function openOverview(key){
+curKey=key;
+var w=WK[key];
+var el=document.getElementById(‘s-overview’);
+if(!el){return;}
+var html=’<div class="ov-wrap"><div class="ov-hero">’
++’<div class="ov-back" onclick="renderHome()">← BACK</div>’
++’<div class="ov-title" style="color:'+w.color+';">’+w.emoji+’ ‘+w.name.toUpperCase()+’</div>’
++’<div class="ov-tag">’+w.tag+’</div>’
++’</div><div class="ov-list">’;
+var lastPhase=’’;
+for(var i=0;i<w.slides.length;i++){
+var sl=w.slides[i];
+if(sl.phase!==lastPhase){
+lastPhase=sl.phase;
+html+=’<div class="ov-phase-lbl">’+sl.phase+’</div>’;
+}
+html+=’<div class="ov-group">’;
+if(sl.exs.length===2){
+html+=’<div class="ov-pair-header" style="color:'+w.color+';background:'+w.color+'10;">PAIRED EXERCISES</div>’;
+}
+for(var j=0;j<sl.exs.length;j++){
+var ex=sl.exs[j];
+var prInfo=prs[ex.name];
+html+=’<div class="ov-item">’
++’<div class="ov-idx" style="'+(sl.phase==='WORKOUT'?'border:1px solid '+w.color+'44;color:'+w.color+';background:'+w.color+'11;':'')+'">’+(j===0?‘A’:‘B’)+’</div>’
++’<div><div class="ov-iname">’+ex.name+’</div><div class="ov-imeta">’+ex.meta+(prInfo?’ · PR: ‘+prInfo.weight+‘lb x ‘+prInfo.reps:’’)+’</div></div>’
++’</div>’;
+}
+html+=’</div>’;
+}
+html+=’</div><div style="height:120px;"></div></div>’
++’<div class="ov-start-wrap">’
++’<button class="ov-start" style="background:'+w.color+';" onclick="startStory()">START WORKOUT</button>’
++’</div>’;
+el.innerHTML=html;
+show(‘s-overview’);
+}
+
+// ─────────────────────────────────────────────
+// STORY RENDER
+// ─────────────────────────────────────────────
+function startStory(){
+slideIdx=0;
+setsDoneA=0;
+setsDoneB=0;
+renderStory();
+}
+
+function renderStory(){
+stopAllTimers();
+var w=WK[curKey];
+var slide=w.slides[slideIdx];
+var total=w.slides.length;
+var el=document.getElementById(‘s-story’);
+if(!el){return;}
+
+// progress bars
+var bars=’’;
+for(var i=0;i<total;i++){
+var pct=0;
+if(i<slideIdx){pct=100;}
+else if(i===slideIdx){pct=0;}
+bars+=’<div class="sbar"><div class="sbar-fill" id="bar-'+i+'" style="width:'+pct+'%;background:'+w.color+';box-shadow:0 0 6px '+w.color+';"></div></div>’;
+}
+
+// bg
+var bg=‘linear-gradient(170deg,’+w.color+‘30 0%,#0f0f0f 50%)’;
+
+var bodyHtml=buildSlideBody(slide, w.color);
+
+var isLast=(slideIdx===total-1);
+var nextLbl=isLast?‘FINISH’:‘NEXT →’;
+
+el.innerHTML=’<div class="story-wrap" style="background:'+bg+';">’
++’<div class="story-bars">’+bars+’</div>’
++’<div class="story-tap-prev" onclick="prevSlide()"></div>’
++’<div class="story-tap-next" onclick="nextSlide()"></div>’
++’<div class="story-content">’
++’<div class="story-hud"><span class="story-phase-badge" style="color:'+w.color+';border-color:'+w.color+'40;">’+slide.phase+’</span><span class="story-step">’+( slideIdx+1)+’ OF ‘+total+’</span></div>’
++bodyHtml
++’<button class="story-next" style="background:'+w.color+';" onclick="nextSlide()">’+nextLbl+’</button>’
 +’</div></div>’;
-}
 
-var catHtml=’’;
-var catKeys=Object.keys(MCAT);
-for(var ci=0;ci<catKeys.length;ci++){
-var catKey=catKeys[ci];
-var cat=MCAT[catKey];
-var isMulti=(catKey===‘extras’);
-var chipsHtml=’’;
-for(var ii=0;ii<cat.items.length;ii++){
-var item=cat.items[ii];
-var isSel=false;
-if(isMulti){
-var exArr=MB.extras||[];
-for(var ei=0;ei<exArr.length;ei++){if(exArr[ei].n===item.n){isSel=true;break;}}
-}else{
-isSel=(MB[catKey]&&MB[catKey].n===item.n);
-}
-var chipStyle=isSel?‘background:’+cat.col+’;border-color:’+cat.col+’;color:#fff;’:’’;
-chipsHtml+=’<div class="chip'+(isSel?' on':'')+'" style="'+chipStyle+'" onclick="toggleMB(\''+catKey+'\',\''+item.n.replace(/'/g,'')+'\','+item.cal+','+item.p+','+item.c+','+item.f+',\''+item.e+'\','+isMulti+')">’
-+item.e+’ ‘+item.n+’ <span style="font-size:10px;opacity:.7;">’+item.cal+’</span></div>’;
-}
-catHtml+=’<div style="margin-bottom:16px;">’
-+’<div style="display:flex;align-items:center;gap:7px;margin-bottom:8px;">’
-+’<span>’+cat.i+’</span><span style="font-family:Space Grotesk,sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;color:'+cat.col+';text-transform:uppercase;">’+cat.l+(isMulti?’ (pick any)’:’ (pick one)’)+’</span></div>’
-+’<div class="chips">’+chipsHtml+’</div></div>’;
-}
-el.innerHTML=modeBar+summary+catHtml;
-}
+show(‘s-story’);
 
-function toggleMB(cat,name,cal,p,c,f,e,isMulti){
-var item={n:name,cal:+cal,p:+p,c:+c,f:+f,e:e};
-if(isMulti){
-if(!MB.extras){MB.extras=[];}
-var idx=-1;
-for(var i=0;i<MB.extras.length;i++){if(MB.extras[i].n===name){idx=i;break;}}
-if(idx>=0){MB.extras.splice(idx,1);}else{MB.extras.push(item);}
-}else{
-if(MB[cat]&&MB[cat].n===name){MB[cat]=null;}else{MB[cat]=item;}
-}
-rFood();
-}
-function clearMB(){MB={base:null,protein:null,veggie:null,fruit:null,extras:[]};rFood();}
-function logMeal(){
-var hr=new Date().getHours();
-var sec=‘snacks’;
-if(hr<11){sec=‘breakfast’;}else if(hr<15){sec=‘lunch’;}else if(hr<21){sec=‘dinner’;}
-var parts=[];
-var sk=[‘base’,‘protein’,‘veggie’,‘fruit’];
-for(var i=0;i<sk.length;i++){if(MB[sk[i]]){parts.push(MB[sk[i]].n);}}
-var ex=MB.extras||[];
-for(var j=0;j<ex.length;j++){parts.push(ex[j].n);}
-var tcal=0,tp=0,tc=0,tf=0;
-for(var i=0;i<sk.length;i++){var k=sk[i];if(MB[k]){tcal+=MB[k].cal;tp+=MB[k].p;tc+=MB[k].c;tf+=MB[k].f;}}
-for(var j=0;j<ex.length;j++){tcal+=ex[j].cal;tp+=ex[j].p;tc+=ex[j].c;tf+=ex[j].f;}
-var name=parts.slice(0,3).join(’ + ‘)+(parts.length>3?’ +more’:’’);
-addItem(sec,{n:name,name:name,cal:tcal,p:tp,c:tc,f:tf,e:‘🥣’,id:Date.now()});
-clearMB();foodMode=‘log’;rFood();
-}
-
-// LIFT TAB
-function rLift(){
-var el=document.getElementById(‘t-lift’);
-if(!el){return;}
-var days=[‘Sun’,‘Mon’,‘Tue’,‘Wed’,‘Thu’,‘Fri’,‘Sat’];
-var seg=’<div class="seg">’
-+’<div class="sb'+(wkMode==='today'?' on':'')+'" onclick="wkMode=\'today\';rLift();">TODAY</div>’
-+’<div class="sb'+(wkMode==='library'?' on':'')+'" onclick="wkMode=\'library\';rLift();">LIBRARY</div>’
-+’<div class="sb'+(wkMode==='prs'?' on':'')+'" onclick="wkMode=\'prs\';rLift();">PRs</div>’
-+’<div class="sb'+(wkMode==='sched'?' on':'')+'" onclick="wkMode=\'sched\';rLift();">SCHEDULE</div>’
-+’</div>’;
-
-if(wkMode===‘today’){
-var d=dlog();
-var todayWk=SC[dow()]||’’;
-var loggedHtml=’’;
-var dw=d.workouts||[];
-for(var li=0;li<dw.length;li++){
-loggedHtml+=’<div class="mitem"><span style="font-size:13px;font-weight:600;">✅ ‘+esc(dw[li].name)+’</span><div class="rmb" onclick="rmWk('+dw[li].id+')">×</div></div>’;
-}
-var wkBtns=’’;
-var wkkeys=Object.keys(WKS);
-for(var bi=0;bi<wkkeys.length;bi++){
-wkBtns+=’<div class="btn sm gh" style="margin:3px;" onclick="addWk(\''+wkkeys[bi]+'\')">’+WKS[wkkeys[bi]].e+’ ‘+wkkeys[bi]+’</div>’;
-}
-var planHtml=’’;
-if(todayWk&&WKS[todayWk]){
-var wk=WKS[todayWk];
-planHtml=’<div class="card cg" style="margin-bottom:11px;">’
-+’<span class="lbl g">’+wk.e+’ ‘+todayWk.toUpperCase()+’</span>’
-+’<div style="font-size:11px;color:#7a6a55;margin-bottom:10px;">’+wk.focus+’ · ‘+wk.dur+’</div>’
-+’<div class="cbox" style="margin-bottom:10px;"><div style="font-size:9px;font-weight:700;color:#4a8a5d;letter-spacing:2px;font-family:Space Grotesk,sans-serif;margin-bottom:3px;">WARMUP</div>’
-+’<div style="font-size:12px;">’+wk.warmup+’</div></div>’;
-for(var ei=0;ei<wk.ex.length;ei++){
-var ex=wk.ex[ei];
-var prInfo=PR[ex.name];
-planHtml+=’<div class="card" style="margin-bottom:8px;padding:13px;">’
-+’<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:7px;">’
-+’<div><div style="font-size:14px;font-weight:700;">’+ex.name+’</div>’
-+’<div style="font-size:11px;color:#4a8a5d;font-weight:600;">’+ex.sets+’</div></div>’
-+(prInfo?’<span class="prb">PR: ‘+prInfo.weight+‘×’+prInfo.reps+’</span>’:’’)
-+’</div>’
-+’<div style="font-size:12px;color:#7a6a55;margin-bottom:8px;">’+ex.note+’</div>’
-+’<div class="cbox"><div style="font-size:12px;line-height:1.6;">’+ex.tip+’</div></div>’
-+’</div>’;
-}
-planHtml+=’<div class="btn" style="width:100%;text-align:center;display:block;margin-bottom:14px;" onclick="addWk(\''+todayWk+'\')">✅ Mark Complete</div>’;
-// AI CHAT
-planHtml+=’<div style="background:linear-gradient(135deg,#f5f2ff,#f0f8ff);border:1.5px solid rgba(122,100,200,.25);border-radius:14px;padding:14px;">’
-+’<div style="font-family:Space Grotesk,sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;color:#7a64c8;margin-bottom:10px;">🤖 ASK YOUR COACH</div>’
-+’<div id="chat-msgs" style="max-height:260px;overflow-y:auto;margin-bottom:10px;display:flex;flex-direction:column;gap:8px;"></div>’
-+’<div style="display:flex;gap:8px;">’
-+’<input id="chat-inp" class="inp" placeholder="Ask anything about this workout..." style="flex:1;font-size:13px;background:#fff;">’
-+’<div onclick="sendChat()" style="padding:11px 14px;background:linear-gradient(135deg,#7a64c8,#5a44a8);border-radius:11px;color:#fff;font-size:13px;font-weight:700;cursor:pointer;">Ask</div>’
-+’</div>’
-+’<div style="display:flex;flex-wrap:wrap;gap:5px;margin-top:8px;">’
-+’<div onclick="quickQ(this)" style="padding:5px 10px;background:#fff;border:1px solid rgba(122,100,200,.3);border-radius:999px;font-size:11px;cursor:pointer;color:#5a44a8;">What is a superset?</div>’
-+’<div onclick="quickQ(this)" style="padding:5px 10px;background:#fff;border:1px solid rgba(122,100,200,.3);border-radius:999px;font-size:11px;cursor:pointer;color:#5a44a8;">How heavy should I go?</div>’
-+’<div onclick="quickQ(this)" style="padding:5px 10px;background:#fff;border:1px solid rgba(122,100,200,.3);border-radius:999px;font-size:11px;cursor:pointer;color:#5a44a8;">How long to rest?</div>’
-+’<div onclick="quickQ(this)" style="padding:5px 10px;background:#fff;border:1px solid rgba(122,100,200,.3);border-radius:999px;font-size:11px;cursor:pointer;color:#5a44a8;">What to eat after?</div>’
-+’</div></div>’
-+’</div>’;
-}else{
-planHtml=’<div class="card" style="text-align:center;padding:20px;margin-bottom:11px;">’
-+’<div style="font-size:11px;color:#7a6a55;margin-bottom:12px;">No workout scheduled for today. Log one below.</div>’
-+’<div style="display:flex;flex-wrap:wrap;justify-content:center;">’+wkBtns+’</div></div>’;
-}
-el.innerHTML=seg+planHtml
-+(loggedHtml?’<div class="card" style="margin-bottom:11px;"><span class="lbl g">LOGGED TODAY</span>’+loggedHtml+’</div>’:’’)
-+’<div class="card"><span class="lbl sk">CUSTOM LOG</span>’
-+’<div style="display:flex;gap:8px;"><input class="inp" id="wki" placeholder="Workout name..." style="flex:1;">’
-+’<div class="btn sm" onclick="addWk(document.getElementById(\'wki\').value)">+ Log</div></div></div>’;
-
-}else if(wkMode===‘library’){
-var libHtml=seg;
-var wkkeys2=Object.keys(WKS);
-for(var wki=0;wki<wkkeys2.length;wki++){
-var wkn=wkkeys2[wki];
-var wkd=WKS[wkn];
-libHtml+=’<div class="card" style="margin-bottom:10px;">’
-+’<div style="font-family:Playfair Display,serif;font-size:19px;font-weight:900;margin-bottom:6px;">’+wkd.e+’ ‘+wkn+’</div>’
-+’<div style="font-size:11px;color:#7a6a55;margin-bottom:8px;">’+wkd.focus+’ · ‘+wkd.dur+’ · ‘+wkd.cal+’</div>’
-+’<div style="font-size:12px;color:#3d3020;">’;
-for(var exi=0;exi<wkd.ex.length;exi++){
-libHtml+=(exi>0?’ · ‘:’’)+wkd.ex[exi].name;
-}
-libHtml+=’</div></div>’;
-}
-el.innerHTML=libHtml;
-
-}else if(wkMode===‘prs’){
-var exNames=[];
-var wkkeys3=Object.keys(WKS);
-for(var pi=0;pi<wkkeys3.length;pi++){
-var wkex=WKS[wkkeys3[pi]].ex;
-for(var pei=0;pei<wkex.length;pei++){
-var exn=wkex[pei].name;
-if(exn!==‘Core’){
-var found2=false;
-for(var pfind=0;pfind<exNames.length;pfind++){if(exNames[pfind]===exn){found2=true;break;}}
-if(!found2){exNames.push(exn);}
-}
-}
-}
-var prHtml=seg+’<div class="card" style="margin-bottom:11px;"><span class="lbl gd">LOG A PR</span>’
-+’<select class="inp" id="prex" style="margin-bottom:8px;">’;
-for(var pri=0;pri<exNames.length;pri++){
-prHtml+=’<option value="'+exNames[pri]+'">’+exNames[pri]+’</option>’;
-}
-prHtml+=’</select>’
-+’<div class="g2"><input class="inp" id="prwt" type="number" placeholder="Weight (lbs)"><input class="inp" id="prrp" type="number" placeholder="Reps"></div>’
-+’<div class="btn gd" style="width:100%;text-align:center;display:block;" onclick="savePR(document.getElementById(\'prex\').value,document.getElementById(\'prwt\').value,document.getElementById(\'prrp\').value)">Save PR</div></div>’;
-for(var pli=0;pli<exNames.length;pli++){
-var pn=exNames[pli];
-if(PR[pn]){
-prHtml+=’<div class="card" style="margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;">’
-+’<div><div style="font-size:13px;font-weight:600;">’+pn+’</div><div style="font-size:10px;color:#7a6a55;">’+PR[pn].date+’</div></div>’
-+’<div style="text-align:right;"><div style="font-family:Playfair Display,serif;font-size:20px;font-weight:900;">’+PR[pn].weight+’ <span style="font-size:11px;">lbs</span></div>’
-+’<div style="font-size:11px;color:#c8882a;">x ‘+PR[pn].reps+’ reps</div></div></div>’;
-}
-}
-el.innerHTML=prHtml;
-
-}else if(wkMode===‘sched’){
-var schedHtml=seg+’<div class="card"><span class="lbl">WEEKLY SCHEDULE</span>’;
-var wkkeys4=Object.keys(WKS);
-for(var di=0;di<days.length;di++){
-schedHtml+=’<div class="ri"><span style="font-size:13px;font-weight:600;width:34px;">’+days[di]+’</span>’
-+’<select class="inp" style="flex:1;margin-left:8px;" onchange="SC['+di+']=this.value;sSet(\'ft_sc\',SC);rLift();">’
-+’<option value="">Off</option>’;
-for(var sk2=0;sk2<wkkeys4.length;sk2++){
-schedHtml+=’<option value=”’+wkkeys4[sk2]+’”’+(SC[di]===wkkeys4[sk2]?’ selected’:’’)+’>’+WKS[wkkeys4[sk2]].e+’ ‘+wkkeys4[sk2]+’</option>’;
-}
-schedHtml+=’<option value=“Rest Day”’+(SC[di]===‘Rest Day’?’ selected’:’’)+’>🧘 Rest Day</option>’;
-schedHtml+=’</select></div>’;
-}
-schedHtml+=’</div>’;
-el.innerHTML=schedHtml;
+// init plank if needed
+if(slide.exs.length===1 && slide.exs[0].type===‘plank’){
+plankLeft=180;
+plankRunning=false;
 }
 }
 
-// WEIGHT TAB
-function rWeight(){
-var el=document.getElementById(‘t-weight’);
-if(!el){return;}
-var wkeys=Object.keys(W).sort().reverse();
-var ptkeys=Object.keys(W).sort();
-var pts=[];
-for(var i=Math.max(0,ptkeys.length-14);i<ptkeys.length;i++){pts.push([ptkeys[i],W[ptkeys[i]]]);}
-var chart=’’;
-if(pts.length>=2){
-var vals=[];
-for(var vi=0;vi<pts.length;vi++){vals.push(pts[vi][1]);}
-var mn=vals[0],mx=vals[0];
-for(var mi=1;mi<vals.length;mi++){if(vals[mi]<mn){mn=vals[mi];}if(vals[mi]>mx){mx=vals[mi];}}
-mn-=1;mx+=1;
-var rng=mx-mn||1;
-var cW=220,cH=60;
-var path=’’;
-for(var pi=0;pi<pts.length;pi++){
-var px=pi/(pts.length-1)*cW;
-var py=cH-((pts[pi][1]-mn)/rng)*cH;
-path+=(pi===0?‘M’:‘L’)+px.toFixed(1)+’,’+py.toFixed(1);
-}
-var dots=’’;
-for(var di=0;di<pts.length;di++){
-var dpx=di/(pts.length-1)*cW;
-var dpy=cH-((pts[di][1]-mn)/rng)*cH;
-dots+=’<circle cx="'+dpx.toFixed(1)+'" cy="'+dpy.toFixed(1)+'" r="3" fill="#2a7aaa"/>’;
-}
-chart=’<div class="card csk" style="margin-bottom:11px;"><span class="lbl sk">TREND</span>’
-+’<svg viewBox="-10 -5 240 72" style="width:100%;height:72px;">’
-+’<path d="'+path+'" fill="none" stroke="#2a7aaa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>’+dots
-+’<text x="0" y="70" fill="#a89880" font-size="7" font-family="DM Sans,sans-serif">’+pts[0][0].slice(5)+’</text>’
-+’<text x="220" y="70" text-anchor="end" fill="#a89880" font-size="7" font-family="DM Sans,sans-serif">’+pts[pts.length-1][0].slice(5)+’</text>’
-+’</svg></div>’;
-}
-var histHtml=’’;
-if(wkeys.length){
-var show=wkeys.length>10?10:wkeys.length;
-for(var hi=0;hi<show;hi++){
-var dk=wkeys[hi];
-histHtml+=’<div class="frow"><span style="font-size:13px;">’+dk+’</span>’
-+’<div style="display:flex;align-items:center;gap:10px;">’
-+’<span style="font-family:Playfair Display,serif;font-size:17px;font-weight:900;">’+W[dk]+’ lbs</span>’
-+’<div class="rmb" onclick="rmW(\''+dk+'\')">×</div></div></div>’;
-}
-}else{
-histHtml=’<div style="color:#a89880;font-size:13px;text-align:center;padding:8px;">No entries yet</div>’;
-}
-el.innerHTML=’<div class="card" style="margin-bottom:11px;"><span class="lbl g">LOG WEIGHT</span>’
-+’<div style="display:flex;gap:8px;"><input class="inp" id="wi" type="number" step="0.1" placeholder="Weight in lbs" style="flex:1;">’
-+’<div class="btn sm" onclick="logW(document.getElementById(\'wi\').value)">+ Log</div></div>’
-+’<div style="font-size:10px;color:#a89880;margin-top:4px;">For: ‘+selD+’</div></div>’
-+chart
-+’<div class="card"><span class="lbl">HISTORY</span>’+histHtml+’</div>’;
-}
-
-// STATS TAB
-function rStats(){
-var el=document.getElementById(‘t-stats’);
-if(!el){return;}
-var last7=[];
-for(var i=0;i<7;i++){var d=new Date();d.setDate(d.getDate()-6+i);last7.push(d.toISOString().split(‘T’)[0]);}
-var CAL=S.cal||2000;
-var PRO=S.pro||170;
-var calBars=[];
-var proBars=[];
-for(var bi=0;bi<last7.length;bi++){
-var dk=last7[bi];
-var dl=L[dk]||{};
-var foods=[].concat(dl.breakfast||[],dl.lunch||[],dl.dinner||[],dl.snacks||[]);
-var dc=0,dp=0;
-for(var fi=0;fi<foods.length;fi++){dc+=foods[fi].cal||0;dp+=foods[fi].p||0;}
-calBars.push({d:dk,cal:dc,pct:Math.min(100,Math.round(dc/CAL*100))});
-proBars.push({d:dk,pro:dp,pct:Math.min(100,Math.round(dp/PRO*100))});
-}
-var streak=0;
-var sd=new Date();
-for(var si=0;si<365;si++){
-var sk=sd.toISOString().split(‘T’)[0];
-var sdl=L[sk]||{};
-if(sdl.workouts&&sdl.workouts.length>0){streak++;sd.setDate(sd.getDate()-1);}else{break;}
-}
-var cw=curW();
-var bmr=0;
-var w_kg=cw/2.205;
-var h_cm=BM.h*2.54;
-if(BM.sx===‘male’){bmr=10*w_kg+6.25*h_cm-5*BM.a+5;}
-else{bmr=10*w_kg+6.25*h_cm-5*BM.a-161;}
-var tdee=Math.round(bmr*1.55);
-var def=tdee-(S.cal||2000);
-var pace=(def*7/3500).toFixed(2);
+function buildSlideBody(slide, color){
+var exs=slide.exs;
 var html=’’;
-html+=’<div class="g2">’
-+’<div class="card cg" style="padding:13px;"><span class="lbl g">STREAK</span><div class="bnum">’+streak+’</div><div style="font-size:11px;color:#7a6a55;">days in a row</div></div>’
-+’<div class="card cgd" style="padding:13px;"><span class="lbl gd">PROGRESS</span><div class="bnum">’+prog().toFixed(0)+’%</div><div style="font-size:11px;color:#7a6a55;">to goal</div></div>’
+if(exs.length===1){
+html+=buildExBlock(exs[0], ‘A’, color, 0, setsDoneA, true);
+}else{
+html+=buildExBlock(exs[0], ‘A’, color, 0, setsDoneA, false);
+html+=’<div class="pair-divider">THEN</div>’;
+html+=buildExBlock(exs[1], ‘B’, color, 1, setsDoneB, false);
+}
+return html;
+}
+
+function buildExBlock(ex, label, color, exIdx, doneSets, isSingle){
+var isPlank=(ex.type===‘plank’);
+var isWeighted=(ex.type===‘weighted’);
+var isReps=(ex.type===‘reps’);
+var borderColor = exIdx===0 ? color : lighten(color);
+
+var html=’<div class="ex-block" style="border-color:'+borderColor+'30;"><div class="ex-block-glow" style="background:'+borderColor+';"></div><div style="position:absolute;left:0;top:0;bottom:0;width:2px;background:'+borderColor+';box-shadow:0 0 8px '+borderColor+';"></div>’;
+
+// header
+html+=’<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">’
++’<span class="ex-ltr-badge" style="background:'+borderColor+'20;border-color:'+borderColor+'50;color:'+borderColor+';">’+label+’</span>’
++’<div style="font-family:Bebas Neue,sans-serif;font-size:'+(isSingle?'34':'28')+'px;letter-spacing:2px;line-height:1;">’+ex.name+’</div>’
 +’</div>’;
-html+=’<div class="card" style="margin-bottom:11px;"><span class="lbl sk">7-DAY CALORIES</span>’
-+’<div style="display:flex;align-items:flex-end;gap:3px;height:56px;margin-bottom:4px;">’;
-for(var cbi=0;cbi<calBars.length;cbi++){
-var cb=calBars[cbi];
-html+=’<div style="flex:1;height:'+Math.max(3,cb.pct*0.5)+'px;background:'+(cb.d===selD?'#c8882a':'#f0c870')+';border-radius:3px 3px 0 0;"></div>’;
-}
-html+=’</div><div style="display:flex;gap:3px;">’;
-for(var li=0;li<last7.length;li++){html+=’<div style="flex:1;text-align:center;font-size:7px;color:#a89880;">’+last7[li].slice(8)+’</div>’;}
-html+=’</div></div>’;
-html+=’<div class="card" style="margin-bottom:11px;"><span class="lbl g">7-DAY PROTEIN</span>’
-+’<div style="display:flex;align-items:flex-end;gap:3px;height:56px;margin-bottom:4px;">’;
-for(var pbi=0;pbi<proBars.length;pbi++){
-var pb=proBars[pbi];
-html+=’<div style="flex:1;height:'+Math.max(3,pb.pct*0.5)+'px;background:'+(pb.d===selD?'#4a8a5d':'#b8d4c0')+';border-radius:3px 3px 0 0;"></div>’;
-}
-html+=’</div><div style="display:flex;gap:3px;">’;
-for(var li2=0;li2<last7.length;li2++){html+=’<div style="flex:1;text-align:center;font-size:7px;color:#a89880;">’+last7[li2].slice(8)+’</div>’;}
-html+=’</div></div>’;
-html+=’<div class="card" style="margin-bottom:11px;"><span class="lbl">BODY METRICS</span>’
-+’<div class="g2"><input class="inp" id="bh" type="number" value="'+BM.h+'" placeholder="Height (in)"><input class="inp" id="ba" type="number" value="'+BM.a+'" placeholder="Age"></div>’
-+’<select class="inp" id="bsx" style="margin-bottom:10px;"><option value=“male”’+(BM.sx===‘male’?’ selected’:’’)+’>Male</option><option value=“female”’+(BM.sx===‘female’?’ selected’:’’)+’>Female</option></select>’
-+’<div class="btn sm" onclick="saveBM(document.getElementById(\'bh\').value,document.getElementById(\'ba\').value,document.getElementById(\'bsx\').value)">Update</div>’
-+’<div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;">’
-+’<div class="card" style="flex:1;min-width:80px;padding:11px;text-align:center;margin-bottom:0;"><div style="font-family:Playfair Display,serif;font-size:20px;font-weight:900;">’+Math.round(bmr)+’</div><div style="font-size:9px;color:#7a6a55;">BMR</div></div>’
-+’<div class="card" style="flex:1;min-width:80px;padding:11px;text-align:center;margin-bottom:0;"><div style="font-family:Playfair Display,serif;font-size:20px;font-weight:900;">’+tdee+’</div><div style="font-size:9px;color:#7a6a55;">TDEE</div></div>’
-+’<div class="card" style="flex:1;min-width:80px;padding:11px;text-align:center;margin-bottom:0;"><div style="font-family:Playfair Display,serif;font-size:20px;font-weight:900;color:'+(def>0?'#4a8a5d':'#d45a3a')+';">’+Math.abs(def)+’</div><div style="font-size:9px;color:#7a6a55;">Deficit</div></div>’
-+’</div>’
-+’<div class="card cgd" style="padding:13px;text-align:center;margin-top:4px;"><div style="font-size:10px;color:#7a6a55;margin-bottom:3px;">Projected fat loss</div>’
-+’<div style="font-family:Playfair Display,serif;font-size:26px;font-weight:900;color:#c8882a;">’+pace+’ lbs/wk</div></div></div>’;
-el.innerHTML=html;
+
+// PR badge
+var prInfo=prs[ex.name];
+if(prInfo){
+html+=’<div class="pr-badge" style="background:'+borderColor+'15;color:'+borderColor+';border:1px solid '+borderColor+'35;">⚡ PR: ’+prInfo.weight+‘lb x ‘+prInfo.reps+’</div>’;
 }
 
-// DIET TAB
-function rDiet(){
-var el=document.getElementById(‘t-diet’);
+html+=’<div style="font-size:12px;color:rgba(255,255,255,.45);margin-bottom:8px;">’+ex.meta+’</div>’;
+html+=’<div class="ex-cue-sm">’+ex.cue+’</div>’;
+
+// plank timer
+if(isPlank){
+html+=’<div class="plank-block" style="border-color:'+color+'30;">’
++’<div class="plank-time" id="plank-disp" style="color:'+color+';text-shadow:0 0 20px '+color+'60;">3:00</div>’
++’<div class="plank-lbl">hold</div>’
++’<div class="plank-btn" id="plank-btn" onclick="togglePlank()" style="color:'+color+';border-color:'+color+'50;background:'+color+'10;">START TIMER</div>’
++’</div>’;
+}
+
+// set dots for weighted / reps
+if(isWeighted||isReps){
+var varName = exIdx===0 ? ‘setsDoneA’ : ‘setsDoneB’;
+html+=’<div class="set-row" id="dots-'+exIdx+'">’;
+for(var s=0;s<ex.sets;s++){
+var hit=s<doneSets;
+html+=’<div class=“s-dot’+(hit?’ hit’:’’)+’” id=“dot-’+exIdx+’-’+s+’”’
++’ style=”’+(hit?‘border-color:’+borderColor+’;color:’+borderColor+’;background:’+borderColor+‘18;’:’’)+’”’
++’ onclick=“hitDot(’+exIdx+’,’+s+’,’+ex.sets+’,’+ex.rest+’)”>’+( s+1)+’</div>’;
+}
+html+=’</div>’;
+}
+
+// PR log for weighted
+if(isWeighted){
+html+=’<div class="pr-row">’
++’<input class="pr-inp" id="pw-'+exIdx+'" type="number" placeholder="lbs">’
++’<input class="pr-inp" id="pr-'+exIdx+'" type="number" placeholder="reps">’
++’<div class="pr-save" onclick="savePR(\''+ex.name+'\','+exIdx+')">Save PR</div>’
++’</div>’;
+}
+
+html+=’</div>’;
+return html;
+}
+
+function lighten(hex){
+// return a slightly muted version for the B exercise
+return hex+‘cc’;
+}
+
+// ─────────────────────────────────────────────
+// SET DOTS
+// ─────────────────────────────────────────────
+function hitDot(exIdx, dotIdx, totalSets, restSecs){
+var w=WK[curKey];
+var slide=w.slides[slideIdx];
+var color = exIdx===0 ? w.color : w.color+‘cc’;
+
+var cur = exIdx===0 ? setsDoneA : setsDoneB;
+var newDone;
+if(dotIdx < cur){
+newDone = dotIdx; // undo
+}else{
+newDone = dotIdx + 1;
+}
+if(exIdx===0){setsDoneA=newDone;}else{setsDoneB=newDone;}
+
+// update dots in place
+for(var s=0;s<totalSets;s++){
+var dot=document.getElementById(‘dot-’+exIdx+’-’+s);
+if(!dot){continue;}
+if(s<newDone){
+dot.className=‘s-dot hit’;
+dot.style.borderColor=color;
+dot.style.color=color;
+dot.style.background=color.replace(‘cc’,’’)+‘18’;
+dot.style.boxShadow=‘0 0 10px ‘+color.replace(‘cc’,’’)+‘70’;
+}else{
+dot.className=‘s-dot’;
+dot.style.borderColor=’’;
+dot.style.color=’’;
+dot.style.background=’’;
+}
+}
+
+if(newDone > 0 && newDone < totalSets && restSecs > 0){
+showRest(restSecs);
+}
+}
+
+// ─────────────────────────────────────────────
+// PR SAVE
+// ─────────────────────────────────────────────
+function savePR(name, exIdx){
+var wEl=document.getElementById(‘pw-’+exIdx);
+var rEl=document.getElementById(‘pr-’+exIdx);
+if(!wEl||!rEl){return;}
+var wv=parseFloat(wEl.value);
+var rv=parseInt(rEl.value);
+if(!wv||!rv){return;}
+prs[name]={weight:wv,reps:rv,date:new Date().toISOString().split(‘T’)[0]};
+ss(‘wt_prs’,prs);
+wEl.value=’’;rEl.value=’’;
+var btn=document.querySelector(’.pr-save’);
+if(btn){
+btn.textContent=‘Saved!’;
+setTimeout(function(){var b=document.querySelector(’.pr-save’);if(b){b.textContent=‘Save PR’;}},1200);
+}
+}
+
+// ─────────────────────────────────────────────
+// PLANK TIMER
+// ─────────────────────────────────────────────
+function togglePlank(){
+if(plankRunning){
+plankRunning=false;
+if(plankTimer){clearInterval(plankTimer);plankTimer=null;}
+var btn=document.getElementById(‘plank-btn’);
+if(btn){btn.textContent=‘RESUME’;}
+}else{
+plankRunning=true;
+if(plankLeft<=0){plankLeft=180;}
+var btn2=document.getElementById(‘plank-btn’);
+if(btn2){btn2.textContent=‘PAUSE’;}
+plankTimer=setInterval(function(){
+plankLeft–;
+var disp=document.getElementById(‘plank-disp’);
+if(disp){
+var m=Math.floor(plankLeft/60);
+var s=plankLeft%60;
+disp.textContent=m+’:’+(s<10?‘0’:’’)+s;
+}
+if(plankLeft<=0){
+clearInterval(plankTimer);plankTimer=null;plankRunning=false;
+var disp2=document.getElementById(‘plank-disp’);
+if(disp2){disp2.textContent=‘DONE!’;}
+var btn3=document.getElementById(‘plank-btn’);
+if(btn3){btn3.textContent=‘RESET’;btn3.onclick=function(){plankLeft=180;var d=document.getElementById(‘plank-disp’);if(d){d.textContent=‘3:00’;}btn3.textContent=‘START TIMER’;btn3.onclick=togglePlank;};}
+}
+},1000);
+}
+}
+
+// ─────────────────────────────────────────────
+// NAVIGATION
+// ─────────────────────────────────────────────
+function nextSlide(){
+var total=WK[curKey].slides.length;
+if(slideIdx>=total-1){
+showDone();
+return;
+}
+slideIdx++;
+setsDoneA=0;
+setsDoneB=0;
+renderStory();
+}
+
+function prevSlide(){
+if(slideIdx<=0){
+openOverview(curKey);
+return;
+}
+slideIdx–;
+setsDoneA=0;
+setsDoneB=0;
+renderStory();
+}
+
+// ─────────────────────────────────────────────
+// REST TIMER
+// ─────────────────────────────────────────────
+function showRest(secs){
+restLeft=secs;
+var ov=document.getElementById(‘rest-over’);
+if(!ov){return;}
+ov.className=‘rest-over on’;
+updateRestDisplay();
+if(restTimer){clearInterval(restTimer);}
+restTimer=setInterval(function(){
+restLeft–;
+if(restLeft<=0){
+clearInterval(restTimer);restTimer=null;
+var ov2=document.getElementById(‘rest-over’);
+if(ov2){ov2.className=‘rest-over’;}
+}else{
+updateRestDisplay();
+}
+},1000);
+}
+
+function updateRestDisplay(){
+var el=document.getElementById(‘rest-num’);
+if(el){el.textContent=restLeft;}
+}
+
+function skipRest(){
+if(restTimer){clearInterval(restTimer);restTimer=null;}
+var ov=document.getElementById(‘rest-over’);
+if(ov){ov.className=‘rest-over’;}
+}
+
+function stopAllTimers(){
+if(restTimer){clearInterval(restTimer);restTimer=null;}
+if(plankTimer){clearInterval(plankTimer);plankTimer=null;}
+plankRunning=false;
+var ov=document.getElementById(‘rest-over’);
+if(ov){ov.className=‘rest-over’;}
+}
+
+// ─────────────────────────────────────────────
+// DONE
+// ─────────────────────────────────────────────
+function showDone(){
+stopAllTimers();
+var w=WK[curKey];
+var el=document.getElementById(‘s-done’);
 if(!el){return;}
-var items=[
-{k:‘gluten’,l:‘Gluten Free’,d:‘Avoids wheat, barley, rye, oats’},
-{k:‘dairy’,l:‘Dairy Free’,d:‘Avoids milk, cheese, yogurt, butter’},
-{k:‘nuts’,l:‘Nut Allergy’,d:‘Avoids all tree nuts and peanuts’},
-{k:‘shellfish’,l:‘Shellfish Allergy’,d:‘Avoids shrimp, crab, lobster’},
-{k:‘eggs’,l:‘Egg Free’,d:‘Avoids eggs and egg products’},
-{k:‘soy’,l:‘Soy Free’,d:‘Avoids soy, tofu, tempeh, edamame’},
-{k:‘nightshades’,l:‘No Nightshades’,d:‘Avoids tomatoes, peppers, potatoes’},
-{k:‘vegetarian’,l:‘Vegetarian’,d:‘Avoids all meat and poultry’},
-{k:‘vegan’,l:‘Vegan’,d:‘No animal products at all’}
-];
-var active=0;
-for(var i=0;i<items.length;i++){if(RX[items[i].k]){active++;}}
-var html=’<div class="card cg" style="margin-bottom:11px;"><span class="lbl g">DIETARY RESTRICTIONS</span>’
-+’<div style="font-size:13px;color:#3d3020;line-height:1.6;">Active restrictions hide matching foods in search and the meal builder.</div>’
-+(active?’<div style="margin-top:8px;background:#e8f4ec;border-radius:9px;padding:7px 11px;font-size:12px;color:#4a8a5d;font-weight:600;">’+active+’ restriction’+(active>1?‘s’:’’)+’ active</div>’:’’)
-+’</div>’
-+’<div class="card" style="margin-bottom:11px;"><span class="lbl">RESTRICTIONS</span>’;
-for(var i=0;i<items.length;i++){
-var it=items[i];
-html+=’<div class="ri"><div><div style="font-size:14px;font-weight:600;">’+it.l+’</div><div style="font-size:11px;color:#7a6a55;">’+it.d+’</div></div>’
-+’<div class="tgl'+(RX[it.k]?' on':'')+'" onclick="saveRX(\''+it.k+'\','+(RX[it.k]?'false':'true')+')"></div></div>’;
+var totalSets=0;
+for(var i=0;i<w.slides.length;i++){
+for(var j=0;j<w.slides[i].exs.length;j++){
+totalSets+=w.slides[i].exs[j].sets;
 }
-html+=’</div><div class="card"><span class="lbl">NOTES</span>’
-+’<textarea class="inp" rows="3" placeholder="Other notes..." style="resize:none;" oninput="saveRX(\'custom\',this.value)">’+(RX.custom||’’)+’</textarea></div>’;
-el.innerHTML=html;
+}
+el.innerHTML=’<div class="done-wrap fadein">’
++’<div class="done-emoji">⚡</div>’
++’<div class="done-title" style="color:'+w.color+';text-shadow:0 0 30px '+w.color+'60;">DONE!</div>’
++’<div class="done-stat" style="color:var(--cyan);text-shadow:0 0 20px var(--cyan);">’+totalSets+’</div>’
++’<div class="done-stat-lbl">sets completed</div>’
++’<div class="done-sub">’+w.name+’ complete.</div>’
++’<button class="done-home" onclick="renderHome()">BACK HOME</button>’
++’</div>’;
+show(‘s-done’);
 }
 
-// GOALS TAB
-function rGoals(){
-var el=document.getElementById(‘t-goals’);
-if(!el){return;}
-el.innerHTML=’<div class="card cg" style="margin-bottom:11px;"><span class="lbl g">YOUR NAME</span>’
-+’<input class="inp" id="gn" value="'+esc(S.name||'')+'" placeholder="Your name" style="margin-bottom:10px;">’
-+’<div class="btn sm" onclick="saveS({name:document.getElementById(\'gn\').value})">Save</div></div>’
-+’<div class="card" style="margin-bottom:11px;"><span class="lbl gd">WEIGHT GOAL</span>’
-+’<div class="g2">’
-+’<div><div style="font-size:10px;color:#7a6a55;margin-bottom:4px;">Start Weight</div><input class="inp" id="gsw" type="number" step="0.1" value="'+(S.startW||180)+'"></div>’
-+’<div><div style="font-size:10px;color:#7a6a55;margin-bottom:4px;">Goal Weight</div><input class="inp" id="ggw" type="number" step="0.1" value="'+(S.goalW||170)+'"></div>’
-+’</div>’
-+’<div class="g2">’
-+’<div><div style="font-size:10px;color:#7a6a55;margin-bottom:4px;">Start Date</div><input class="inp" id="gsd" type="date" value="'+(S.startD||'')+'"></div>’
-+’<div><div style="font-size:10px;color:#7a6a55;margin-bottom:4px;">Goal Date</div><input class="inp" id="ggd" type="date" value="'+(S.goalD||'')+'"></div>’
-+’</div>’
-+’<div class="btn gd" style="width:100%;text-align:center;display:block;" onclick="saveS({startW:parseFloat(document.getElementById(\'gsw\').value),goalW:parseFloat(document.getElementById(\'ggw\').value),startD:document.getElementById(\'gsd\').value,goalD:document.getElementById(\'ggd\').value})">Save Goals</div></div>’
-+’<div class="card csk"><span class="lbl sk">DAILY TARGETS</span>’
-+’<div class="g2">’
-+’<div><div style="font-size:10px;color:#7a6a55;margin-bottom:4px;">Calories</div><input class="inp" id="gc" type="number" value="'+(S.cal||2000)+'"></div>’
-+’<div><div style="font-size:10px;color:#7a6a55;margin-bottom:4px;">Protein (g)</div><input class="inp" id="gp" type="number" value="'+(S.pro||170)+'"></div>’
-+’</div>’
-+’<div style="font-size:10px;color:#7a6a55;margin-bottom:4px;">Weekly Workouts</div>’
-+’<input class="inp" id="gw" type="number" value="'+(S.wkGoal||4)+'" style="margin-bottom:10px;">’
-+’<div class="btn sk" style="width:100%;text-align:center;display:block;" onclick="saveS({cal:parseFloat(document.getElementById(\'gc\').value),pro:parseFloat(document.getElementById(\'gp\').value),wkGoal:parseFloat(document.getElementById(\'gw\').value)})">Save Targets</div></div>’;
-}
-
-// AI CHAT
-function quickQ(el){
-var inp=document.getElementById(‘chat-inp’);
-if(inp){inp.value=el.textContent;}
-sendChat();
-}
-function sendChat(){
-var inp=document.getElementById(‘chat-inp’);
-if(!inp){return;}
-var q=inp.value.trim();
-if(!q){return;}
-inp.value=’’;
-var msgs=document.getElementById(‘chat-msgs’);
-if(!msgs){return;}
-var userDiv=document.createElement(‘div’);
-userDiv.style.cssText=‘align-self:flex-end;background:linear-gradient(135deg,#7a64c8,#5a44a8);color:#fff;padding:9px 13px;border-radius:14px 14px 3px 14px;font-size:13px;max-width:85%;line-height:1.5;’;
-userDiv.textContent=q;
-msgs.appendChild(userDiv);
-var typingDiv=document.createElement(‘div’);
-typingDiv.id=‘chat-typing’;
-typingDiv.style.cssText=‘align-self:flex-start;background:#fff;border:1px solid #e2ddd4;padding:9px 13px;border-radius:14px 14px 14px 3px;font-size:13px;color:#a89880;’;
-typingDiv.textContent=‘Thinking…’;
-msgs.appendChild(typingDiv);
-msgs.scrollTop=msgs.scrollHeight;
-chatHistory.push({role:‘user’,content:q});
-var todayWk=SC[dow()]||’’;
-var wkCtx=’’;
-if(todayWk&&WKS[todayWk]){
-var wk=WKS[todayWk];
-wkCtx=‘Today is ‘+todayWk+’ (’+wk.focus+’). Exercises: ‘;
-for(var i=0;i<wk.ex.length;i++){wkCtx+=(i>0?’, ‘:’’)+wk.ex[i].name+’ ‘+wk.ex[i].sets;}
-}
-var sys=‘You are a personal trainer and fitness coach inside a workout app called FitTrack. Answer questions clearly and concisely, 2 to 4 sentences. Be encouraging but direct. Use plain language.’+(wkCtx?’ Context: ‘+wkCtx:’’);
-fetch(‘https://api.anthropic.com/v1/messages’,{
-method:‘POST’,
-headers:{‘Content-Type’:‘application/json’},
-body:JSON.stringify({model:‘claude-sonnet-4-20250514’,max_tokens:1000,system:sys,messages:chatHistory})
-}).then(function(r){return r.json();}).then(function(data){
-var reply=‘Sorry, something went wrong.’;
-if(data&&data.content&&data.content[0]&&data.content[0].text){reply=data.content[0].text;}
-chatHistory.push({role:‘assistant’,content:reply});
-var typing=document.getElementById(‘chat-typing’);
-if(typing){
-typing.id=’’;
-typing.style.cssText=‘align-self:flex-start;background:#fff;border:1px solid #e2ddd4;padding:9px 13px;border-radius:14px 14px 14px 3px;font-size:13px;color:#1a1510;max-width:90%;line-height:1.6;white-space:pre-wrap;’;
-typing.textContent=reply;
-}
-msgs.scrollTop=msgs.scrollHeight;
-}).catch(function(){
-var typing=document.getElementById(‘chat-typing’);
-if(typing){typing.textContent=‘Connection error. Try again.’;}
-});
-}
-
+// ─────────────────────────────────────────────
 // INIT
-document.getElementById(‘sd’).value=selD;
-document.getElementById(‘sd’).addEventListener(‘change’,function(){selD=this.value;render();});
-function hasParentClass(el,cls){
-var node=el;
-while(node){
-if(node.classList&&node.classList.contains(cls)){return true;}
-node=node.parentNode;
-}
-return false;
-}
-document.addEventListener(‘click’,function(e){
-var t=e.target;
-var cn=t.className||’’;
-if(typeof cn!==‘string’){cn=’’;}
-if(!hasParentClass(t,‘sr’)&&cn!==‘inp’){
-var srs=document.querySelectorAll(’.sr’);
-for(var i=0;i<srs.length;i++){srs[i].style.display=‘none’;}
-}
-});
-render();
+// ─────────────────────────────────────────────
+renderHome();
 
 </script>
 </body>
