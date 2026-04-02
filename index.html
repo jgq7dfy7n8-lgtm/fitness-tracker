@@ -332,10 +332,91 @@ box-shadow:0 0 24px rgba(0,229,255,.4);
 @keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
 .fadein{animation:fadeUp .35s ease both;}
 
+/* ── MORNING BRIEF ── */
+.brief-wrap{padding:52px 18px 48px;min-height:100%;}
+.brief-back{font-size:12px;color:var(--muted2);cursor:pointer;margin-bottom:20px;letter-spacing:2px;text-transform:uppercase;display:inline-block;}
+.brief-back:active{color:var(--cyan);}
+.brief-eyebrow{font-size:9px;letter-spacing:6px;color:var(--cyan);text-transform:uppercase;margin-bottom:4px;font-weight:700;}
+.brief-title{font-family:'Black Ops One',sans-serif;font-size:42px;letter-spacing:2px;color:#fff;line-height:1;margin-bottom:2px;}
+.brief-date{font-size:11px;color:var(--muted2);letter-spacing:3px;text-transform:uppercase;margin-bottom:28px;}
+
+.brief-rec{
+border-radius:16px;padding:20px;margin-bottom:14px;
+background:var(--bg3);border:1px solid var(--border2);
+position:relative;overflow:hidden;
+}
+.brief-rec::before{
+content:'';position:absolute;left:0;top:0;bottom:0;width:3px;
+background:var(--c);box-shadow:0 0 12px var(--c),0 0 24px var(--c);
+}
+.brief-rec::after{
+content:'';position:absolute;inset:0;
+background:linear-gradient(100deg,var(--c) 0%,transparent 40%);
+opacity:.04;pointer-events:none;
+}
+.brief-rec-eyebrow{font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--muted2);margin-bottom:8px;}
+.brief-rec-name{font-family:'Black Ops One',sans-serif;font-size:26px;letter-spacing:1px;color:#fff;}
+.brief-rec-tag{font-size:11px;color:var(--muted2);margin-top:3px;letter-spacing:.5px;margin-bottom:14px;}
+.brief-rec-btn{
+display:inline-block;padding:11px 24px;border-radius:10px;
+font-family:'Black Ops One',sans-serif;font-size:14px;letter-spacing:3px;
+color:#000;cursor:pointer;border:none;
+position:relative;z-index:1;
+}
+.brief-rec-btn:active{opacity:.8;}
+
+.brief-stats{display:flex;gap:10px;margin-bottom:14px;}
+.brief-stat{
+flex:1;border-radius:14px;padding:16px 14px;
+background:var(--bg3);border:1px solid var(--border2);text-align:center;
+}
+.brief-stat-num{font-family:'Black Ops One',sans-serif;font-size:32px;line-height:1;}
+.brief-stat-lbl{font-size:9px;letter-spacing:3px;color:var(--muted);text-transform:uppercase;margin-top:4px;}
+
+.brief-section-lbl{font-size:9px;font-weight:700;letter-spacing:4px;color:var(--muted);text-transform:uppercase;padding:4px 0 10px;}
+.brief-pr-card{
+border-radius:12px;background:var(--bg3);border:1px solid var(--border2);
+margin-bottom:8px;padding:12px 14px;
+display:flex;align-items:center;justify-content:space-between;
+}
+.brief-pr-name{font-size:14px;font-weight:600;}
+.brief-pr-val{font-size:13px;color:var(--cyan);font-weight:700;font-family:'Black Ops One',sans-serif;}
+.brief-pr-date{font-size:10px;color:var(--muted);margin-top:2px;}
+.brief-empty{font-size:13px;color:var(--muted);padding:10px 0;letter-spacing:.5px;}
+
+.brief-hist-card{
+border-radius:12px;background:var(--bg3);border:1px solid var(--border2);
+margin-bottom:8px;padding:10px 14px;
+display:flex;align-items:center;gap:12px;
+}
+.brief-hist-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.brief-hist-name{font-size:13px;font-weight:600;}
+.brief-hist-date{font-size:10px;color:var(--muted);margin-top:2px;}
+
+/* home brief button */
+.brief-entry{
+border-radius:16px;padding:14px 18px;margin-bottom:16px;
+background:var(--bg3);border:1px solid rgba(0,229,255,.2);
+display:flex;align-items:center;gap:14px;cursor:pointer;
+position:relative;overflow:hidden;
+transition:transform .12s;
+}
+.brief-entry::after{
+content:'';position:absolute;inset:0;
+background:linear-gradient(100deg,var(--cyan) 0%,transparent 40%);
+opacity:.04;pointer-events:none;
+}
+.brief-entry:active{transform:scale(.97);}
+.brief-entry-icon{font-size:28px;flex-shrink:0;filter:drop-shadow(0 0 8px var(--cyan));}
+.brief-entry-name{font-family:'Black Ops One',sans-serif;font-size:17px;letter-spacing:1px;color:var(--cyan);}
+.brief-entry-sub{font-size:11px;color:var(--muted2);margin-top:2px;letter-spacing:.5px;}
+.brief-entry-arrow{margin-left:auto;font-size:18px;color:var(--cyan);opacity:.7;flex-shrink:0;text-shadow:0 0 8px var(--cyan);}
+
 </style>
 </head>
 <body>
 <div id="s-home" class="screen active"></div>
+<div id="s-brief" class="screen"></div>
 <div id="s-overview" class="screen"></div>
 <div id="s-story" class="screen"></div>
 <div id="s-done" class="screen"></div>
@@ -543,12 +624,146 @@ function ss(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}}
 // SCREENS
 // ─────────────────────────────────────────────
 function show(id){
-var ids=[‘s-home’,‘s-overview’,‘s-story’,‘s-done’];
+var ids=[‘s-home’,’s-brief’,’s-overview’,’s-story’,’s-done’];
 for(var i=0;i<ids.length;i++){
 var el=document.getElementById(ids[i]);
 if(el){el.className=‘screen’+(ids[i]===id?’ active’:’’);}
 }
 window.scrollTo(0,0);
+}
+
+// ─────────────────────────────────────────────
+// MORNING BRIEF
+// ─────────────────────────────────────────────
+var ROTATION=['push','pull','lower','upper','recovery'];
+
+function todayStr(){
+var d=new Date();
+return d.getFullYear()+'-'+(d.getMonth()+1<10?'0':'')+(d.getMonth()+1)+'-'+(d.getDate()<10?'0':'')+d.getDate();
+}
+
+function fmtDate(iso){
+var parts=iso.split('-');
+var months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+return months[parseInt(parts[1],10)-1]+' '+parseInt(parts[2],10)+', '+parts[0];
+}
+
+function calcStreak(hist){
+if(!hist||!hist.length){return 0;}
+var days={};
+for(var i=0;i<hist.length;i++){days[hist[i].date]=true;}
+var streak=0;
+var d=new Date();
+while(true){
+var s=d.getFullYear()+'-'+(d.getMonth()+1<10?'0':'')+(d.getMonth()+1)+'-'+(d.getDate()<10?'0':'')+d.getDate();
+if(days[s]){streak++;d.setDate(d.getDate()-1);}else{break;}
+}
+return streak;
+}
+
+function recWorkout(hist){
+if(!hist||!hist.length){return 'push';}
+// find most recent entry
+var last=hist[hist.length-1];
+var idx=ROTATION.indexOf(last.key);
+return ROTATION[(idx+1)%ROTATION.length];
+}
+
+function renderBrief(){
+prs=sg('wt_prs',{});
+var hist=sg('wt_history',[]);
+var el=document.getElementById('s-brief');
+if(!el){return;}
+
+var today=todayStr();
+var d=new Date();
+var dayNames=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+var monthNames=['January','February','March','April','May','June','July','August','September','October','November','December'];
+var dateLabel=dayNames[d.getDay()]+', '+monthNames[d.getMonth()]+' '+d.getDate();
+
+var streak=calcStreak(hist);
+var totalWk=hist.length;
+var recKey=recWorkout(hist);
+var recW=WK[recKey];
+
+// check if already worked out today
+var doneToday=hist.length>0&&hist[hist.length-1].date===today;
+
+// Recent PRs
+var prKeys=Object.keys(prs).sort(function(a,b){return (prs[b].date||'')>(prs[a].date||'')?1:-1;});
+var prHtml='';
+if(prKeys.length===0){
+prHtml='<div class="brief-empty">No PRs logged yet. Start a workout and save your lifts!</div>';
+}else{
+var shown=prKeys.slice(0,4);
+for(var i=0;i<shown.length;i++){
+var k=shown[i];
+var pr=prs[k];
+prHtml+='<div class="brief-pr-card">'
++'<div><div class="brief-pr-name">'+k+'</div><div class="brief-pr-date">'+(pr.date?fmtDate(pr.date):'')+'</div></div>'
++'<div class="brief-pr-val">'+pr.weight+'lb × '+pr.reps+'</div>'
++'</div>';
+}
+}
+
+// Recent history (last 5)
+var histHtml='';
+if(hist.length===0){
+histHtml='<div class="brief-empty">No workouts logged yet.</div>';
+}else{
+var recent=hist.slice(-5).reverse();
+for(var j=0;j<recent.length;j++){
+var h=recent[j];
+var hw=WK[h.key];
+histHtml+='<div class="brief-hist-card">'
++'<div class="brief-hist-dot" style="background:'+hw.color+';box-shadow:0 0 6px '+hw.color+';"></div>'
++'<div><div class="brief-hist-name">'+hw.emoji+' '+hw.name+'</div><div class="brief-hist-date">'+fmtDate(h.date)+'</div></div>'
++'</div>';
+}
+}
+
+var html='<div class="brief-wrap fadein">'
++'<div class="brief-back" onclick="renderHome()">← BACK</div>'
++'<div class="brief-eyebrow">Morning Brief</div>'
++'<div class="brief-title">TODAY</div>'
++'<div class="brief-date">'+dateLabel+'</div>'
+
+// Recommended workout card
++'<div style="--c:'+recW.color+';" class="brief-rec">'
++'<div class="brief-rec-eyebrow">'+(doneToday?'Already crushed today ·':'Recommended next')+'</div>'
++'<div class="brief-rec-name">'+recW.emoji+' '+recW.name+'</div>'
++'<div class="brief-rec-tag">'+recW.tag+'</div>'
++'<button class="brief-rec-btn" style="background:'+recW.color+';box-shadow:0 0 16px '+recW.color+'60;" onclick="openOverview(\''+recKey+'\')">VIEW WORKOUT</button>'
++'</div>'
+
+// Stats row
++'<div class="brief-stats">'
++'<div class="brief-stat">'
++'<div class="brief-stat-num" style="color:var(--cyan);text-shadow:0 0 16px var(--cyan);">'+streak+'</div>'
++'<div class="brief-stat-lbl">day streak</div>'
++'</div>'
++'<div class="brief-stat">'
++'<div class="brief-stat-num" style="color:var(--lime);text-shadow:0 0 16px var(--lime);">'+totalWk+'</div>'
++'<div class="brief-stat-lbl">total sessions</div>'
++'</div>'
++'<div class="brief-stat">'
++'<div class="brief-stat-num" style="color:var(--gold);text-shadow:0 0 16px var(--gold);">'+prKeys.length+'</div>'
++'<div class="brief-stat-lbl">PRs logged</div>'
++'</div>'
++'</div>'
+
+// PRs
++'<div class="brief-section-lbl">Personal Records</div>'
++prHtml
+
+// History
++'<div class="brief-section-lbl" style="margin-top:8px;">Recent Workouts</div>'
++histHtml
+
++'</div>';
+
+el.innerHTML=html;
+show('s-brief');
 }
 
 // ─────────────────────────────────────────────
@@ -560,7 +775,12 @@ stopAllTimers();
 var el=document.getElementById(‘s-home’);
 if(!el){return;}
 var keys=[‘push’,‘pull’,‘lower’,‘upper’,‘recovery’];
-var html=’<div class="home-wrap fadein">’+’<div class="home-eyebrow">Training System</div>’+’<div class="home-title">FIT<span>TRACK</span></div>’+’<div class="home-sub">Select your program</div>’;
+var html=’<div class="home-wrap fadein">’+’<div class="home-eyebrow">Training System</div>’+’<div class="home-title">FIT<span>TRACK</span></div>’+’<div class="home-sub">Select your program</div>’
++’<div class="brief-entry" onclick="renderBrief()">’
++’<span class="brief-entry-icon">☀️</span>’
++’<div><div class="brief-entry-name">Morning Brief</div><div class="brief-entry-sub">Streak · Recommended workout · PRs</div></div>’
++’<div class="brief-entry-arrow">›</div>’
++’</div>’;
 for(var i=0;i<keys.length;i++){
 var k=keys[i];
 var w=WK[k];
@@ -910,8 +1130,18 @@ if(ov){ov.className=‘rest-over’;}
 // ─────────────────────────────────────────────
 // DONE
 // ─────────────────────────────────────────────
+function logWorkout(key){
+var hist=sg('wt_history',[]);
+var today=todayStr();
+// only log once per day per workout key
+if(hist.length>0&&hist[hist.length-1].key===key&&hist[hist.length-1].date===today){return;}
+hist.push({key:key,date:today});
+ss('wt_history',hist);
+}
+
 function showDone(){
 stopAllTimers();
+logWorkout(curKey);
 var w=WK[curKey];
 var el=document.getElementById(‘s-done’);
 if(!el){return;}
